@@ -1,0 +1,29 @@
+:root {
+  /* Dark luxury base */
+  --ink: #07070a;
+  --panel: #111116;
+  --panel-raised: #16161c;
+  --paper: #f5f2ea;
+
+  /* Gold / champagne / bronze accents */
+  --gold: #d4af6a;
+  --gold-bright: #e8c988;
+  --champagne: #efe2c8;
+  --bronze: #8a6a3f;
+
+  /* Text */
+  --text: #f5f2ea;
+  --muted: #9a978d;
+  --muted-dim: #6b6860;
+
+  /* Structure */
+  --line: rgba(245, 242, 234, 0.12);
+  --line-strong: rgba(245, 242, 234, 0.22);
+  --shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+  --radius: 26px;
+  --radius-sm: 16px;
+
+  /* Fonts */
+  --font-body: var(--font-geist), ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+}
