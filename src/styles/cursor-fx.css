@@ -28,6 +28,12 @@
   .cursor-dot, .cursor-ring { display: none; }
 }
 
+/* Hidden while the process-section video puck is standing in for the
+   cursor (see ProcessCursorVideo) — two cursor replacements at once would
+   look broken. */
+body.process-cursor-hover .cursor-dot,
+body.process-cursor-hover .cursor-ring { opacity: 0; }
+
 /* ---------- hero ripple shader canvas ---------- */
 .ripple-canvas {
   position: absolute;

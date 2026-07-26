@@ -1,25 +1,30 @@
 :root {
-  /* Dark luxury base */
-  --ink: #07070a;
-  --panel: #111116;
-  --panel-raised: #16161c;
-  --paper: #f5f2ea;
+  /* Bright luxury base */
+  --ink: #fffaf2;
+  --panel: #fbeed9;
+  --panel-raised: #f8e3c4;
+  --paper: #211d15;
 
-  /* Gold / champagne / bronze accents */
-  --gold: #d4af6a;
-  --gold-bright: #e8c988;
-  --champagne: #efe2c8;
-  --bronze: #8a6a3f;
+  /* Vivid gold / amber / red accents */
+  --gold: #e2921a;
+  --gold-bright: #ffab2e;
+  --champagne: #b56e0f;
+  --bronze: #a8590f;
+  --gold-vivid: #ff9d0e;
+  --amber-deep: #c2670a;
+  --red-vivid: #e6391e;
+  --red-deep: #a8241a;
 
   /* Text */
-  --text: #f5f2ea;
-  --muted: #9a978d;
-  --muted-dim: #6b6860;
+  --text: #211d15;
+  --muted: #6b6558;
+  --muted-dim: #8f897a;
+  --on-accent: #2a1d0d;
 
   /* Structure */
-  --line: rgba(245, 242, 234, 0.12);
-  --line-strong: rgba(245, 242, 234, 0.22);
-  --shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+  --line: rgba(33, 29, 21, 0.12);
+  --line-strong: rgba(33, 29, 21, 0.22);
+  --shadow: 0 30px 90px rgba(33, 29, 21, 0.16);
   --radius: 26px;
   --radius-sm: 16px;
 

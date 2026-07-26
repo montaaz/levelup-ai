@@ -8,7 +8,13 @@ html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   margin: 0;
   color: var(--text);
-  background: var(--ink);
+  background:
+    radial-gradient(1300px 900px at 6% -5%, rgba(255, 107, 53, 0.38), transparent 58%),
+    radial-gradient(1100px 800px at 100% 12%, rgba(230, 57, 30, 0.28), transparent 55%),
+    radial-gradient(1000px 1000px at 45% 105%, rgba(255, 157, 14, 0.32), transparent 60%),
+    radial-gradient(800px 800px at 80% 80%, rgba(216, 40, 45, 0.2), transparent 55%),
+    linear-gradient(160deg, #fff3e6, #ffe4cf 45%, #ffd9c4 100%);
+  background-attachment: fixed;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
 }
@@ -39,7 +45,7 @@ button { color: inherit; }
   transition: background .3s ease, border-color .3s ease;
 }
 .nav-scrolled {
-  background: rgba(7, 7, 10, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   border-bottom: 1px solid var(--line);
 }
 .nav-inner {
@@ -58,7 +64,7 @@ button { color: inherit; }
   display: grid;
   place-items: center;
   background: linear-gradient(150deg, var(--gold-bright), var(--bronze));
-  color: var(--ink);
+  color: var(--on-accent);
   transform: rotate(-4deg);
   box-shadow: 0 6px 18px rgba(212, 175, 106, 0.35);
 }
@@ -86,7 +92,7 @@ button { color: inherit; }
   border: 1px solid var(--gold);
   border-radius: 999px;
   background: linear-gradient(150deg, var(--gold-bright), var(--bronze));
-  color: var(--ink);
+  color: var(--on-accent);
   font-weight: 700;
   cursor: pointer;
   transition: transform .2s ease, box-shadow .2s ease;
@@ -94,7 +100,7 @@ button { color: inherit; }
 .nav-cta { min-height: 43px; padding: 0 18px; }
 .nav-cta:hover, .button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 106, 0.35); }
 .button.secondary { background: transparent; color: var(--text); border-color: var(--line-strong); }
-.button.secondary:hover { background: rgba(245, 242, 234, 0.06); box-shadow: none; border-color: var(--gold); }
+.button.secondary:hover { background: rgba(33, 29, 21, 0.05); box-shadow: none; border-color: var(--gold); }
 .menu-button { display: none; border: 0; background: transparent; padding: 8px; cursor: pointer; color: var(--text); position: relative; z-index: 2; }
 
 .nav-links-desktop { display: flex; }
@@ -118,11 +124,15 @@ button { color: inherit; }
   letter-spacing: .1em;
   text-transform: uppercase;
   background: rgba(212, 175, 106, 0.1);
-  color: var(--champagne);
+  color: #efe2c8;
 }
 .eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulse 1.8s ease-in-out infinite; }
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3, blockquote { font-family: var(--font-display); }
+/* The hero heading and proof strip sit directly on the cinematic video
+   with no card behind them, so — unlike .hero-copy-panel, which has a
+   light glass background — they need to stay light regardless of the
+   page's bright base theme. */
 .hero-h1 {
   margin: 31px 0 25px;
   max-width: 690px;
@@ -130,7 +140,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   line-height: .95;
   letter-spacing: -.03em;
   font-weight: 600;
-  color: var(--text);
+  color: #f5f2ea;
 }
 .reveal-line-mask { display: block; overflow: hidden; }
 .reveal-line-inner { display: block; }
@@ -140,12 +150,16 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   padding: 22px 26px;
   border-radius: var(--radius-sm);
   max-width: 560px;
+  background: linear-gradient(155deg, rgba(255, 243, 230, 0.92), rgba(255, 217, 196, 0.88));
+  border-color: rgba(255, 217, 196, 0.5);
 }
-.hero-copy { font-size: 18px; line-height: 1.62; color: var(--text); }
+.hero-copy { font-size: 18px; line-height: 1.62; color: #2a1806; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 28px; }
-.hero-proof { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--champagne); font-size: 13px; font-weight: 600; }
+.hero-proof { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(42, 24, 6, 0.15); color: #2a1806; font-size: 13px; font-weight: 600; }
 .proof-item { display: flex; align-items: center; gap: 7px; }
-.proof-item svg { width: 17px; color: var(--gold); }
+.proof-item svg { width: 17px; color: var(--amber-deep); }
+.hero-actions .button.secondary { color: #f5f2ea; border-color: rgba(245, 242, 234, 0.35); }
+.hero-actions .button.secondary:hover { background: rgba(245, 242, 234, 0.08); border-color: var(--gold); }
 
 /* ---------- Hero device stage ---------- */
 .hero-device-wrap {
@@ -202,24 +216,75 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   position: sticky;
   top: 0;
   height: 100vh;
-  margin-bottom: -100vh;
+  margin-top: -86px;
+  margin-bottom: calc(-100vh + 86px);
   z-index: -1;
 }
 
 /* ---------- Marquee ---------- */
-.marquee { background: var(--panel); border-block: 1px solid var(--line); overflow: hidden; }
+.marquee { background: linear-gradient(100deg, var(--red-vivid), var(--gold-vivid), var(--amber-deep)); overflow: hidden; }
 .marquee-track { display: flex; width: max-content; padding: 17px 0; animation: ticker 27s linear infinite; }
 .marquee-item { display: flex; align-items: center; }
-.marquee-pair { display: flex; align-items: center; gap: 26px; padding-right: 26px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--champagne); }
-.marquee-star { color: var(--gold); font-size: 22px; }
+.marquee-pair { display: flex; align-items: center; gap: 26px; padding-right: 26px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--on-accent); }
+.marquee-star { color: var(--on-accent); font-size: 22px; }
 
 /* ---------- Sections ---------- */
 .section { padding: 110px 0; position: relative; }
-.section-dark { background: var(--panel); color: var(--text); isolation: isolate; overflow: hidden; }
+/* Services and Contact play a full-bleed cinematic video behind their
+   content (see CinematicBackground); they're deliberate dark islands
+   within the otherwise bright site, so their text stays on the dark
+   palette regardless of the global --ink/--text flip, and a scrim sits
+   between the video and content so text stays legible over any footage. */
+.section-dark {
+  --ink: #07070a;
+  --panel: #111116;
+  --panel-raised: #16161c;
+  --text: #f5f2ea;
+  --muted: #9a978d;
+  --muted-dim: #6b6860;
+  --line: rgba(245, 242, 234, 0.12);
+  --line-strong: rgba(245, 242, 234, 0.22);
+  background: var(--panel);
+  color: var(--text);
+  isolation: isolate;
+  overflow: hidden;
+}
+.section-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(7, 7, 10, 0.55);
+  pointer-events: none;
+}
+/* .glass is white-frosted by default (built for light backgrounds), so on
+   the dark video here it needs a dark-smoked glass instead — otherwise
+   --muted/--text (now light, per the vars above) render as light text on
+   a light card and disappear. */
+.section-dark .glass { background: rgba(10, 9, 8, 0.55); border-color: rgba(245, 242, 234, 0.14); }
 .section-head { display: grid; grid-template-columns: 1fr .72fr; gap: 50px; align-items: end; margin-bottom: 54px; }
 .section-kicker { color: var(--gold); text-transform: uppercase; letter-spacing: .13em; font-size: 12px; font-weight: 700; }
 .section h2 { margin: 12px 0 0; max-width: 780px; font-size: clamp(40px, 5.5vw, 70px); line-height: 1; letter-spacing: -.02em; font-weight: 600; }
 .section-lead { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.65; }
+
+/* Vivid gold section band — alternates with the white sections to keep
+   the page colorful while scrolling, rather than flat white throughout. */
+.section-vivid {
+  --text: #2a1806;
+  --muted: #6b431a;
+  --muted-dim: #7a4f21;
+  --line: rgba(42, 24, 6, 0.16);
+  --line-strong: rgba(42, 24, 6, 0.28);
+  --on-accent: #2a1806;
+  background: linear-gradient(155deg, var(--gold-vivid) 0%, var(--amber-deep) 55%, var(--red-vivid) 100%);
+  color: var(--text);
+  isolation: isolate;
+}
+.section-vivid .section-kicker { color: var(--on-accent); }
+.section-vivid .glass { background: rgba(255, 255, 255, 0.28); border-color: rgba(255, 255, 255, 0.4); }
+.section-vivid .fit-index { background: rgba(255, 255, 255, 0.3); border-color: rgba(42, 24, 6, 0.25); }
+.section-vivid .fit-index-fill { background: rgba(42, 24, 6, 0.55); }
+.section-vivid .fit-index-label { color: var(--on-accent); mix-blend-mode: normal; }
 
 /* ---------- Glass primitives ---------- */
 .glass-card { position: relative; border-radius: var(--radius); overflow: hidden; transform-style: preserve-3d; }
@@ -276,7 +341,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .work-card { position: relative; border-radius: 25px; height: 100%; }
 .work-tag { position: absolute; top: 18px; left: 18px; z-index: 2; padding: 8px 11px; border-radius: 999px; background: rgba(7,7,10,0.55); border: 1px solid var(--line-strong); font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--champagne); backdrop-filter: blur(8px); }
 .website-showcase { position: absolute; inset: 0; padding: 83px 38px 35px; }
-.website-window { height: 100%; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--ink); overflow: hidden; transform: rotate(-2deg); box-shadow: 0 24px 60px rgba(0,0,0,.5); }
+.website-window { height: 100%; border: 1px solid var(--line-strong); border-radius: 14px; background: linear-gradient(165deg, #fff3e6, #ffd9c4 55%, #ffc9ad 100%); overflow: hidden; transform: rotate(-2deg); box-shadow: 0 24px 60px rgba(0,0,0,.5); }
 .website-window-top { height: 36px; background: var(--panel-raised); border-bottom: 1px solid var(--line); }
 .website-window-body { padding: 37px 27px; color: var(--text); }
 .website-window-body strong { color: var(--gold); font-size: 12px; }
@@ -285,23 +350,115 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .website-lines span { height: 7px; border-radius: 99px; background: var(--line-strong); }
 .website-lines span:last-child { width: 67%; }
 .video-showcase { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(160deg, #1c1710, var(--bronze)); }
-.video-product { width: 108px; height: 176px; border-radius: 31px 31px 22px 22px; background: var(--ink); transform: rotate(9deg); box-shadow: 0 20px 50px rgba(0,0,0,.5); display: grid; place-items: center; color: var(--gold); font-weight: 700; font-size: 18px; text-align: center; line-height: .95; }
+.video-product { width: 108px; height: 176px; border-radius: 31px 31px 22px 22px; background: linear-gradient(165deg, #fff3e6, #ffd9c4 55%, #ffc9ad 100%); transform: rotate(9deg); box-shadow: 0 20px 50px rgba(0,0,0,.5); display: grid; place-items: center; color: var(--gold); font-weight: 700; font-size: 18px; text-align: center; line-height: .95; }
 .automation-showcase { position: absolute; inset: 0; padding: 79px 27px 24px; background: linear-gradient(160deg, #17181d, var(--panel-raised)); }
 .automation-panel { height: 100%; border: 1px solid var(--line-strong); border-radius: 15px; background: var(--panel); padding: 25px 20px; transform: rotate(2deg); }
 .automation-panel small { font-weight: 700; color: var(--muted); }
 .automation-row { margin-top: 19px; display: flex; align-items: center; gap: 8px; color: var(--muted); }
 .automation-node { flex: 1; height: 53px; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 9px; background: var(--panel-raised); font-size: 9px; font-weight: 700; text-align: center; color: var(--text); }
-.automation-node:nth-child(3) { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.automation-node:nth-child(3) { background: var(--gold); color: var(--on-accent); border-color: var(--gold); }
 
 /* ---------- Process ---------- */
 .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .process-step { padding: 2px; border-radius: var(--radius-sm); }
-.process-step-inner { min-height: 280px; padding: 26px 22px; border-radius: calc(var(--radius-sm) - 2px); position: relative; --progress: 0; }
-.process-step-number { display: block; margin-bottom: 20px; color: var(--gold); font-size: 13px; font-weight: 700; }
-.process-step-track { height: 2px; background: var(--line); border-radius: 2px; margin-bottom: 42px; overflow: hidden; }
+.process-step-inner { min-height: 280px; padding: 26px 22px; border-radius: calc(var(--radius-sm) - 2px); position: relative; overflow: hidden; --progress: 0; }
+.process-step-number { position: relative; z-index: 1; display: block; margin-bottom: 20px; color: var(--gold); font-size: 13px; font-weight: 700; }
+.process-step-track { position: relative; z-index: 1; height: 2px; background: var(--line); border-radius: 2px; margin-bottom: 42px; overflow: hidden; }
 .process-step-fill { display: block; height: 100%; width: calc(var(--progress) * 100%); background: linear-gradient(90deg, var(--gold-bright), var(--bronze)); transition: width .1s linear; }
-.process-step h3 { margin-bottom: 12px; font-size: 20px; font-family: var(--font-display); font-weight: 600; }
-.process-step p { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.process-step h3 { position: relative; z-index: 1; margin-bottom: 12px; font-size: 20px; font-family: var(--font-display); font-weight: 600; }
+.process-step p { position: relative; z-index: 1; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+/* Mobile-only per-card video background — the desktop cursor-puck (see
+   ProcessCursorVideo) has no touch equivalent, so below the pin's 980px
+   breakpoint each stacked card plays its own step video directly instead,
+   same "dark video + scrim + light text" treatment used on the
+   hero/services/contact cinematic backgrounds. Hidden entirely on desktop:
+   .process-step-inner already has its own vivid-glass card look there. */
+.process-step-mobile-video { display: none; }
+
+@media (max-width: 979px) {
+  .process-step-mobile-video {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .process-step-mobile-video-slot { position: absolute; inset: 0; }
+  .process-step-mobile-video-slot .video-slot-video { width: 100%; height: 100%; object-fit: cover; }
+  .process-step-mobile-video-scrim { position: absolute; inset: 0; background: rgba(7, 7, 10, 0.55); }
+  .process-step-inner:has(.process-step-mobile-video) .process-step-number,
+  .process-step-inner:has(.process-step-mobile-video) h3,
+  .process-step-inner:has(.process-step-mobile-video) p { color: #f5f2ea; }
+  .process-step-inner:has(.process-step-mobile-video) .process-step-track { background: rgba(245, 242, 234, 0.25); }
+}
+
+/* The video-as-cursor: while hovering the pinned process section, the
+   system pointer is hidden and this small looping clip of the active step
+   tracks the mouse instead — the video literally replaces the cursor
+   rather than sitting behind a card. */
+.process-cursor-active,
+.process-cursor-active * { cursor: none !important; }
+/* Split into two elements on purpose: this outer one is the only thing
+   GSAP's quickTo(x)/quickTo(y) ever touches, so its inline `transform`
+   stays a pure translate. If the scale/opacity show transition also lived
+   here, gsap.quickTo would snapshot the *current* CSS transform (including
+   whatever scale the show/hide state has at setup time) into its own
+   internal cache and re-write that same scale into the inline transform on
+   every position update — permanently overriding the CSS class's own
+   transform value regardless of which class is applied (inline style wins
+   over stylesheet rules). Keeping scale/opacity on the inner element
+   avoids GSAP and CSS fighting over the same transform property. */
+.process-cursor-video {
+  --puck-size: clamp(340px, 30vw, 560px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: var(--puck-size);
+  height: var(--puck-size);
+  margin: calc(var(--puck-size) / -2) 0 0 calc(var(--puck-size) / -2);
+  pointer-events: none;
+}
+.process-cursor-video-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity .25s ease, transform .25s ease;
+  box-shadow: 0 30px 70px rgba(7, 7, 10, 0.5), 0 0 0 1px rgba(245, 242, 234, 0.22);
+}
+.process-cursor-video.is-visible .process-cursor-video-inner { opacity: 1; transform: scale(1); }
+.process-cursor-video-el {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: processCursorFadeIn .4s ease forwards;
+}
+@keyframes processCursorFadeIn { to { opacity: 1; } }
+.process-cursor-video-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(16px, 3vw, 30px);
+  z-index: 1;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(17px, 1.8vw, 28px);
+  color: #f5f2ea;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 740px) {
+  .process-cursor-video { --puck-size: 220px; }
+}
 
 /* ---------- Quote ---------- */
 .quote-section { padding: 40px 0 110px; }
@@ -317,12 +474,34 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .faq-item:last-child { border-bottom: 0; }
 .faq-question { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; border: 0; background: transparent; text-align: left; font-weight: 600; cursor: pointer; color: var(--text); }
 .faq-plus { width: 29px; height: 29px; flex: 0 0 29px; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 50%; transition: transform .25s ease, background .25s ease, color .25s ease; }
-.faq-item.open .faq-plus { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.faq-item.open .faq-plus { background: var(--gold); color: var(--on-accent); border-color: var(--gold); }
 .faq-answer { overflow: hidden; color: var(--muted); }
 .faq-answer p { padding: 0 48px 23px 0; line-height: 1.65; font-size: 14px; margin: 0; }
 
 /* ---------- Contact ---------- */
-.contact { background: var(--panel); color: var(--text); isolation: isolate; overflow: hidden; }
+.contact {
+  --ink: #07070a;
+  --panel: #111116;
+  --panel-raised: #16161c;
+  --text: #f5f2ea;
+  --muted: #9a978d;
+  --muted-dim: #6b6860;
+  --line: rgba(245, 242, 234, 0.12);
+  --line-strong: rgba(245, 242, 234, 0.22);
+  background: var(--panel);
+  color: var(--text);
+  isolation: isolate;
+  overflow: hidden;
+}
+.contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(7, 7, 10, 0.55);
+  pointer-events: none;
+}
+.contact .glass { background: rgba(10, 9, 8, 0.55); border-color: rgba(245, 242, 234, 0.14); }
 .contact-grid { display: grid; grid-template-columns: 1fr .9fr; gap: 70px; align-items: center; }
 .contact h2 { font-size: clamp(48px, 6.5vw, 82px); }
 .contact .section-kicker { color: var(--gold); }
@@ -332,7 +511,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .contact-card h3 { font-size: 22px; letter-spacing: -.01em; font-family: var(--font-display); font-weight: 600; }
 .contact-points { display: grid; gap: 16px; margin-top: 25px; }
 .contact-point { display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: center; padding: 13px 0; border-top: 1px solid var(--line); }
-.contact-point span:first-child { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--gold); color: var(--ink); font-weight: 700; }
+.contact-point span:first-child { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--gold); color: var(--on-accent); font-weight: 700; }
 .contact-point strong { display: block; font-size: 13px; }
 .contact-point small { color: var(--muted); }
 
@@ -350,6 +529,7 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
 @media (max-width: 980px) {
   .section-head, .fit-grid, .faq-layout, .contact-grid { grid-template-columns: 1fr; }
   .hero { padding-top: 60px; }
+  .hero-cine-bg { margin-top: -60px; margin-bottom: calc(-100vh + 60px); }
   .hero-device-phone { position: static; margin: 24px auto 0; display: flex; justify-content: center; }
   .services { grid-template-columns: 1fr; }
   .service { min-height: 475px; }
@@ -383,6 +563,7 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
   }
   .nav-links-mobile a { padding: 10px 4px; font-weight: 600; }
   .hero { padding: 48px 0 68px; min-height: auto; }
+  .hero-cine-bg { margin-top: -48px; margin-bottom: calc(-100vh + 48px); }
   .hero-h1 { font-size: 58px; }
   .hero-copy { font-size: 17px; }
   .hero-device-wrap { margin-top: 24px; padding-bottom: 0; }
