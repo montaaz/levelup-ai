@@ -4,6 +4,7 @@ import Hero from "@/components/sections/Hero";
 import Marquee from "@/components/sections/Marquee";
 import Services from "@/components/sections/Services";
 import FitList from "@/components/sections/FitList";
+import PhoneVideoLock from "@/components/sections/PhoneVideoLock";
 import WorkShowcase from "@/components/sections/WorkShowcase";
 import VideoCarousel from "@/components/sections/VideoCarousel";
 import ProcessTimeline from "@/components/sections/ProcessTimeline";
@@ -23,6 +24,7 @@ export default function Home() {
         <Marquee />
         <Services />
         <FitList />
+        <PhoneVideoLock />
         <WorkShowcase />
         <VideoCarousel />
         <ProcessTimeline />

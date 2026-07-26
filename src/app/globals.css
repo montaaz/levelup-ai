@@ -258,14 +258,10 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   pointer-events: none;
 }
 /* .glass is white-frosted by default (built for light backgrounds), so on
-   the dark video here it needs a dark glass instead — otherwise --muted/
-   --text (now light, per the vars above) render as light text on a light
-   card and disappear. Tinted warm orange/amber rather than neutral so the
-   cards read as tinted glass over the footage, matching the vivid theme. */
-.section-dark .glass {
-  background: linear-gradient(155deg, rgba(255, 157, 14, 0.22), rgba(20, 12, 4, 0.6));
-  border-color: rgba(255, 171, 46, 0.3);
-}
+   the dark video here it needs a dark-smoked glass instead — otherwise
+   --muted/--text (now light, per the vars above) render as light text on
+   a light card and disappear. */
+.section-dark .glass { background: rgba(10, 9, 8, 0.55); border-color: rgba(245, 242, 234, 0.14); }
 .section-head { display: grid; grid-template-columns: 1fr .72fr; gap: 50px; align-items: end; margin-bottom: 54px; }
 .section-kicker { color: var(--gold); text-transform: uppercase; letter-spacing: .13em; font-size: 12px; font-weight: 700; }
 .section h2 { margin: 12px 0 0; max-width: 780px; font-size: clamp(40px, 5.5vw, 70px); line-height: 1; letter-spacing: -.02em; font-weight: 600; }

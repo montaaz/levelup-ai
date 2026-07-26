@@ -316,3 +316,98 @@
   .video-carousel-glass { height: 340px; }
   .video-carousel-card { flex-basis: min(280px, 82vw); }
 }
+
+/* ---------- Phone video scroll-lock ---------- */
+/* Section and stage are both exactly 100vh — no extra scroll-room buffer
+   needed. The JS trigger (PhoneVideoLock) fires and freezes scroll
+   (overflow:hidden) the instant the section's top reaches the viewport
+   top, so there's no window where sticky needs to "hold" the pin against
+   further scrolling; a taller section here would just leave empty dark
+   space below the pinned stage once scroll unlocks and it scrolls away. */
+/* section.phone-lock-section (not just .phone-lock-section) to outrank
+   the base .section{padding:110px 0} rule defined later in globals.css —
+   same specificity, so source order would otherwise let it win despite
+   this file being @imported first. */
+section.phone-lock-section { padding: 0; height: 100vh; }
+.phone-lock-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+.phone-lock-bg-wrap { position: absolute; inset: 0; z-index: 0; }
+.phone-lock-bg { object-fit: cover; object-position: center; }
+.phone-lock-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(7, 7, 10, 0.75) 0%, rgba(7, 7, 10, 0.15) 40%, rgba(7, 7, 10, 0.1) 65%, rgba(7, 7, 10, 0.7) 100%);
+}
+/* Positioned in JS (PhoneVideoLock measures the rendered `cover` rect of
+   phone.png on resize, since object-fit:cover crops the image and the
+   screen's on-screen offset shifts with the container's aspect ratio) —
+   this rule only carries the visual chrome, not the geometry. */
+.phone-lock-screen {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 4%;
+  background: #000;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4) inset;
+  transition: box-shadow 0.3s ease;
+}
+.phone-lock-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.phone-lock-stage.is-locked .phone-lock-screen {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4) inset, 0 0 50px rgba(255, 171, 46, 0.35);
+}
+
+.phone-lock-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+.phone-lock-copy { max-width: 480px; }
+.phone-lock-copy .section-kicker { color: var(--gold-bright); display: block; }
+.phone-lock-copy h2 { margin: 12px 0 0; color: #f5f2ea; font-size: clamp(36px, 4.6vw, 58px); line-height: 1.02; letter-spacing: -.02em; font-weight: 600; }
+.phone-lock-copy .section-lead { margin: 18px 0 0; color: rgba(245, 242, 234, 0.78); font-size: 17px; line-height: 1.65; }
+
+.phone-lock-progress {
+  margin-top: 32px;
+  width: min(240px, 60vw);
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(245, 242, 234, 0.22);
+  overflow: hidden;
+}
+.phone-lock-progress-fill {
+  height: 100%;
+  background: var(--gold-bright);
+  transition: width 0.05s linear;
+}
+.phone-lock-hint {
+  display: block;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(245, 242, 234, 0.65);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.phone-lock-hint[data-visible="true"] { opacity: 1; }
+
+@media (max-width: 740px) {
+  .phone-lock-content { align-items: flex-end; padding-bottom: 60px; }
+  .phone-lock-copy { max-width: 100%; }
+}
