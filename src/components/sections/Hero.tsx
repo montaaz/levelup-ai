@@ -169,7 +169,7 @@ export default function Hero() {
             custom={0}
             variants={fadeUp}
           >
-            <span className="eyebrow-dot"></span> AI-powered creative studio
+            <span className="eyebrow-dot"></span> AI powered creative studio
           </motion.span>
 
           <RevealText
