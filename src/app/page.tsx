@@ -3,10 +3,11 @@ import CustomCursor from "@/components/ui/CustomCursor";
 import Hero from "@/components/sections/Hero";
 import Marquee from "@/components/sections/Marquee";
 import Services from "@/components/sections/Services";
+import Pricing from "@/components/sections/Pricing";
 import FitList from "@/components/sections/FitList";
-import PhoneVideoLock from "@/components/sections/PhoneVideoLock";
 import WorkShowcase from "@/components/sections/WorkShowcase";
 import VideoCarousel from "@/components/sections/VideoCarousel";
+import AICommercials from "@/components/sections/AICommercials";
 import ProcessTimeline from "@/components/sections/ProcessTimeline";
 import QuoteBox from "@/components/sections/QuoteBox";
 import Faq from "@/components/sections/Faq";
@@ -23,10 +24,11 @@ export default function Home() {
         <Hero />
         <Marquee />
         <Services />
+        <Pricing />
         <FitList />
-        <PhoneVideoLock />
         <WorkShowcase />
         <VideoCarousel />
+        <AICommercials />
         <ProcessTimeline />
         <QuoteBox />
         <Faq />

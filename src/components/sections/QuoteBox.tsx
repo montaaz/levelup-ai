@@ -11,7 +11,7 @@ export default function QuoteBox() {
   const filter = useTransform(blur, (value) => `blur(${value}px)`);
 
   return (
-    <section className="quote-section">
+    <section className="quote-section section-wash-loop section-wash-loop-start">
       <div className="wrap" ref={ref}>
         <div className="quote-box glass glass-gold-border">
           <motion.blockquote style={{ opacity, filter }}>

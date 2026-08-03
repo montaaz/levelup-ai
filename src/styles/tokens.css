@@ -1,30 +1,40 @@
 :root {
-  /* Bright luxury base */
-  --ink: #fffaf2;
-  --panel: #fbeed9;
-  --panel-raised: #f8e3c4;
-  --paper: #211d15;
+  /* Pastel base */
+  --ink: #fffdfb;
+  --panel: #faf3e8;
+  --panel-raised: #f4e9d8;
+  --paper: #2b2438;
 
-  /* Vivid gold / amber / red accents */
-  --gold: #e2921a;
-  --gold-bright: #ffab2e;
-  --champagne: #b56e0f;
-  --bronze: #a8590f;
-  --gold-vivid: #ff9d0e;
-  --amber-deep: #c2670a;
-  --red-vivid: #e6391e;
-  --red-deep: #a8241a;
+  /* Coral / peach accents (primary), pastel family for backgrounds */
+  --gold: #e8748a;
+  --gold-bright: #f5967a;
+  --champagne: #d15f7a;
+  --bronze: #e0895f;
+  --gold-vivid: #f5967a;
+  --amber-deep: #e8748a;
+  --red-vivid: #ef6f7c;
+  --red-deep: #d8536a;
+
+  /* Pastel palette swatches */
+  --pastel-lavender: #d6cdf0;
+  --pastel-sky: #bfe6f5;
+  --pastel-sand: #ded6c4;
+  --pastel-mint: #bfe6d4;
+  --pastel-pink: #f2c8d8;
+  --pastel-butter: #fbe8b0;
+  --pastel-peach: #f6c39a;
+  --pastel-coral: #ef7d8a;
 
   /* Text */
-  --text: #211d15;
-  --muted: #6b6558;
-  --muted-dim: #8f897a;
-  --on-accent: #2a1d0d;
+  --text: #2b2438;
+  --muted: #746c85;
+  --muted-dim: #948da3;
+  --on-accent: #33172a;
 
   /* Structure */
-  --line: rgba(33, 29, 21, 0.12);
-  --line-strong: rgba(33, 29, 21, 0.22);
-  --shadow: 0 30px 90px rgba(33, 29, 21, 0.16);
+  --line: rgba(43, 36, 56, 0.12);
+  --line-strong: rgba(43, 36, 56, 0.2);
+  --shadow: 0 30px 90px rgba(43, 36, 56, 0.14);
   --radius: 26px;
   --radius-sm: 16px;
 

@@ -14,14 +14,14 @@
 .cursor-ring {
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(212, 175, 106, 0.5);
+  border: 1px solid rgba(232, 116, 138, 0.5);
   transition: width 0.3s, height 0.3s, background 0.3s;
 }
 
 .cursor-ring.hovering {
   width: 64px;
   height: 64px;
-  background: rgba(212, 175, 106, 0.08);
+  background: rgba(232, 116, 138, 0.08);
 }
 
 @media (hover: none) {

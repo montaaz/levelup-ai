@@ -17,13 +17,29 @@ if (typeof window !== "undefined") {
 }
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const EASE_DRAMATIC: [number, number, number, number] = [0.76, 0, 0.24, 1];
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  visible: (delay: number) => ({
+// Cinematic-mode toggle: content blasts apart and blurs out on hide, then
+// reassembles from the same blurred/scaled state on return — a bigger,
+// faster motion than a gentle entrance fade, so hiding reads as a
+// deliberate, punchy action. `custom` is the horizontal drift in px (sign
+// picks the direction, magnitude the distance) — negative drifts left
+// (the text column), positive drifts right (the device mockup), so the
+// two halves fly apart from and reassemble toward the video's center.
+const cinematicContent: Variants = {
+  hidden: (driftX: number) => ({
+    opacity: 0,
+    scale: 0.92,
+    x: driftX,
+    filter: "blur(14px)",
+    transition: { duration: 0.5, ease: EASE_DRAMATIC },
+  }),
+  visible: (driftX: number) => ({
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: EASE_OUT, delay },
+    scale: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: EASE_OUT, delay: driftX < 0 ? 0 : 0.08 },
   }),
 };
 
@@ -33,6 +49,11 @@ export default function Hero() {
   const pinRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
+  // Cinematic mode: hides the copy + device mockup so only the background
+  // video shows. Starts visible on both server and first client paint —
+  // it's a user-driven toggle, never something that should differ between
+  // SSR and hydration.
+  const [cinematicMode, setCinematicMode] = useState(false);
   // Desktop-pin-driven phone phase. undefined until the pin actually
   // engages (mobile / reduced-motion never set this), so AutomationPhone
   // falls back to its own timer in those cases.
@@ -154,20 +175,53 @@ export default function Hero() {
       <CinematicBackground
         variant="hero"
         className="hero-cine-bg"
-        src="/videos/hero-bg.mp4"
+        src="/desktop-preview-v2.mp4"
+        mobileSrc="/phone-preview-v2.mp4"
         poster="/videos/hero-bg-poster.jpg"
         priority
         ripple
+        sound
         parallax={false}
       />
-      <div className="wrap hero-grid hero-grid-device">
+      <button
+        type="button"
+        className="hero-cinematic-toggle"
+        onClick={() => setCinematicMode((value) => !value)}
+        aria-pressed={cinematicMode}
+        aria-label={cinematicMode ? "Show text" : "Hide text"}
+      >
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+          {cinematicMode ? (
+            <path d="M4 4l16 16M9 9a3 3 0 0 0 4.24 4.24M6.1 6.1C3.9 7.6 2.4 9.6 1 12c1.6 2.8 5.5 7 11 7 1.9 0 3.6-.5 5.1-1.3M14.5 5.2A10.9 10.9 0 0 1 23 12c-.6 1.1-1.4 2.3-2.4 3.4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          ) : (
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          )}
+        </svg>
+        <span>{cinematicMode ? "Show text" : "Hide text"}</span>
+      </button>
+
+      {/* Both halves below stay permanently mounted — the text column
+          holds RevealText's own once-only mount entrance, and the device
+          column holds pinRef/tiltRef (live GSAP ScrollTrigger + Framer
+          tilt targets). AnimatePresence-unmounting either on toggle would
+          replay RevealText's stagger every time and, worse, tear down the
+          scroll pin. Cinematic mode instead switches each wrapper's own
+          `animate` state between "visible" and "hidden" — same blast-apart
+          variant, applied as a visual layer on top of content that never
+          leaves the DOM. */}
+      <motion.div
+        className="wrap hero-grid hero-grid-device"
+        animate={cinematicMode ? "hidden" : "visible"}
+        variants={cinematicContent}
+        custom={-70}
+        style={{ pointerEvents: cinematicMode ? "none" : "auto" }}
+      >
         <div className="hero-content">
           <motion.span
             className="eyebrow"
-            initial="hidden"
-            animate="visible"
-            custom={0}
-            variants={fadeUp}
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE_OUT }}
           >
             <span className="eyebrow-dot"></span> AI powered creative studio
           </motion.span>
@@ -181,10 +235,9 @@ export default function Hero() {
 
           <motion.div
             className="hero-copy-panel glass"
-            initial="hidden"
-            animate="visible"
-            custom={0.55}
-            variants={fadeUp}
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.55 }}
           >
             <p className="hero-copy">
               LevelUp AI helps small businesses and startups look bigger, move faster, and grow smarter
@@ -209,10 +262,9 @@ export default function Hero() {
 
           <motion.div
             className="hero-actions"
-            initial="hidden"
-            animate="visible"
-            custom={0.7}
-            variants={fadeUp}
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.7 }}
           >
             <a className="button glass-gold-border" href="#contact">
               Let&apos;s build your project
@@ -225,16 +277,23 @@ export default function Hero() {
             </a>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="wrap hero-device-wrap" ref={pinRef}>
+      <motion.div
+        className="wrap hero-device-wrap"
+        ref={pinRef}
+        animate={cinematicMode ? "hidden" : "visible"}
+        variants={cinematicContent}
+        custom={70}
+        style={{ pointerEvents: cinematicMode ? "none" : "auto" }}
+      >
         <div ref={tiltRef}>
           <DeviceMockup tiltX={tiltX} tiltY={tiltY} trackRef={trackRef} />
           <div className="hero-device-phone">
             <AutomationPhone tiltX={tiltX} tiltY={tiltY} activeIndex={phonePhase} />
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

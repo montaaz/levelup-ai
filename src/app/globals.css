@@ -9,11 +9,11 @@ body {
   margin: 0;
   color: var(--text);
   background:
-    radial-gradient(1300px 900px at 6% -5%, rgba(255, 107, 53, 0.38), transparent 58%),
-    radial-gradient(1100px 800px at 100% 12%, rgba(230, 57, 30, 0.28), transparent 55%),
-    radial-gradient(1000px 1000px at 45% 105%, rgba(255, 157, 14, 0.32), transparent 60%),
-    radial-gradient(800px 800px at 80% 80%, rgba(216, 40, 45, 0.2), transparent 55%),
-    linear-gradient(160deg, #fff3e6, #ffe4cf 45%, #ffd9c4 100%);
+    radial-gradient(1300px 900px at 6% -5%, rgba(214, 205, 240, 0.55), transparent 58%),
+    radial-gradient(1100px 800px at 100% 12%, rgba(191, 230, 245, 0.5), transparent 55%),
+    radial-gradient(1000px 1000px at 45% 105%, rgba(246, 195, 154, 0.42), transparent 60%),
+    radial-gradient(800px 800px at 80% 80%, rgba(191, 230, 212, 0.4), transparent 55%),
+    linear-gradient(160deg, #fdf9f2, #f7ecdd 45%, #f4e4d4 100%);
   background-attachment: fixed;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -66,7 +66,7 @@ button { color: inherit; }
   background: linear-gradient(150deg, var(--gold-bright), var(--bronze));
   color: var(--on-accent);
   transform: rotate(-4deg);
-  box-shadow: 0 6px 18px rgba(212, 175, 106, 0.35);
+  box-shadow: 0 6px 18px rgba(232, 116, 138, 0.35);
 }
 .brand-mark svg { width: 20px; }
 .nav-links { display: flex; align-items: center; gap: 30px; font-weight: 600; font-size: 14px; }
@@ -98,7 +98,7 @@ button { color: inherit; }
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .nav-cta { min-height: 43px; padding: 0 18px; }
-.nav-cta:hover, .button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212, 175, 106, 0.35); }
+.nav-cta:hover, .button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(232, 116, 138, 0.35); }
 .button.secondary { background: transparent; color: var(--text); border-color: var(--line-strong); }
 .button.secondary:hover { background: rgba(33, 29, 21, 0.05); box-shadow: none; border-color: var(--gold); }
 .menu-button { display: none; border: 0; background: transparent; padding: 8px; cursor: pointer; color: var(--text); position: relative; z-index: 2; }
@@ -117,14 +117,14 @@ button { color: inherit; }
   align-items: center;
   gap: 9px;
   padding: 9px 14px;
-  border: 1px solid rgba(212, 175, 106, 0.4);
+  border: 1px solid rgba(232, 116, 138, 0.4);
   border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
-  background: rgba(212, 175, 106, 0.1);
-  color: #efe2c8;
+  background: rgba(232, 116, 138, 0.1);
+  color: #f7dde6;
 }
 .eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulse 1.8s ease-in-out infinite; }
 h1, h2, h3, p { margin-top: 0; }
@@ -150,12 +150,12 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   padding: 22px 26px;
   border-radius: var(--radius-sm);
   max-width: 560px;
-  background: linear-gradient(155deg, rgba(255, 243, 230, 0.92), rgba(255, 217, 196, 0.88));
-  border-color: rgba(255, 217, 196, 0.5);
+  background: linear-gradient(155deg, rgba(246, 240, 253, 0.92), rgba(246, 195, 154, 0.82));
+  border-color: rgba(246, 195, 154, 0.5);
 }
-.hero-copy { font-size: 18px; line-height: 1.62; color: #2a1806; }
+.hero-copy { font-size: 18px; line-height: 1.62; color: #33172a; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 28px; }
-.hero-proof { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(42, 24, 6, 0.15); color: #2a1806; font-size: 13px; font-weight: 600; }
+.hero-proof { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(51, 23, 42, 0.15); color: #33172a; font-size: 13px; font-weight: 600; }
 .proof-item { display: flex; align-items: center; gap: 7px; }
 .proof-item svg { width: 17px; color: var(--amber-deep); }
 .hero-actions .button.secondary { color: #f5f2ea; border-color: rgba(245, 242, 234, 0.35); }
@@ -186,6 +186,61 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .video-slot-fallback { position: absolute; inset: 0; }
 .video-slot-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .video-slot-overlay { position: absolute; inset: 0; }
+/* Anchored to the top, not the bottom: on the hero variant the sticky
+   .hero-cine-bg box (see the comment above it) is offset below the
+   viewport top by the nav's height and can run slightly taller than the
+   visible viewport slice, so a bottom-anchored control can land just
+   below the fold. Top-right always stays inside the visible area. */
+.video-slot-sound {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid rgba(245, 242, 234, 0.35);
+  border-radius: 999px;
+  background: rgba(7, 7, 10, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #f5f2ea;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.video-slot-sound:hover { transform: translateY(-2px); border-color: var(--gold-bright); background: rgba(7, 7, 10, 0.65); }
+
+/* Sits in the same top-right control row as .video-slot-sound, always to
+   its left — right offset accounts for the sound button's own width plus
+   a gap so the two never collide whether or not the sound button is
+   currently rendered (it disappears once unmuted). */
+.hero-cinematic-toggle {
+  position: absolute;
+  right: 154px;
+  top: 20px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid rgba(245, 242, 234, 0.35);
+  border-radius: 999px;
+  background: rgba(7, 7, 10, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #f5f2ea;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.hero-cinematic-toggle:hover { transform: translateY(-2px); border-color: var(--gold-bright); background: rgba(7, 7, 10, 0.65); }
+.hero-cinematic-toggle[aria-pressed="true"] { border-color: var(--gold-bright); background: rgba(232, 116, 138, 0.35); }
 .cine-glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .5; }
 .cine-glow-gold { width: 46%; aspect-ratio: 1; background: var(--gold); top: -10%; left: -8%; }
 .cine-glow-bronze { width: 40%; aspect-ratio: 1; background: var(--bronze); bottom: -14%; right: -6%; opacity: .35; }
@@ -222,11 +277,16 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 }
 
 /* ---------- Marquee ---------- */
-.marquee { background: linear-gradient(100deg, var(--red-vivid), var(--gold-vivid), var(--amber-deep)); overflow: hidden; }
+/* Opens the page's pastel journey: lavender -> sky -> mint. Services
+   right after this is a dark section, so .cine-glow-* there picks up
+   mint/sky at its top edge to bridge the handoff (see CinematicBackground
+   fallback + .cine-glow-mint/.cine-glow-sky below), then warms toward
+   sand/butter at its bottom edge to hand off into Pricing. */
+.marquee { background: linear-gradient(100deg, var(--pastel-lavender), var(--pastel-sky), var(--pastel-mint)); overflow: hidden; }
 .marquee-track { display: flex; width: max-content; padding: 17px 0; animation: ticker 27s linear infinite; }
 .marquee-item { display: flex; align-items: center; }
-.marquee-pair { display: flex; align-items: center; gap: 26px; padding-right: 26px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--on-accent); }
-.marquee-star { color: var(--on-accent); font-size: 22px; }
+.marquee-pair { display: flex; align-items: center; gap: 26px; padding-right: 26px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #33172a; }
+.marquee-star { color: #33172a; font-size: 22px; }
 
 /* ---------- Sections ---------- */
 .section { padding: 110px 0; position: relative; }
@@ -262,29 +322,72 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    --muted/--text (now light, per the vars above) render as light text on
    a light card and disappear. */
 .section-dark .glass { background: rgba(10, 9, 8, 0.55); border-color: rgba(245, 242, 234, 0.14); }
+/* Services is the one dark island that sits between two pastel bands
+   (Marquee above, Pricing below) — thin tinted fades at its top/bottom
+   edges pick up Marquee's mint ending and hand off into Pricing's sand
+   opening, so the dark section reads as a bridge, not a hard cut. */
+.section-dark-bridge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(191, 230, 212, 0.28) 0%, transparent 14%),
+    linear-gradient(0deg, rgba(222, 214, 196, 0.3) 0%, rgba(251, 232, 176, 0.16) 8%, transparent 16%);
+}
 .section-head { display: grid; grid-template-columns: 1fr .72fr; gap: 50px; align-items: end; margin-bottom: 54px; }
 .section-kicker { color: var(--gold); text-transform: uppercase; letter-spacing: .13em; font-size: 12px; font-weight: 700; }
 .section h2 { margin: 12px 0 0; max-width: 780px; font-size: clamp(40px, 5.5vw, 70px); line-height: 1; letter-spacing: -.02em; font-weight: 600; }
 .section-lead { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.65; }
 
-/* Vivid gold section band — alternates with the white sections to keep
-   the page colorful while scrolling, rather than flat white throughout. */
+/* Pastel section bands — alternate with the white/dark sections to keep
+   the page colorful while scrolling. Each band is a distinct slice of the
+   8-swatch pastel set, ordered so its top edge continues the color the
+   previous section ended on and its bottom edge hands off into the next:
+   Marquee (mint) -> Services bridge (sand/butter) -> Pricing (sand ->
+   butter -> peach) -> FitList (peach -> pink -> coral) -> dark sections
+   -> Quote/FAQ wash (coral -> pink -> lavender), looping back toward the
+   Hero/Marquee opening. */
 .section-vivid {
-  --text: #2a1806;
-  --muted: #6b431a;
-  --muted-dim: #7a4f21;
-  --line: rgba(42, 24, 6, 0.16);
-  --line-strong: rgba(42, 24, 6, 0.28);
-  --on-accent: #2a1806;
-  background: linear-gradient(155deg, var(--gold-vivid) 0%, var(--amber-deep) 55%, var(--red-vivid) 100%);
+  --text: #33172a;
+  --muted: #7a5468;
+  --muted-dim: #8f6c7e;
+  --line: rgba(51, 23, 42, 0.14);
+  --line-strong: rgba(51, 23, 42, 0.24);
+  --on-accent: #33172a;
   color: var(--text);
   isolation: isolate;
 }
 .section-vivid .section-kicker { color: var(--on-accent); }
 .section-vivid .glass { background: rgba(255, 255, 255, 0.28); border-color: rgba(255, 255, 255, 0.4); }
-.section-vivid .fit-index { background: rgba(255, 255, 255, 0.3); border-color: rgba(42, 24, 6, 0.25); }
-.section-vivid .fit-index-fill { background: rgba(42, 24, 6, 0.55); }
+.section-vivid .fit-index { background: rgba(255, 255, 255, 0.3); border-color: rgba(51, 23, 42, 0.25); }
+.section-vivid .fit-index-fill { background: rgba(51, 23, 42, 0.55); }
 .section-vivid .fit-index-label { color: var(--on-accent); mix-blend-mode: normal; }
+
+.section-vivid-pricing { background: linear-gradient(180deg, var(--pastel-sand) 0%, var(--pastel-butter) 45%, var(--pastel-peach) 100%); }
+.section-vivid-fit { background: linear-gradient(180deg, var(--pastel-peach) 0%, var(--pastel-pink) 55%, var(--pastel-coral) 100%); }
+/* FitList -> WorkShowcase -> VideoCarousel -> AICommercials -> ProcessTimeline
+   is one continuous gradient chain — every section here starts exactly on
+   the color the previous one ended on, so there's no flat/white seam
+   between bands no matter how far into the page you scroll:
+     FitList         peach -> pink -> coral
+     WorkShowcase    coral -> pink
+     VideoCarousel   pink -> sky
+     AICommercials   sky -> mint -> lavender
+     ProcessTimeline lavender -> pink -> peach -> coral */
+.section-vivid-work { background: linear-gradient(180deg, var(--pastel-coral) 0%, var(--pastel-pink) 100%); }
+.section-vivid-carousel { background: linear-gradient(180deg, var(--pastel-pink) 0%, var(--pastel-sky) 100%); }
+.section-vivid-reels { background: linear-gradient(180deg, var(--pastel-sky) 0%, var(--pastel-mint) 50%, var(--pastel-lavender) 100%); }
+.section-vivid-process { background: linear-gradient(180deg, var(--pastel-lavender) 0%, var(--pastel-pink) 40%, var(--pastel-peach) 75%, var(--pastel-coral) 100%); }
+/* ProcessTimeline's GSAP ScrollTrigger pin (see its own comment) wraps the
+   section in a `.pin-spacer` sized to the full scroll runway (several
+   viewport-heights), while the pinned section itself paints only one
+   viewport-height slice — leaving the spacer's own background (the plain
+   body wash) exposed as a flat gap below the pinned gradient. Painting the
+   same gradient on the spacer itself, stretched over its true height,
+   closes that gap so the band reads as continuous through the whole pin. */
+.pin-spacer:has(.section-vivid-process) { background: linear-gradient(180deg, var(--pastel-lavender) 0%, var(--pastel-pink) 30%, var(--pastel-peach) 55%, var(--pastel-coral) 75%, var(--pastel-coral) 100%); }
 
 /* ---------- Glass primitives ---------- */
 .glass-card { position: relative; border-radius: var(--radius); overflow: hidden; transform-style: preserve-3d; }
@@ -310,6 +413,24 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .service-link { position: absolute; left: 29px; bottom: 30px; display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: var(--gold); }
 .service-link svg { width: 17px; transition: transform .2s ease; }
 .service-link:hover svg { transform: translateX(5px); }
+
+/* ---------- Pricing ---------- */
+.pricing-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 10px 0 60px; }
+.pricing-service { padding: 26px 24px; border-radius: var(--radius-sm); }
+.pricing-service h3 { font-size: 17px; letter-spacing: -.01em; margin-bottom: 10px; }
+.pricing-service p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.pricing-block-head { margin: 0 0 18px; }
+.pricing-block-head h3 { font-size: 26px; letter-spacing: -.01em; margin: 0 0 6px; font-family: var(--font-display); font-weight: 600; }
+.pricing-block-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.pricing-table-card { padding: 8px; border-radius: var(--radius); margin-bottom: 50px; overflow-x: auto; }
+.pricing-table { width: 100%; border-collapse: collapse; }
+.pricing-table th, .pricing-table td { text-align: left; padding: 16px 18px; }
+.pricing-table thead th { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); border-bottom: 1px solid var(--line-strong); }
+.pricing-table tbody tr:not(:last-child) td { border-bottom: 1px solid var(--line); }
+.pricing-table tbody td:first-child { font-weight: 700; white-space: nowrap; }
+.pricing-price { font-weight: 700; white-space: nowrap; color: var(--on-accent); }
+.section-dark .pricing-price { color: var(--gold-bright); }
+.pricing-cta { display: flex; justify-content: center; }
 
 /* ---------- Fit list ---------- */
 .fit-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: start; }
@@ -341,7 +462,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .work-card { position: relative; border-radius: 25px; height: 100%; }
 .work-tag { position: absolute; top: 18px; left: 18px; z-index: 2; padding: 8px 11px; border-radius: 999px; background: rgba(7,7,10,0.55); border: 1px solid var(--line-strong); font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--champagne); backdrop-filter: blur(8px); }
 .website-showcase { position: absolute; inset: 0; padding: 83px 38px 35px; }
-.website-window { height: 100%; border: 1px solid var(--line-strong); border-radius: 14px; background: linear-gradient(165deg, #fff3e6, #ffd9c4 55%, #ffc9ad 100%); overflow: hidden; transform: rotate(-2deg); box-shadow: 0 24px 60px rgba(0,0,0,.5); }
+.website-window { height: 100%; border: 1px solid var(--line-strong); border-radius: 14px; background: linear-gradient(165deg, #fdf5f8, #f6c39a 55%, #ef7d8a 100%); overflow: hidden; transform: rotate(-2deg); box-shadow: 0 24px 60px rgba(0,0,0,.5); }
 .website-window-top { height: 36px; background: var(--panel-raised); border-bottom: 1px solid var(--line); }
 .website-window-body { padding: 37px 27px; color: var(--text); }
 .website-window-body strong { color: var(--gold); font-size: 12px; }
@@ -350,7 +471,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .website-lines span { height: 7px; border-radius: 99px; background: var(--line-strong); }
 .website-lines span:last-child { width: 67%; }
 .video-showcase { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(160deg, #1c1710, var(--bronze)); }
-.video-product { width: 108px; height: 176px; border-radius: 31px 31px 22px 22px; background: linear-gradient(165deg, #fff3e6, #ffd9c4 55%, #ffc9ad 100%); transform: rotate(9deg); box-shadow: 0 20px 50px rgba(0,0,0,.5); display: grid; place-items: center; color: var(--gold); font-weight: 700; font-size: 18px; text-align: center; line-height: .95; }
+.video-product { width: 108px; height: 176px; border-radius: 31px 31px 22px 22px; background: linear-gradient(165deg, #fdf5f8, #f6c39a 55%, #ef7d8a 100%); transform: rotate(9deg); box-shadow: 0 20px 50px rgba(0,0,0,.5); display: grid; place-items: center; color: var(--gold); font-weight: 700; font-size: 18px; text-align: center; line-height: .95; }
 .automation-showcase { position: absolute; inset: 0; padding: 79px 27px 24px; background: linear-gradient(160deg, #17181d, var(--panel-raised)); }
 .automation-panel { height: 100%; border: 1px solid var(--line-strong); border-radius: 15px; background: var(--panel); padding: 25px 20px; transform: rotate(2deg); }
 .automation-panel small { font-weight: 700; color: var(--muted); }
@@ -460,10 +581,19 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   .process-cursor-video { --puck-size: 220px; }
 }
 
-/* ---------- Quote ---------- */
+/* ---------- Quote + FAQ pastel wash ---------- */
+/* QuoteBox and FAQ are the last light stretch before Contact goes dark —
+   together they close the page's color loop, picking up FitList's coral
+   ending and drifting back through pink to lavender, so the very next
+   scroll (into Marquee, if the page repeats) lands where it started. Two
+   adjacent sections sharing one visual gradient: each paints half of it,
+   split at matching midpoint colors so the seam between them is invisible. */
+.section-wash-loop-start { background: linear-gradient(180deg, var(--pastel-coral) 0%, var(--pastel-pink) 100%); }
+.section-wash-loop-end { background: linear-gradient(180deg, var(--pastel-pink) 0%, var(--pastel-lavender) 100%); }
+
 .quote-section { padding: 40px 0 110px; }
 .quote-box { position: relative; padding: 65px; border-radius: 32px; overflow: hidden; }
-.quote-box::after { content: "AI"; position: absolute; right: -30px; bottom: -100px; color: rgba(212,175,106,.06); font-size: 260px; font-weight: 700; line-height: 1; font-family: var(--font-display); }
+.quote-box::after { content: "AI"; position: absolute; right: -30px; bottom: -100px; color: rgba(232,116,138,.08); font-size: 260px; font-weight: 700; line-height: 1; font-family: var(--font-display); }
 .quote-box blockquote { position: relative; z-index: 1; max-width: 950px; margin: 0; font-size: clamp(34px, 5vw, 62px); line-height: 1; letter-spacing: -.02em; font-weight: 600; color: var(--text); }
 .quote-box p { position: relative; z-index: 1; margin: 31px 0 0; font-weight: 600; color: var(--gold); }
 
@@ -533,6 +663,7 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
   .hero-device-phone { position: static; margin: 24px auto 0; display: flex; justify-content: center; }
   .services { grid-template-columns: 1fr; }
   .service { min-height: 475px; }
+  .pricing-services { grid-template-columns: 1fr 1fr; }
   .sticky-copy { position: static; }
   .work-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 500px 300px; }
   .work-grid > div:first-child { grid-column: span 2; grid-row: auto; }
@@ -566,12 +697,23 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
   .hero-cine-bg { margin-top: -48px; margin-bottom: calc(-100vh + 48px); }
   .hero-h1 { font-size: 58px; }
   .hero-copy { font-size: 17px; }
+  .video-slot-sound { padding: 8px 12px; font-size: 11px; }
+  .video-slot-sound span { display: none; }
+  .hero-cinematic-toggle { right: 62px; padding: 8px 12px; font-size: 11px; }
+  .hero-cinematic-toggle span { display: none; }
   .hero-device-wrap { margin-top: 24px; padding-bottom: 0; }
   .automation-phone { width: 150px; }
   .section { padding: 78px 0; }
   .section-head { gap: 20px; margin-bottom: 40px; }
   .section h2 { font-size: 44px; }
   .service { min-height: 510px; padding-inline: 22px; }
+  .pricing-services { grid-template-columns: 1fr; }
+  .pricing-table thead { display: none; }
+  .pricing-table, .pricing-table tbody, .pricing-table tr, .pricing-table td { display: block; width: 100%; }
+  .pricing-table tr { padding: 14px 4px; border-bottom: 1px solid var(--line); }
+  .pricing-table tbody tr:last-child { border-bottom: 0; }
+  .pricing-table td { padding: 4px 0; border-bottom: 0 !important; }
+  .pricing-table td::before { content: attr(data-label); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 2px; }
   .work-grid { display: grid; grid-template-columns: 1fr; grid-template-rows: 430px 280px 280px; }
   .work-grid > div:first-child { grid-column: auto; }
   .process { grid-template-columns: 1fr; }

@@ -9,7 +9,7 @@
 .automation-phone-glow {
   position: absolute;
   inset: -30%;
-  background: radial-gradient(circle at 50% 20%, rgba(212, 175, 106, 0.35), transparent 65%);
+  background: radial-gradient(circle at 50% 20%, rgba(232, 116, 138, 0.35), transparent 65%);
   animation: phoneGlow 5s ease-in-out infinite;
   pointer-events: none;
 }
@@ -21,7 +21,7 @@
   z-index: 1;
   min-height: 220px;
   border-radius: 24px;
-  background: linear-gradient(165deg, #fff3e6, #ffd9c4 55%, #ffc9ad 100%);
+  background: linear-gradient(165deg, #fdf5f8, #f6c39a 55%, #ef7d8a 100%);
   padding: 16px 14px;
   display: flex;
   flex-direction: column;
@@ -102,7 +102,7 @@
   position: relative;
   border-radius: 18px 18px 6px 6px;
   padding: 20px 20px 30px;
-  box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.16), var(--shadow);
+  box-shadow: 0 0 0 1px rgba(232, 116, 138, 0.16), var(--shadow);
 }
 .laptop-notch {
   position: absolute;
@@ -119,7 +119,7 @@
   aspect-ratio: 16 / 10;
   border-radius: 6px;
   overflow: hidden;
-  background: linear-gradient(165deg, #fff3e6, #ffd9c4 55%, #ffc9ad 100%);
+  background: linear-gradient(165deg, #fdf5f8, #f6c39a 55%, #ef7d8a 100%);
 }
 .laptop-hinge {
   height: 8px;
@@ -317,251 +317,149 @@
   .video-carousel-card { flex-basis: min(280px, 82vw); }
 }
 
-/* ---------- Phone video scroll-lock ---------- */
-/* Section and stage are both exactly 100vh — no extra scroll-room buffer
-   needed. The JS trigger (PhoneVideoLock) fires and freezes scroll
-   (overflow:hidden) the instant the section's top reaches the viewport
-   top, so there's no window where sticky needs to "hold" the pin against
-   further scrolling; a taller section here would just leave empty dark
-   space below the pinned stage once scroll unlocks and it scrolls away. */
-/* section.phone-lock-section (not just .phone-lock-section) to outrank
-   the base .section{padding:110px 0} rule defined later in globals.css —
-   same specificity, so source order would otherwise let it win despite
-   this file being @imported first. */
-section.phone-lock-section { padding: 0; height: 100vh; }
-.phone-lock-stage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  isolation: isolate;
+/* ---------- AI commercials showcase ---------- */
+/* Asymmetric "reel wall": the one landscape clip spans both rows on the
+   left at 16:9, the four portrait/reel clips fill a 2x2 grid on the right
+   at 9:16 — deliberately mixed aspect ratios in one grid rather than
+   forcing everything into uniform cards, since that's the actual shape of
+   the source clips (1 landscape hero + 4 vertical reels). */
+.ai-commercials-grid {
+  display: grid;
+  grid-template-columns: 1.35fr repeat(2, 1fr);
+  grid-template-rows: repeat(2, 260px);
+  gap: 16px;
+  margin-top: 10px;
 }
-.phone-lock-bg-wrap { position: absolute; inset: 0; z-index: 0; }
-/* object-position shifts to ~78% width below 740px — see the matching
-   mobileQuery check in PhoneVideoLock's measure(). The phone itself
-   sits right-of-center in the source photo; a centered crop on a
-   narrow/tall mobile viewport pushes the phone half off-screen, so the
-   crop needs to be biased toward it instead of the image's true center. */
-.phone-lock-bg { object-fit: cover; object-position: 50% center; }
-@media (max-width: 740px) {
-  .phone-lock-bg { object-position: 71% center; }
-}
-.phone-lock-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(180deg, rgba(7, 7, 10, 0.75) 0%, rgba(7, 7, 10, 0.15) 40%, rgba(7, 7, 10, 0.1) 65%, rgba(7, 7, 10, 0.7) 100%);
-}
-/* Positioned in JS (PhoneVideoLock measures the rendered `cover` rect of
-   phone.png on resize, since object-fit:cover crops the image and the
-   screen's on-screen offset shifts with the container's aspect ratio) —
-   this rule only carries the visual chrome, not the geometry. */
-.phone-lock-screen {
-  position: absolute;
-  z-index: 1;
-  overflow: hidden;
-  border-radius: 4%;
-  background: #000;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4) inset;
-  transition: box-shadow 0.3s ease;
-  container-type: inline-size;
-}
-.phone-lock-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.phone-lock-stage.is-locked .phone-lock-screen {
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4) inset, 0 0 50px rgba(255, 171, 46, 0.35);
-}
-.phone-lockscreen {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  background: #7fc4f2;
-  cursor: pointer;
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
-  animation: phoneLockscreenIn 0.25s ease;
-}
-@keyframes phoneLockscreenIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Recreation of the iOS "waves" wallpaper as an SVG (see the JSX) — an S-
-   curve of soft diagonal bands sweeping from light sky-blue at the top to
-   dark navy at the bottom-right, with a warm glow in the bottom-left
-   corner. Vector, so it scales losslessly at any phone-screen size
-   instead of needing an image asset. */
-.phone-lockscreen-wallpaper {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.phone-lockscreen-statusbar {
+.ai-commercials-cell-landscape { grid-row: span 2; }
+.ai-commercials-card { height: 100%; border-radius: var(--radius-sm); overflow: hidden; }
+.ai-commercials-trigger {
   position: relative;
-  z-index: 1;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6% 7% 0;
-  font-size: clamp(8px, 2.4cqw, 10px);
-  font-weight: 600;
-  color: #fff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-}
-.phone-lockscreen-statusbar-icons {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #fff;
-}
-
-.phone-lockscreen-clock {
-  position: relative;
-  z-index: 1;
-  margin-top: 10%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.phone-lockscreen-date {
-  font-size: clamp(9px, 3cqw, 12px);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
-}
-.phone-lockscreen-time {
-  margin-top: 2px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(30px, 12cqw, 50px);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: #fff;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.22);
-}
-
-.phone-lockscreen-swipe {
-  position: relative;
-  z-index: 1;
-  margin-top: auto;
-  margin-bottom: 12%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  font-size: clamp(7px, 2.2cqw, 9px);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.9);
-  animation: phoneLockscreenBob 1.8s ease-in-out infinite;
-}
-.phone-lockscreen-swipe-chevron {
-  width: 18px;
-  height: 18px;
-  border-top: 2.5px solid rgba(255, 255, 255, 0.95);
-  border-right: 2.5px solid rgba(255, 255, 255, 0.95);
-  transform: rotate(-45deg);
-}
-@keyframes phoneLockscreenBob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-.phone-lockscreen-controls {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 7% 6%;
-}
-.phone-lockscreen-control {
-  width: clamp(22px, 9cqw, 34px);
-  height: clamp(22px, 9cqw, 34px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(6px);
-  color: #fff;
-}
-
-.phone-lock-content {
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-}
-.phone-lock-copy { max-width: 480px; }
-.phone-lock-copy .section-kicker { color: var(--gold-bright); display: block; }
-.phone-lock-copy h2 { margin: 12px 0 0; color: #f5f2ea; font-size: clamp(36px, 4.6vw, 58px); line-height: 1.02; letter-spacing: -.02em; font-weight: 600; }
-.phone-lock-copy .section-lead { margin: 18px 0 0; color: rgba(245, 242, 234, 0.78); font-size: 17px; line-height: 1.65; }
-
-.phone-lock-progress {
-  margin-top: 32px;
-  width: min(240px, 60vw);
-  height: 3px;
-  border-radius: 999px;
-  background: rgba(245, 242, 234, 0.22);
-  overflow: hidden;
-}
-.phone-lock-progress-fill {
-  height: 100%;
-  background: var(--gold-bright);
-  transition: width 0.05s linear;
-}
-.phone-lock-hint {
   display: block;
-  margin-top: 14px;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(245, 242, 234, 0.65);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
 }
-.phone-lock-hint[data-visible="true"] { opacity: 1; }
+.ai-commercials-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ai-commercials-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 7, 10, 0.05) 0%, rgba(7, 7, 10, 0.1) 55%, rgba(7, 7, 10, 0.82) 100%);
+  transition: background .25s ease;
+}
+.ai-commercials-trigger:hover .ai-commercials-scrim { background: linear-gradient(180deg, rgba(7, 7, 10, 0.15) 0%, rgba(7, 7, 10, 0.2) 45%, rgba(7, 7, 10, 0.88) 100%); }
+.ai-commercials-meta {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ai-commercials-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--gold-bright); }
+.ai-commercials-title { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: #f5f2ea; line-height: 1.08; }
+.ai-commercials-play {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(7, 7, 10, 0.5);
+  border: 1px solid rgba(245, 242, 234, 0.3);
+  color: #f5f2ea;
+  backdrop-filter: blur(6px);
+  transition: transform .25s ease, background .25s ease;
+}
+.ai-commercials-trigger:hover .ai-commercials-play { transform: scale(1.1); background: var(--gold); color: var(--on-accent); }
+
+/* Lightbox */
+.ai-commercials-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  background: rgba(4, 4, 6, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.ai-commercials-lightbox-frame {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(245, 242, 234, 0.12);
+  background: #000;
+}
+.ai-commercials-lightbox-frame-landscape { width: min(1000px, 88vw); aspect-ratio: 16 / 9; }
+.ai-commercials-lightbox-frame-portrait { width: min(420px, 82vw); aspect-ratio: 9 / 16; max-height: 86vh; }
+.ai-commercials-lightbox-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ai-commercials-lightbox-caption {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 20px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+.ai-commercials-lightbox-caption .ai-commercials-title { font-size: 24px; }
+
+.ai-commercials-close,
+.ai-commercials-nav {
+  position: fixed;
+  z-index: 301;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(245, 242, 234, 0.1);
+  border: 1px solid rgba(245, 242, 234, 0.25);
+  color: #f5f2ea;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: transform .2s ease, background .2s ease;
+}
+.ai-commercials-close:hover,
+.ai-commercials-nav:hover { background: var(--gold); color: var(--on-accent); }
+.ai-commercials-close { top: 24px; right: 24px; width: 44px; height: 44px; }
+.ai-commercials-nav { top: 50%; width: 50px; height: 50px; transform: translateY(-50%); }
+.ai-commercials-nav:hover { transform: translateY(-50%) scale(1.08); }
+.ai-commercials-nav-prev { left: 24px; }
+.ai-commercials-nav-next { right: 24px; }
+
+@media (max-width: 980px) {
+  .ai-commercials-grid { grid-template-columns: 1.2fr repeat(2, 1fr); grid-template-rows: repeat(2, 220px); }
+}
 
 @media (max-width: 740px) {
-  /* The phone image goes full-bleed edge-to-edge on mobile (see the
-     object-position rule above) — the copy can no longer just sit
-     bottom-aligned over transparent background like on desktop, since
-     there's phone content directly behind it the whole way down. Instead
-     it gets its own solid/blurred band pinned to the very bottom edge,
-     narrow enough to stay clear of the phone image above it. */
-  .phone-lock-content {
-    align-items: flex-end;
-    padding: 0;
+  .ai-commercials-grid {
+    display: flex;
+    grid-template-columns: unset;
+    grid-template-rows: unset;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    gap: 14px;
+    margin: 10px calc(-1 * var(--wrap-gutter, 14px)) 0;
+    padding: 4px var(--wrap-gutter, 14px) 10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
-  .phone-lock-copy {
-    max-width: 100%;
-    width: 100%;
-    padding: 20px 20px max(20px, env(safe-area-inset-bottom));
-    background: linear-gradient(0deg, rgba(7, 7, 10, 0.92) 0%, rgba(7, 7, 10, 0.92) 70%, rgba(7, 7, 10, 0) 100%);
-    backdrop-filter: blur(10px);
-    pointer-events: auto;
-  }
-  .phone-lock-copy h2 { font-size: clamp(28px, 8vw, 36px); }
-  .phone-lock-copy .section-lead { font-size: 15px; }
-  .phone-lock-progress { margin-top: 18px; }
+  .ai-commercials-grid::-webkit-scrollbar { display: none; }
+  .ai-commercials-cell { flex: 0 0 auto; scroll-snap-align: start; }
+  .ai-commercials-cell-landscape .ai-commercials-card { width: min(320px, 78vw); aspect-ratio: 16 / 9; }
+  .ai-commercials-cell-portrait .ai-commercials-card { width: min(200px, 62vw); aspect-ratio: 9 / 16; }
+  .ai-commercials-nav { width: 42px; height: 42px; }
+  .ai-commercials-nav-prev { left: 10px; }
+  .ai-commercials-nav-next { right: 10px; }
+  .ai-commercials-close { top: 14px; right: 14px; width: 38px; height: 38px; }
+  .ai-commercials-lightbox-frame-portrait { width: min(340px, 88vw); }
 }

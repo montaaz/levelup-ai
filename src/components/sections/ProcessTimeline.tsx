@@ -107,7 +107,7 @@ export default function ProcessTimeline() {
   const activeStep = STEPS[activeIndex ?? 0];
 
   return (
-    <section className="section section-vivid process-section process-cursor-active" id="process" ref={sectionRef}>
+    <section className="section section-vivid section-vivid-process process-section process-cursor-active" id="process" ref={sectionRef}>
       <ProcessCursorVideo src={activeStep.video} label={activeStep.title} containerRef={sectionRef} />
       <div className="wrap">
         <Reveal className="section-head">

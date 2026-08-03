@@ -4,7 +4,7 @@ import Reveal from "@/components/ui/Reveal";
 
 export default function WorkShowcase() {
   return (
-    <section className="section" id="work" style={{ paddingTop: 10 }}>
+    <section className="section section-vivid section-vivid-work" id="work" style={{ paddingTop: 10 }}>
       <div className="wrap">
         <Reveal className="section-head">
           <div>

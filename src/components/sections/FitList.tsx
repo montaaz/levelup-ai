@@ -48,7 +48,7 @@ function FitItem({ item, order }: { item: (typeof ITEMS)[number]; order: number 
 
 export default function FitList() {
   return (
-    <section className="section section-vivid">
+    <section className="section section-vivid section-vivid-fit">
       <div className="wrap fit-grid">
         <Reveal className="sticky-copy">
           <span className="section-kicker">Built for momentum</span>

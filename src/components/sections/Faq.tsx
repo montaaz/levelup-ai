@@ -32,7 +32,7 @@ export default function Faq() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="section" id="faq">
+    <section className="section section-wash-loop section-wash-loop-end" id="faq">
       <div className="wrap faq-layout">
         <Reveal>
           <span className="section-kicker">Questions</span>

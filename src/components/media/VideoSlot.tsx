@@ -4,8 +4,16 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView } from "framer-motion";
 import clsx from "clsx";
 
+// Matches the layout breakpoint the rest of the site treats as "desktop"
+// (e.g. the hero device grid, .hero-device-phone repositioning).
+const MOBILE_QUERY = "(max-width: 980px)";
+
 type VideoSlotProps = {
   src?: string;
+  /** Alternate clip for narrow/mobile viewports (<= 980px). When provided,
+   * the element swaps `src` on breakpoint crossings instead of always
+   * playing `src`. */
+  mobileSrc?: string;
   poster?: string;
   fallback: ReactNode;
   overlay?: ReactNode;
@@ -13,6 +21,13 @@ type VideoSlotProps = {
   priority?: boolean;
   objectPosition?: string;
   className?: string;
+  /** Video starts muted (required for autoplay in every browser); pass
+   * `true` once a sibling "play with sound" control (rendered outside this
+   * component — see useUnmutableVideo) has unmuted it. */
+  unmuted?: boolean;
+  /** Ref target for the rendered <video> — shared with whatever owns the
+   * unmute control via useUnmutableVideo. */
+  videoRef?: React.Ref<HTMLVideoElement>;
   /** Called with the mounted <video> element (or null on unmount) — lets a
    * consumer attach a WebGL effect (e.g. VideoRipple) to the real element. */
   onVideoElement?: (video: HTMLVideoElement | null) => void;
@@ -30,6 +45,7 @@ type VideoSlotProps = {
  */
 export default function VideoSlot({
   src,
+  mobileSrc,
   poster,
   fallback,
   overlay,
@@ -37,11 +53,17 @@ export default function VideoSlot({
   priority = false,
   objectPosition = "center",
   className,
+  unmuted = false,
+  videoRef: externalVideoRef,
   onVideoElement,
 }: VideoSlotProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "200px" });
   const [shouldMount, setShouldMount] = useState(false);
+  // Starts as `src` on both server and first client paint (avoids a
+  // hydration mismatch); a client-only effect below corrects it to
+  // `mobileSrc` if the viewport is already narrow.
+  const [activeSrc, setActiveSrc] = useState(src);
 
   useEffect(() => {
     if (!src) return;
@@ -52,6 +74,23 @@ export default function VideoSlot({
     return () => cancelAnimationFrame(frame);
   }, [src, priority, isInView]);
 
+  useEffect(() => {
+    if (!mobileSrc) return;
+    const query = window.matchMedia(MOBILE_QUERY);
+    const sync = () => setActiveSrc(query.matches ? mobileSrc : src);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, [src, mobileSrc]);
+
+  function setVideoRef(video: HTMLVideoElement | null) {
+    if (typeof externalVideoRef === "function") externalVideoRef(video);
+    else if (externalVideoRef && "current" in externalVideoRef) {
+      (externalVideoRef as React.RefObject<HTMLVideoElement | null>).current = video;
+    }
+    onVideoElement?.(video);
+  }
+
   return (
     <div ref={containerRef} className={clsx("video-slot", className)}>
       <div className="video-slot-fallback" aria-hidden="true">
@@ -59,12 +98,12 @@ export default function VideoSlot({
       </div>
       {shouldMount && (
         <video
-          ref={onVideoElement}
+          ref={setVideoRef}
           className="video-slot-video"
-          src={src}
+          src={activeSrc}
           poster={poster}
           autoPlay
-          muted
+          muted={!unmuted}
           playsInline
           loop={loop}
           preload={priority ? "auto" : "metadata"}

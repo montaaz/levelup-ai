@@ -6,12 +6,15 @@ import clsx from "clsx";
 import VideoSlot from "./VideoSlot";
 import VideoRipple from "./VideoRipple";
 import { useParallaxY } from "@/hooks/useParallaxY";
+import { useUnmutableVideo } from "@/hooks/useUnmutableVideo";
 
 type Variant = "hero" | "services" | "process" | "contact";
 
 type CinematicBackgroundProps = {
   variant: Variant;
   src?: string;
+  /** Alternate clip for narrow/mobile viewports — see VideoSlot. */
+  mobileSrc?: string;
   poster?: string;
   className?: string;
   parallax?: boolean;
@@ -19,6 +22,9 @@ type CinematicBackgroundProps = {
   /** Applies the cursor-driven WebGL ripple + chromatic-aberration shader
    * on top of the video. Desktop-only, gated inside VideoRipple itself. */
   ripple?: boolean;
+  /** Starts muted with a tap-to-unmute control instead of playing silently
+   * forever — see useUnmutableVideo. */
+  sound?: boolean;
 };
 
 const VARIANT_FALLBACK: Record<Variant, React.ReactNode> = {
@@ -50,54 +56,101 @@ const VARIANT_FALLBACK: Record<Variant, React.ReactNode> = {
   ),
 };
 
+/** Tap-to-unmute control for a CinematicBackground with `sound` enabled.
+ * Rendered as a sibling of .cine-bg (not a descendant) — .cine-bg sits at
+ * z-index:-1 inside its section's own isolated stacking context (see
+ * `.hero { isolation: isolate }`), so nothing nested inside it can ever
+ * paint — or receive clicks — above the section's normal-flow content,
+ * regardless of its own z-index. The button has to live outside that
+ * subtree entirely to be clickable over the hero copy/laptop. */
+function SoundButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button type="button" className="video-slot-sound" onClick={onClick} aria-label="Play with sound">
+      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+        <path
+          d="M4 9v6h4l5 4V5L8 9H4Z M16 8.5a4.5 4.5 0 0 1 0 7"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </svg>
+      <span>Sound on</span>
+    </button>
+  );
+}
+
 function ParallaxLayer({
   variant,
   src,
+  mobileSrc,
   poster,
   className,
   priority,
   ripple,
+  sound,
 }: Omit<CinematicBackgroundProps, "parallax">) {
   const { ref, y } = useParallaxY(60);
   const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null);
+  const { videoRef, unmuted, playWithSound } = useUnmutableVideo();
 
   return (
-    <motion.div ref={ref} className={clsx("cine-bg", `cine-bg-${variant}`, className)} style={{ y }}>
-      <VideoSlot
-        src={src}
-        poster={poster}
-        fallback={VARIANT_FALLBACK[variant]}
-        className="cine-bg-video-slot"
-        priority={priority}
-        onVideoElement={ripple ? setVideoEl : undefined}
-      />
-      {ripple && <VideoRipple video={videoEl} />}
-    </motion.div>
+    <>
+      <motion.div ref={ref} className={clsx("cine-bg", `cine-bg-${variant}`, className)} style={{ y }}>
+        <VideoSlot
+          src={src}
+          mobileSrc={mobileSrc}
+          poster={poster}
+          fallback={VARIANT_FALLBACK[variant]}
+          className="cine-bg-video-slot"
+          priority={priority}
+          unmuted={unmuted}
+          videoRef={(el) => {
+            videoRef.current = el;
+            if (ripple) setVideoEl(el);
+          }}
+        />
+        {ripple && <VideoRipple video={videoEl} />}
+      </motion.div>
+      {sound && !unmuted && <SoundButton onClick={playWithSound} />}
+    </>
   );
 }
 
 function StaticLayer({
   variant,
   src,
+  mobileSrc,
   poster,
   className,
   priority,
   ripple,
+  sound,
 }: Omit<CinematicBackgroundProps, "parallax">) {
   const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null);
+  const { videoRef, unmuted, playWithSound } = useUnmutableVideo();
 
   return (
-    <div className={clsx("cine-bg", `cine-bg-${variant}`, className)}>
-      <VideoSlot
-        src={src}
-        poster={poster}
-        fallback={VARIANT_FALLBACK[variant]}
-        className="cine-bg-video-slot"
-        priority={priority}
-        onVideoElement={ripple ? setVideoEl : undefined}
-      />
-      {ripple && <VideoRipple video={videoEl} />}
-    </div>
+    <>
+      <div className={clsx("cine-bg", `cine-bg-${variant}`, className)}>
+        <VideoSlot
+          src={src}
+          mobileSrc={mobileSrc}
+          poster={poster}
+          fallback={VARIANT_FALLBACK[variant]}
+          className="cine-bg-video-slot"
+          priority={priority}
+          unmuted={unmuted}
+          videoRef={(el) => {
+            videoRef.current = el;
+            if (ripple) setVideoEl(el);
+          }}
+        />
+        {ripple && <VideoRipple video={videoEl} />}
+      </div>
+      {sound && !unmuted && <SoundButton onClick={playWithSound} />}
+    </>
   );
 }
 

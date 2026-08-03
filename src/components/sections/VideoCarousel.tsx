@@ -61,7 +61,7 @@ export default function VideoCarousel() {
   }, []);
 
   return (
-    <section className="section video-carousel-section">
+    <section className="section section-vivid section-vivid-carousel video-carousel-section">
       <div className="wrap">
         <Reveal className="section-head">
           <div>

@@ -47,7 +47,7 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section className="section section-dark" id="services">
+    <section className="section section-dark section-dark-bridge" id="services">
       <CinematicBackground variant="services" src="/videos/services-bg.mp4" />
       <div className="wrap">
         <Reveal className="section-head">
