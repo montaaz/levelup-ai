@@ -6,10 +6,10 @@ import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
 
 const CARDS = [
-  { id: "gold-macro", label: "Texture study", src: "/videos/carousel-gold-macro.mp4", rotate: -3 },
-  { id: "architectural", label: "Interior light", src: "/videos/carousel-architectural.mp4", rotate: 2 },
-  { id: "circuit", label: "Tech detail", src: "/videos/carousel-circuit.mp4", rotate: -1.5 },
-  { id: "skyline", label: "Atmosphere", src: "/videos/carousel-skyline.mp4", rotate: 3 },
+  { id: "clip-7", label: "Texture study", src: "/videos/new/7.mp4", rotate: -3 },
+  { id: "clip-8", label: "Interior light", src: "/videos/new/8.mp4", rotate: 2 },
+  { id: "clip-9", label: "Tech detail", src: "/videos/new/9.mp4", rotate: -1.5 },
+  { id: "clip-10", label: "Atmosphere", src: "/videos/new/10.mp4", rotate: 3 },
 ];
 
 /**
@@ -66,7 +66,7 @@ export default function VideoCarousel() {
         <Reveal className="section-head">
           <div>
             <span className="section-kicker">More from the studio</span>
-            <h2>Moods we can build for you.</h2>
+            <h2>Thanks we can build for you.</h2>
           </div>
           <p className="section-lead">
             A look at the kind of cinematic style we produce — not client work, just the range.

@@ -1,65 +1,55 @@
+import type { CSSProperties } from "react";
+
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
 
+/* tint cycles so no two cards sharing an edge in the 3-column grid repeat a
+   color (row-to-row included). */
 const AI_SERVICES = [
   {
     title: "AI websites",
     copy: "Professional, fast, optimized showcase sites. Delivered in days instead of weeks.",
+    tint: "var(--tint-lavender)",
   },
   {
     title: "AI product shoots",
     copy: "Product visuals generated in a virtual studio or lifestyle setting, no travel or photo gear, high-quality output.",
+    tint: "var(--tint-sky)",
   },
   {
     title: "AI videos",
     copy: "Short videos for social media, ads, or product presentations, made to the same visual standard as a classic production.",
+    tint: "var(--tint-mint)",
   },
   {
     title: "AI copywriting",
     copy: "Product sheets, e-commerce descriptions, and ad copy written and tailored to the client's brand voice.",
+    tint: "var(--tint-butter)",
   },
   {
     title: "Voiceover & multilingual dubbing",
     copy: "Videos available in multiple languages with no new shoot, so you can reach international markets.",
+    tint: "var(--tint-pink)",
   },
   {
     title: "Avatars & virtual spokespeople",
     copy: "Regular on-camera presence for the brand without needing a real person for every shoot.",
+    tint: "var(--tint-peach)",
   },
   {
     title: "Chatbots & automation",
     copy: "Conversational agents for customer support or booking, on WhatsApp, your website, or Messenger.",
+    tint: "var(--tint-coral)",
   },
   {
     title: "Automated email marketing",
     copy: "Segmentation, message personalization, and automated follow-ups driven by AI.",
+    tint: "var(--tint-sand)",
   },
   {
     title: "Express visual identity",
     copy: "Logo and brand guidelines generated quickly for businesses just getting started.",
-  },
-];
-
-const PACKS = [
-  {
-    name: "Discovery Pack",
-    content: "AI showcase website (5-6 pages) or AI product shoot (10 visuals)",
-    price: "From 890 TND",
-  },
-  {
-    name: "Launch Pack",
-    content: "AI showcase website + product shoot (10 visuals) + 1 short video",
-    price: "1,890 TND",
-  },
-  {
-    name: "Growth Pack",
-    content: "AI showcase website + product shoot (20 visuals) + 2 short videos",
-    price: "3,490 TND",
-  },
-  {
-    name: "Pro Max Pack",
-    content: "AI showcase website + product shoot (40 visuals) + 4 short videos",
-    price: "4,900 TND",
+    tint: "var(--tint-sky)",
   },
 ];
 
@@ -94,43 +84,23 @@ export default function Pricing() {
           </p>
         </Reveal>
 
+        {/* The nav's "Services" link targets this block: it's the full list of
+            what we actually offer. The pack cards further up the page are
+            bundles/pricing, so they own #packs instead. */}
+        <Reveal className="pricing-block-head" id="services">
+          <h3>Services</h3>
+          <p>Everything we can build for you, powered end to end by AI.</p>
+        </Reveal>
         <div className="pricing-services">
           {AI_SERVICES.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.04}>
-              <GlassCard className="pricing-service">
+              <GlassCard className="pricing-service" style={{ "--tint": service.tint } as CSSProperties}>
                 <h3>{service.title}</h3>
                 <p>{service.copy}</p>
               </GlassCard>
             </Reveal>
           ))}
         </div>
-
-        <Reveal className="pricing-block-head">
-          <h3>Project packs</h3>
-          <p>One-time packages designed to maximize value and simplify the decision.</p>
-        </Reveal>
-        <Reveal>
-          <GlassCard className="pricing-table-card">
-            <table className="pricing-table">
-              <thead>
-                <tr>
-                  <th>Pack</th>
-                  <th>Content</th>
-                  <th>Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                {PACKS.map((pack) => (
-                  <tr key={pack.name}>
-                    <td data-label="Pack">{pack.name}</td>
-                    <td data-label="Content">{pack.content}</td>
-                    <td data-label="Price" className="pricing-price">{pack.price}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </GlassCard>
-        </Reveal>
 
         <Reveal className="pricing-block-head">
           <h3>Monthly subscriptions</h3>

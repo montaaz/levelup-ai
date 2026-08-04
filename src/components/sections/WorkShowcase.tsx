@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import VideoSlot from "@/components/media/VideoSlot";
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
@@ -50,17 +52,14 @@ export default function WorkShowcase() {
 
           <Reveal as="article" delay={0.18}>
             <GlassCard className="work-card" tilt={false}>
-              <span className="work-tag">Smart automation</span>
-              <div className="automation-showcase">
-                <div className="automation-panel">
-                  <small>YOUR BUSINESS WORKFLOW</small>
-                  <div className="automation-row">
-                    <span className="automation-node">Form</span><b>›</b>
-                    <span className="automation-node">AI</span><b>›</b>
-                    <span className="automation-node">Follow-up</span>
-                  </div>
-                </div>
-              </div>
+              <Image
+                className="work-image"
+                src="/lim.png"
+                alt="A giant lemon floating in the sea with a lighthouse on top"
+                width={1600}
+                height={1600}
+                sizes="(max-width: 740px) 100vw, (max-width: 980px) 50vw, 33vw"
+              />
             </GlassCard>
           </Reveal>
         </div>

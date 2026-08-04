@@ -16,11 +16,12 @@ type RevealProps = {
   className?: string;
   delay?: number;
   y?: number;
+  id?: string;
 };
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-export default function Reveal({ children, as = "div", className, delay = 0, y = 28 }: RevealProps) {
+export default function Reveal({ children, as = "div", className, delay = 0, y = 28, id }: RevealProps) {
   const MotionTag = TAGS[as];
   const variants: Variants = {
     hidden: { opacity: 0, y },
@@ -29,6 +30,7 @@ export default function Reveal({ children, as = "div", className, delay = 0, y =
 
   return (
     <MotionTag
+      id={id}
       className={clsx(className)}
       initial="hidden"
       whileInView="visible"

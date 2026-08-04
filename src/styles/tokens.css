@@ -25,6 +25,21 @@
   --pastel-peach: #f6c39a;
   --pastel-coral: #ef7d8a;
 
+  /* Card-fill tints: each swatch above at 65% over white. Used where a
+     pastel is a *background* carrying dark text (e.g. the service cards on
+     the light Pricing band). The full-strength swatches are too saturated
+     for small body copy — --pastel-coral only reaches 2.4:1 behind --muted,
+     while every tint below clears 4.5:1 for body and 8:1 for titles. */
+  --tint-lavender: #e4def5;
+  --tint-sky: #d5eff8;
+  --tint-sand: #eae4d9;
+  --tint-mint: #d5efe3;
+  --tint-pink: #f7dbe6;
+  --tint-butter: #fcf0cc;
+  --tint-peach: #f9d8bd;
+  --tint-coral: #f5aab3;
+  --tint-body: #654257;
+
   /* Text */
   --text: #2b2438;
   --muted: #746c85;

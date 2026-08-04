@@ -396,30 +396,73 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .glass-card-content { position: relative; height: 100%; }
 
 /* ---------- Services ---------- */
-.services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 10px; }
+.services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 10px; }
 .service {
   position: relative;
-  min-height: 530px;
-  padding: 34px 29px 74px;
+  min-height: 580px;
+  padding: 32px 24px 74px;
   border-radius: var(--radius);
 }
-.service-number { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: var(--gold); }
-.service-icon { margin: 35px 0 42px; width: 90px; height: 90px; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--champagne); }
-.service-icon svg { width: 44px; }
-.service h3 { max-width: 300px; margin-bottom: 18px; font-size: 28px; line-height: 1.02; letter-spacing: -.015em; font-weight: 600; }
-.service-copy { min-height: 80px; color: var(--muted); font-size: 14px; line-height: 1.65; }
-.service-list { margin: 23px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 13px; font-weight: 600; }
+/* Each pack card carries its own pastel --accent (set inline in Services.tsx)
+   so the four cards read as a palette rather than four identical pink ones.
+   The pastels are pale tints: they're used for text only on the dark card
+   background here, where each clears 12:1 contrast. */
+.service { --accent: var(--gold); }
+.service-number { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: var(--accent); }
+.service-icon {
+  margin: 28px 0 32px;
+  width: 74px;
+  height: 74px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+}
+.service-icon svg { width: 36px; }
+.service h3 { max-width: 300px; margin-bottom: 8px; font-size: 25px; line-height: 1.05; letter-spacing: -.015em; font-weight: 600; color: var(--accent); }
+.service-price { margin-bottom: 16px; font-size: 15px; font-weight: 700; letter-spacing: -.01em; color: var(--text); }
+.service-copy { margin: 0; min-height: 92px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+/* Flex column so the bullet list is pushed to the bottom of the card and the
+   absolutely-pinned .service-link never rides on top of the last bullet,
+   however uneven the copy lengths are across the four packs. */
+.service .glass-card-content { display: flex; flex-direction: column; }
+.service-list { margin: auto 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 13px; font-weight: 600; }
 .service-list li { padding: 10px 0; border-top: 1px solid var(--line); }
-.service-link { position: absolute; left: 29px; bottom: 30px; display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: var(--gold); }
+.service-link { position: absolute; left: 24px; bottom: 30px; display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: var(--accent); }
 .service-link svg { width: 17px; transition: transform .2s ease; }
 .service-link:hover svg { transform: translateX(5px); }
 
 /* ---------- Pricing ---------- */
 .pricing-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 10px 0 60px; }
-.pricing-service { padding: 26px 24px; border-radius: var(--radius-sm); }
-.pricing-service h3 { font-size: 17px; letter-spacing: -.01em; margin-bottom: 10px; }
-.pricing-service p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
-.pricing-block-head { margin: 0 0 18px; }
+/* Each card gets its own pastel fill via an inline --tint (set in Pricing.tsx).
+   Solid, not translucent: these sit on the sand->butter->peach band, and a
+   translucent fill would let that gradient pull every card back toward the
+   same cream. Overrides `.section-vivid .glass` — hence the matching
+   selector depth. Body copy switches off --muted to the darker --tint-body,
+   which clears 4.5:1 on all eight tints (--muted only manages 2.4:1 on coral). */
+.section-vivid .pricing-service {
+  padding: 26px 24px;
+  border-radius: var(--radius-sm);
+  background: var(--tint, rgba(255, 255, 255, 0.28));
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 10px 30px rgba(51, 23, 42, 0.07);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.section-vivid .pricing-service:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px rgba(51, 23, 42, 0.13);
+}
+/* The fill is opaque, so the blur has nothing to sample; the shared gold
+   hover glow would also cast every tint back toward the same pink. */
+.pricing-service { backdrop-filter: none; -webkit-backdrop-filter: none; }
+.pricing-service .glass-card-glow { display: none; }
+.pricing-service h3 { font-size: 17px; letter-spacing: -.01em; margin-bottom: 10px; color: var(--text); }
+.pricing-service p { margin: 0; color: var(--tint-body); font-size: 13px; line-height: 1.6; }
+/* Clears the 82px sticky nav (68px under 740px) so an anchored heading like
+   #services isn't hidden behind it when jumped to from the nav. */
+.pricing-block-head { margin: 0 0 18px; scroll-margin-top: 104px; }
 .pricing-block-head h3 { font-size: 26px; letter-spacing: -.01em; margin: 0 0 6px; font-family: var(--font-display); font-weight: 600; }
 .pricing-block-head p { margin: 0; color: var(--muted); font-size: 14px; }
 .pricing-table-card { padding: 8px; border-radius: var(--radius); margin-bottom: 50px; overflow-x: auto; }
@@ -472,12 +515,9 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .website-lines span:last-child { width: 67%; }
 .video-showcase { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(160deg, #1c1710, var(--bronze)); }
 .video-product { width: 108px; height: 176px; border-radius: 31px 31px 22px 22px; background: linear-gradient(165deg, #fdf5f8, #f6c39a 55%, #ef7d8a 100%); transform: rotate(9deg); box-shadow: 0 20px 50px rgba(0,0,0,.5); display: grid; place-items: center; color: var(--gold); font-weight: 700; font-size: 18px; text-align: center; line-height: .95; }
-.automation-showcase { position: absolute; inset: 0; padding: 79px 27px 24px; background: linear-gradient(160deg, #17181d, var(--panel-raised)); }
-.automation-panel { height: 100%; border: 1px solid var(--line-strong); border-radius: 15px; background: var(--panel); padding: 25px 20px; transform: rotate(2deg); }
-.automation-panel small { font-weight: 700; color: var(--muted); }
-.automation-row { margin-top: 19px; display: flex; align-items: center; gap: 8px; color: var(--muted); }
-.automation-node { flex: 1; height: 53px; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 9px; background: var(--panel-raised); font-size: 9px; font-weight: 700; text-align: center; color: var(--text); }
-.automation-node:nth-child(3) { background: var(--gold); color: var(--on-accent); border-color: var(--gold); }
+/* Fills the work card edge to edge. The source is square (1600x1600) and the
+   card is landscape, so `cover` crops the sides rather than letterboxing. */
+.work-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
 /* ---------- Process ---------- */
 .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
@@ -661,7 +701,7 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
   .hero { padding-top: 60px; }
   .hero-cine-bg { margin-top: -60px; margin-bottom: calc(-100vh + 60px); }
   .hero-device-phone { position: static; margin: 24px auto 0; display: flex; justify-content: center; }
-  .services { grid-template-columns: 1fr; }
+  .services { grid-template-columns: 1fr 1fr; }
   .service { min-height: 475px; }
   .pricing-services { grid-template-columns: 1fr 1fr; }
   .sticky-copy { position: static; }
@@ -706,7 +746,9 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
   .section { padding: 78px 0; }
   .section-head { gap: 20px; margin-bottom: 40px; }
   .section h2 { font-size: 44px; }
+  .services { grid-template-columns: 1fr; }
   .service { min-height: 510px; padding-inline: 22px; }
+  .service-link { left: 22px; }
   .pricing-services { grid-template-columns: 1fr; }
   .pricing-table thead { display: none; }
   .pricing-table, .pricing-table tbody, .pricing-table tr, .pricing-table td { display: block; width: 100%; }

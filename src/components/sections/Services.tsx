@@ -1,14 +1,18 @@
+import type { CSSProperties } from "react";
+
 import CinematicBackground from "@/components/media/CinematicBackground";
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
 
 const SERVICES = [
   {
-    number: "SERVICE 01",
-    title: "Affordable websites that mean business.",
-    copy: "Professional, modern websites for small businesses and startups that need to launch quickly without paying big-agency prices.",
-    list: ["Landing pages and business websites", "Mobile-ready, fast and easy to navigate", "Clear messaging and conversion-focused design"],
-    cta: "Build my website",
+    number: "PACK 01",
+    title: "Discovery Pack",
+    price: "From 890 TND",
+    accent: "var(--pastel-lavender)",
+    copy: "The easiest way to start. Pick the one thing your business needs most right now and get it done properly.",
+    list: ["AI showcase website (5-6 pages)", "or AI product shoot (10 visuals)", "Perfect first step for a new brand"],
+    cta: "Start with Discovery",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
         <rect x="3" y="4" width="18" height="16" rx="2" />
@@ -17,11 +21,13 @@ const SERVICES = [
     ),
   },
   {
-    number: "SERVICE 02",
-    title: "AI commercial videos people remember.",
-    copy: "Product commercials, social ads, and short-form creative made with AI and shaped by real marketing strategy.",
-    list: ["Product and service commercials", "Instagram Reels and short social ads", "Concept, script, visuals and final edit"],
-    cta: "Create my video",
+    number: "PACK 02",
+    title: "Launch Pack",
+    price: "1,890 TND",
+    accent: "var(--pastel-sky)",
+    copy: "Everything you need to go live with confidence: a website, a full set of visuals, and your first video.",
+    list: ["AI showcase website", "AI product shoot (10 visuals)", "1 short video"],
+    cta: "Launch my brand",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
         <rect x="3" y="5" width="14" height="14" rx="2" />
@@ -30,16 +36,31 @@ const SERVICES = [
     ),
   },
   {
-    number: "SERVICE 03",
-    title: "AI automations that give time back.",
-    copy: "Smart workflows and business assistants that reduce repetitive work, follow up with leads, and keep your business moving.",
-    list: ["Lead capture and follow-up systems", "Content and client workflow automation", "Custom AI assistants for daily operations"],
-    cta: "Automate my business",
+    number: "PACK 03",
+    title: "Growth Pack",
+    price: "3,490 TND",
+    accent: "var(--pastel-mint)",
+    copy: "Built for brands already selling. More visuals, more video, and enough content to stay visible every week.",
+    list: ["AI showcase website", "AI product shoot (20 visuals)", "2 short videos"],
+    cta: "Grow my business",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-        <path d="M4 7h7v5H4zM13 12h7v5h-7zM7.5 12v3h5.5M11 9.5h3.5V12" />
-        <circle cx="4" cy="17" r="1.5" />
-        <circle cx="20" cy="7" r="1.5" />
+        <path d="M4 18V10M10 18V6M16 18v-5M22 18V4" />
+        <path d="M2 21h20" />
+      </svg>
+    ),
+  },
+  {
+    number: "PACK 04",
+    title: "Pro Max Pack",
+    price: "4,900 TND",
+    accent: "var(--pastel-butter)",
+    copy: "Our complete package. A full content library for brands that want to dominate their market all year.",
+    list: ["AI showcase website", "AI product shoot (40 visuals)", "4 short videos"],
+    cta: "Go Pro Max",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+        <path d="m12 3 2.6 5.5 6 .9-4.3 4.3 1 6.1-5.3-2.9-5.3 2.9 1-6.1L3.4 9.4l6-.9z" />
       </svg>
     ),
   },
@@ -47,26 +68,27 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section className="section section-dark section-dark-bridge" id="services">
+    <section className="section section-dark section-dark-bridge" id="packs">
       <CinematicBackground variant="services" src="/videos/services-bg.mp4" />
       <div className="wrap">
         <Reveal className="section-head">
           <div>
             <span className="section-kicker">What we do</span>
-            <h2>Three ways to level up your business.</h2>
+            <h2>Four packs to level up your business.</h2>
           </div>
           <p className="section-lead">
-            You do not need a giant agency budget. You need the right mix of design, storytelling, and automation built around your real goals.
+            You do not need a giant agency budget. Pick the pack that matches where your business is today — website, visuals, and video, bundled at one clear price.
           </p>
         </Reveal>
 
         <div className="services">
           {SERVICES.map((service, index) => (
             <Reveal key={service.number} delay={index * 0.1}>
-              <GlassCard className="service">
+              <GlassCard className="service" style={{ "--accent": service.accent } as CSSProperties}>
                 <div className="service-number">{service.number}</div>
                 <div className="service-icon">{service.icon}</div>
                 <h3>{service.title}</h3>
+                <div className="service-price">{service.price}</div>
                 <p className="service-copy">{service.copy}</p>
                 <ul className="service-list">
                   {service.list.map((item) => (
