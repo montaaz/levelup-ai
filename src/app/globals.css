@@ -366,6 +366,12 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .section-vivid .fit-index-label { color: var(--on-accent); mix-blend-mode: normal; }
 
 .section-vivid-pricing { background: linear-gradient(180deg, var(--pastel-sand) 0%, var(--pastel-butter) 45%, var(--pastel-peach) 100%); }
+/* Pricing's head is rebalanced against the site default: the "Services"
+   kicker carries more weight (it's the nav's landing label) while the long
+   headline drops a step so it stops dwarfing it. Scoped to #pricing so the
+   other sections keep the global 12px/70px scale. */
+#pricing .section-kicker { font-size: 17px; letter-spacing: .1em; }
+#pricing h2 { margin-top: 16px; max-width: 640px; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.06; }
 .section-vivid-fit { background: linear-gradient(180deg, var(--pastel-peach) 0%, var(--pastel-pink) 55%, var(--pastel-coral) 100%); }
 /* FitList -> WorkShowcase -> VideoCarousel -> AICommercials -> ProcessTimeline
    is one continuous gradient chain — every section here starts exactly on
@@ -436,29 +442,37 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 
 /* ---------- Pricing ---------- */
 .pricing-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 10px 0 60px; }
-/* Each card gets its own pastel fill via an inline --tint (set in Pricing.tsx).
-   Solid, not translucent: these sit on the sand->butter->peach band, and a
-   translucent fill would let that gradient pull every card back toward the
-   same cream. Overrides `.section-vivid .glass` — hence the matching
-   selector depth. Body copy switches off --muted to the darker --tint-body,
-   which clears 4.5:1 on all eight tints (--muted only manages 2.4:1 on coral). */
+/* Frosted pastel glass. Each card carries its own --tint/--deep pair inline
+   (set in Pricing.tsx). The fill is a translucent wash of the tint over a
+   white base rather than the flat colour it used to be: the white keeps the
+   card reading as glass against the sand->butter->peach band, while the
+   colour-mix keeps each one distinctly its own hue. A top-left highlight and
+   a real backdrop blur complete the glass; the shared gold hover glow stays
+   off, since it would pull every tint back toward the same pink.
+   Contrast: body copy uses --tint-body (>=4.5:1 on every tint, over both
+   ends of the band); titles use --deep (>=5:1, coral tightest at 6.3:1). */
 .section-vivid .pricing-service {
   padding: 26px 24px;
   border-radius: var(--radius-sm);
-  background: var(--tint, rgba(255, 255, 255, 0.28));
-  border-color: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 10px 30px rgba(51, 23, 42, 0.07);
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 58%),
+    color-mix(in srgb, var(--tint, #fff) 92%, rgba(255, 255, 255, 0.9));
+  border: 1px solid color-mix(in srgb, var(--deep, #fff) 18%, rgba(255, 255, 255, 0.6));
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  box-shadow:
+    0 10px 30px rgba(51, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
   transition: transform .25s ease, box-shadow .25s ease;
 }
 .section-vivid .pricing-service:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 44px rgba(51, 23, 42, 0.13);
+  box-shadow:
+    0 18px 44px color-mix(in srgb, var(--deep, #000) 22%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
 }
-/* The fill is opaque, so the blur has nothing to sample; the shared gold
-   hover glow would also cast every tint back toward the same pink. */
-.pricing-service { backdrop-filter: none; -webkit-backdrop-filter: none; }
 .pricing-service .glass-card-glow { display: none; }
-.pricing-service h3 { font-size: 17px; letter-spacing: -.01em; margin-bottom: 10px; color: var(--text); }
+.pricing-service h3 { font-size: 17px; letter-spacing: -.01em; margin-bottom: 10px; color: var(--deep, var(--text)); }
 .pricing-service p { margin: 0; color: var(--tint-body); font-size: 13px; line-height: 1.6; }
 /* Clears the 82px sticky nav (68px under 740px) so an anchored heading like
    #services isn't hidden behind it when jumped to from the nav. */
@@ -515,9 +529,11 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .website-lines span:last-child { width: 67%; }
 .video-showcase { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(160deg, #1c1710, var(--bronze)); }
 .video-product { width: 108px; height: 176px; border-radius: 31px 31px 22px 22px; background: linear-gradient(165deg, #fdf5f8, #f6c39a 55%, #ef7d8a 100%); transform: rotate(9deg); box-shadow: 0 20px 50px rgba(0,0,0,.5); display: grid; place-items: center; color: var(--gold); font-weight: 700; font-size: 18px; text-align: center; line-height: .95; }
-/* Fills the work card edge to edge. The source is square (1600x1600) and the
-   card is landscape, so `cover` crops the sides rather than letterboxing. */
-.work-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* Fills the work card edge to edge (VideoSlot's own .video-slot-video does the
+   `cover` cropping). Distinct from .video-showcase, whose bronze gradient is
+   tuned to the product-commercial card's fallback. */
+.work-video-showcase { position: absolute; inset: 0; }
+.work-video-fallback { position: absolute; inset: 0; background: linear-gradient(160deg, var(--panel), var(--panel-raised)); }
 
 /* ---------- Process ---------- */
 .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }

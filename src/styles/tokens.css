@@ -38,7 +38,22 @@
   --tint-butter: #fcf0cc;
   --tint-peach: #f9d8bd;
   --tint-coral: #f5aab3;
-  --tint-body: #654257;
+  /* Darkened one step from #654257 so body copy still clears 4.5:1 on the
+     translucent glass fills, including coral over the band's darkest end. */
+  --tint-body: #59394a;
+
+  /* Deep companions to the swatches above — same hue, dropped to ~30%
+     lightness. Used for card titles so each heading echoes its own card
+     colour instead of defaulting to near-black; every one clears 4.5:1 on
+     its matching glass fill (coral, the tightest, sits at 6.3:1). */
+  --deep-lavender: #2e196b;
+  --deep-sky: #19556b;
+  --deep-sand: #6b5219;
+  --deep-mint: #196b45;
+  --deep-pink: #6b1939;
+  --deep-butter: #6b5719;
+  --deep-peach: #6b3e19;
+  --deep-coral: #6b1923;
 
   /* Text */
   --text: #2b2438;

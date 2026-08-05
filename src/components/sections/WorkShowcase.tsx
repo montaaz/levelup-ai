@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import VideoSlot from "@/components/media/VideoSlot";
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
@@ -52,13 +50,10 @@ export default function WorkShowcase() {
 
           <Reveal as="article" delay={0.18}>
             <GlassCard className="work-card" tilt={false}>
-              <Image
-                className="work-image"
-                src="/lim.png"
-                alt="A giant lemon floating in the sea with a lighthouse on top"
-                width={1600}
-                height={1600}
-                sizes="(max-width: 740px) 100vw, (max-width: 980px) 50vw, 33vw"
+              <VideoSlot
+                className="work-video-showcase"
+                src="/videos/new/14.mp4"
+                fallback={<div className="work-video-fallback" />}
               />
             </GlassCard>
           </Reveal>

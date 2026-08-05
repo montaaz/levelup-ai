@@ -10,46 +10,55 @@ const AI_SERVICES = [
     title: "AI websites",
     copy: "Professional, fast, optimized showcase sites. Delivered in days instead of weeks.",
     tint: "var(--tint-lavender)",
+    deep: "var(--deep-lavender)",
   },
   {
     title: "AI product shoots",
     copy: "Product visuals generated in a virtual studio or lifestyle setting, no travel or photo gear, high-quality output.",
     tint: "var(--tint-sky)",
+    deep: "var(--deep-sky)",
   },
   {
     title: "AI videos",
     copy: "Short videos for social media, ads, or product presentations, made to the same visual standard as a classic production.",
     tint: "var(--tint-mint)",
+    deep: "var(--deep-mint)",
   },
   {
     title: "AI copywriting",
     copy: "Product sheets, e-commerce descriptions, and ad copy written and tailored to the client's brand voice.",
     tint: "var(--tint-butter)",
+    deep: "var(--deep-butter)",
   },
   {
     title: "Voiceover & multilingual dubbing",
     copy: "Videos available in multiple languages with no new shoot, so you can reach international markets.",
     tint: "var(--tint-pink)",
+    deep: "var(--deep-pink)",
   },
   {
     title: "Avatars & virtual spokespeople",
     copy: "Regular on-camera presence for the brand without needing a real person for every shoot.",
     tint: "var(--tint-peach)",
+    deep: "var(--deep-peach)",
   },
   {
     title: "Chatbots & automation",
     copy: "Conversational agents for customer support or booking, on WhatsApp, your website, or Messenger.",
     tint: "var(--tint-coral)",
+    deep: "var(--deep-coral)",
   },
   {
     title: "Automated email marketing",
     copy: "Segmentation, message personalization, and automated follow-ups driven by AI.",
     tint: "var(--tint-sand)",
+    deep: "var(--deep-sand)",
   },
   {
     title: "Express visual identity",
     copy: "Logo and brand guidelines generated quickly for businesses just getting started.",
     tint: "var(--tint-sky)",
+    deep: "var(--deep-sky)",
   },
 ];
 
@@ -72,7 +81,7 @@ export default function Pricing() {
       <div className="wrap">
         <Reveal className="section-head">
           <div>
-            <span className="section-kicker">Level Up AI</span>
+            <span className="section-kicker">Services</span>
             <h2>AI-powered marketing, at a fraction of the cost.</h2>
           </div>
           <p className="section-lead">
@@ -88,13 +97,15 @@ export default function Pricing() {
             what we actually offer. The pack cards further up the page are
             bundles/pricing, so they own #packs instead. */}
         <Reveal className="pricing-block-head" id="services">
-          <h3>Services</h3>
           <p>Everything we can build for you, powered end to end by AI.</p>
         </Reveal>
         <div className="pricing-services">
           {AI_SERVICES.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.04}>
-              <GlassCard className="pricing-service" style={{ "--tint": service.tint } as CSSProperties}>
+              <GlassCard
+                className="pricing-service"
+                style={{ "--tint": service.tint, "--deep": service.deep } as CSSProperties}
+              >
                 <h3>{service.title}</h3>
                 <p>{service.copy}</p>
               </GlassCard>
