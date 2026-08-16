@@ -5,13 +5,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import VideoSlot from "@/components/media/VideoSlot";
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
+import { useTranslations } from "@/i18n/LocaleProvider";
+import { interpolate } from "@/i18n/dictionaries";
 
+/** Labels live in the dictionaries, keyed by id. (These were previously
+ *  hardcoded in French even on the English site — the EN dictionary now
+ *  carries proper English for them.) */
 const CARDS = [
-  { id: "clip-7", label: "Fashion", src: "/videos/new/7.mp4", rotate: -3 },
-  { id: "clip-8", label: "Pharmaceutique", src: "/videos/new/13.mp4", rotate: 2 },
-  { id: "clip-9", label: "Immobilier", src: "/videos/new/12.mp4", rotate: -1.5 },
-  { id: "clip-10", label: "Produit cosmetique", src: "/videos/new/10.mp4", rotate: 3 },
-];
+  { id: "clip-7", src: "/videos/new/7.mp4", rotate: -3 },
+  { id: "clip-8", src: "/videos/new/13.mp4", rotate: 2 },
+  { id: "clip-9", src: "/videos/new/12.mp4", rotate: -1.5 },
+  { id: "clip-10", src: "/videos/new/10.mp4", rotate: 3 },
+] as const;
 
 /**
  * Horizontal scroll-snap track of mood/style reference clips — native touch
@@ -23,6 +28,7 @@ const CARDS = [
 const DRAG_THRESHOLD = 6;
 
 export default function VideoCarousel() {
+  const t = useTranslations();
   const trackRef = useRef<HTMLDivElement>(null);
   const lightboxVideoRef = useRef<HTMLVideoElement>(null);
   const [activeCard, setActiveCard] = useState<(typeof CARDS)[number] | null>(null);
@@ -143,11 +149,11 @@ export default function VideoCarousel() {
       <div className="wrap">
         <Reveal className="section-head">
           <div>
-            <span className="section-kicker">More from the studio</span>
-            <h2>What we can build for you.</h2>
+            <span className="section-kicker">{t.carousel.kicker}</span>
+            <h2>{t.carousel.title}</h2>
           </div>
           <p className="section-lead">
-            A look at the kind of cinematic style we produce — not client work, just the range.
+            {t.carousel.lead}
           </p>
         </Reveal>
       </div>
@@ -163,7 +169,7 @@ export default function VideoCarousel() {
             style={{ "--card-rotate": `${card.rotate}deg` } as React.CSSProperties}
             role="button"
             tabIndex={0}
-            aria-label={`Play ${card.label} with sound`}
+            aria-label={interpolate(t.carousel.playWithSound, { label: t.carousel.labels[card.id] })}
             onPointerDown={resetDrag}
             onClick={() => openCard(card)}
             onKeyDown={(event) => {
@@ -174,7 +180,7 @@ export default function VideoCarousel() {
             }}
           >
             <GlassCard className="video-carousel-glass" tilt={false}>
-              <span className="video-carousel-label">{card.label}</span>
+              <span className="video-carousel-label">{t.carousel.labels[card.id]}</span>
               <VideoSlot
                 className="video-carousel-video-slot"
                 src={card.src}
@@ -191,7 +197,7 @@ export default function VideoCarousel() {
             className="video-lightbox"
             role="dialog"
             aria-modal="true"
-            aria-label={activeCard.label}
+            aria-label={t.carousel.labels[activeCard.id]}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -224,7 +230,7 @@ export default function VideoCarousel() {
               type="button"
               className="video-lightbox-close"
               onClick={() => setActiveCard(null)}
-              aria-label="Close video"
+              aria-label={t.carousel.close}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M6 6l12 12M18 6L6 18" /></svg>
             </button>

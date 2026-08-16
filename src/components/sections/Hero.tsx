@@ -9,6 +9,7 @@ import CinematicBackground from "@/components/media/CinematicBackground";
 import RevealText from "@/components/ui/RevealText";
 import DeviceMockup from "@/components/hero/DeviceMockup";
 import AutomationPhone from "@/components/hero/AutomationPhone";
+import { useTranslations } from "@/i18n/LocaleProvider";
 import { useCursorTilt } from "@/hooks/useCursorTilt";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -44,6 +45,7 @@ const cinematicContent: Variants = {
 };
 
 export default function Hero() {
+  const copy = useTranslations();
   const { containerRef: tiltRef, tiltX, tiltY } = useCursorTilt();
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
@@ -127,7 +129,7 @@ export default function Hero() {
           }
         };
 
-        // Pin flush against the sticky nav's own height, not the raw
+        // Pin flush against the fixed nav's own height, not the raw
         // viewport top — without this offset the pinned laptop content
         // sits directly under the 82px nav bar with zero clearance, so
         // panel text/buttons near the top visually collide with it.
@@ -223,61 +225,26 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: EASE_OUT }}
           >
-            <span className="eyebrow-dot"></span> AI powered creative studio
+            <span className="eyebrow-dot"></span> {copy.hero.eyebrow}
           </motion.span>
 
           <RevealText
             as="h1"
             className="hero-h1"
             delay={0.15}
-            lines={["Big ideas.", <span className="underline" key="u">Smart build.</span>, "Real growth."]}
+            lines={[
+              copy.hero.headline[0],
+              <span className="underline" key="u">{copy.hero.headline[1]}</span>,
+              copy.hero.headline[2],
+            ]}
           />
-
-          <motion.div
-            className="hero-copy-panel glass"
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.55 }}
-          >
-            <p className="hero-copy">
-              LevelUp AI helps small businesses and startups look bigger, move faster, and grow smarter
-              with affordable websites, AI commercial videos, and practical automations.
-            </p>
-
-            <div className="hero-proof">
-              <span className="proof-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}><path d="m5 12 4 4L19 6" /></svg>
-                Small-business friendly
-              </span>
-              <span className="proof-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}><path d="m5 12 4 4L19 6" /></svg>
-                Fast, focused delivery
-              </span>
-              <span className="proof-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}><path d="m5 12 4 4L19 6" /></svg>
-                Human-guided AI
-              </span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="hero-actions"
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.7 }}
-          >
-            <a className="button glass-gold-border" href="#contact">
-              Let&apos;s build your project
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.3}>
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </a>
-            <a className="button secondary" href="#services">
-              Explore services
-            </a>
-          </motion.div>
         </div>
       </motion.div>
+
+      {/* Clear-video scroll runway — see .hero-video-runway. Keeps the
+          laptop out of frame until you've scrolled past a screenful of
+          the background video on its own. */}
+      <div className="hero-video-runway" aria-hidden="true" />
 
       <motion.div
         className="wrap hero-device-wrap"
@@ -293,6 +260,55 @@ export default function Hero() {
             <AutomationPhone tiltX={tiltX} tiltY={tiltY} activeIndex={phonePhase} />
           </div>
         </div>
+      </motion.div>
+
+      {/* Supporting copy + CTAs live BELOW the device stage, not beside the
+          H1. The hero's background is a full-bleed product video, and the
+          old stacked-in-the-text-column position parked this card right
+          over the video's focal area. Moving it under the desktop mockup
+          leaves the upper hero clear so the video reads properly, and
+          keeps the reading order headline → demo → pitch → CTA. */}
+      <motion.div
+        className="wrap hero-below"
+        animate={cinematicMode ? "hidden" : "visible"}
+        variants={cinematicContent}
+        custom={-70}
+        style={{ pointerEvents: cinematicMode ? "none" : "auto" }}
+      >
+        <motion.div
+          className="hero-copy-panel glass"
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.55 }}
+        >
+          <p className="hero-copy">{copy.hero.copy}</p>
+
+          <div className="hero-proof">
+            {copy.hero.proof.map((item: string) => (
+              <span className="proof-item" key={item}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}><path d="m5 12 4 4L19 6" /></svg>
+                {item}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="hero-actions"
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.7 }}
+        >
+          <a className="button glass-gold-border" href="#contact">
+            {copy.hero.ctaPrimary}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.3}>
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+          <a className="button secondary" href="#services">
+            {copy.hero.ctaSecondary}
+          </a>
+        </motion.div>
       </motion.div>
     </section>
   );

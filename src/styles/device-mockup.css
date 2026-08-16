@@ -9,7 +9,7 @@
 .automation-phone-glow {
   position: absolute;
   inset: -30%;
-  background: radial-gradient(circle at 50% 20%, rgba(232, 116, 138, 0.35), transparent 65%);
+  background: radial-gradient(circle at 50% 20%, rgba(251, 54, 244, 0.5), transparent 68%);
   animation: phoneGlow 5s ease-in-out infinite;
   pointer-events: none;
 }
@@ -21,7 +21,11 @@
   z-index: 1;
   min-height: 220px;
   border-radius: 24px;
-  background: linear-gradient(165deg, #fdf5f8, #f6c39a 55%, #ef7d8a 100%);
+  background: linear-gradient(150deg, #4fdfe4 0%, #4bb8e8 28%, #6b7fe4 62%, #a86fd4 100%);
+  --screen-ink: #140a2e;
+  --screen-body: rgba(20, 10, 46, 0.9);
+  --screen-dim: rgba(20, 10, 46, 0.88);
+  --screen-card: rgba(255, 255, 255, 0.34);
   padding: 16px 14px;
   display: flex;
   flex-direction: column;
@@ -35,7 +39,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--muted);
+  color: var(--screen-dim);
 }
 .automation-phone-stack {
   position: relative;
@@ -49,24 +53,26 @@
   gap: 4px;
   padding: 14px;
   border-radius: 16px;
-  border: 1px solid var(--line);
-  background: var(--panel-raised);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .automation-phone-toast-label {
   font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--gold);
+  color: var(--screen-ink);
 }
 .automation-phone-toast-title {
   font-size: 15px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--screen-ink);
 }
 .automation-phone-toast-detail {
   font-size: 11px;
-  color: var(--muted);
+  color: var(--screen-body);
 }
 .automation-phone-dots {
   display: flex;
@@ -78,11 +84,11 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--line-strong);
+  background: rgba(20, 10, 46, 0.3);
   transition: background 0.3s ease, transform 0.3s ease;
 }
 .automation-phone-dots .dot-active {
-  background: var(--gold);
+  background: var(--screen-ink);
   transform: scale(1.3);
 }
 
@@ -102,7 +108,7 @@
   position: relative;
   border-radius: 18px 18px 6px 6px;
   padding: 20px 20px 30px;
-  box-shadow: 0 0 0 1px rgba(232, 116, 138, 0.16), var(--shadow);
+  box-shadow: 0 0 0 1px rgba(251, 54, 244, 0.16), var(--shadow);
 }
 .laptop-notch {
   position: absolute;
@@ -119,7 +125,15 @@
   aspect-ratio: 16 / 10;
   border-radius: 6px;
   overflow: hidden;
-  background: linear-gradient(165deg, #fdf5f8, #f6c39a 55%, #ef7d8a 100%);
+  background: linear-gradient(150deg, #4fdfe4 0%, #4bb8e8 28%, #6b7fe4 62%, #a86fd4 100%);
+  /* The screen is a bright surface inside a dark page, so it carries its
+     own inverted text scale. White copy only reaches ~1.5:1 on the cyan
+     end of this gradient; these dark tokens clear 4.5:1 across every stop. */
+  --screen-ink: #140a2e;
+  --screen-body: rgba(20, 10, 46, 0.9);
+  --screen-dim: rgba(20, 10, 46, 0.88);
+  --screen-card: rgba(255, 255, 255, 0.28);
+  --screen-line: rgba(20, 10, 46, 0.18);
 }
 .laptop-hinge {
   height: 8px;
@@ -170,16 +184,16 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--muted-dim);
+  color: var(--screen-dim);
   margin-bottom: clamp(24px, 5vw, 44px);
 }
-.screen-mini-logo { color: var(--gold); }
+.screen-mini-logo { color: var(--screen-ink); }
 .screen-panel-kicker {
   font-size: clamp(9px, 1.4vw, 11px);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--gold);
+  color: var(--screen-ink);
   margin-bottom: clamp(12px, 2.4vw, 18px);
 }
 .screen-panel-title {
@@ -188,14 +202,14 @@
   font-size: clamp(26px, 4.6vw, 44px);
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--text);
+  color: var(--screen-ink);
   margin-bottom: 16px;
   max-width: 92%;
 }
 .screen-panel-copy {
   font-size: clamp(12px, 1.7vw, 15px);
   line-height: 1.55;
-  color: var(--muted);
+  color: var(--screen-body);
   max-width: 85%;
 }
 .screen-mini-button {
@@ -204,8 +218,8 @@
   margin-top: 22px;
   padding: 10px 18px;
   border-radius: 99px;
-  background: var(--gold);
-  color: var(--ink);
+  background: var(--screen-ink);
+  color: #f2f0f8;
   font-size: clamp(10px, 1.5vw, 12px);
   font-weight: 700;
 }
@@ -221,17 +235,17 @@
   gap: 6px;
   padding: clamp(12px, 1.8vw, 18px) clamp(10px, 1.6vw, 14px);
   border-radius: 10px;
-  border: 1px solid var(--line-strong);
-  background: var(--panel-raised);
+  border: 1px solid var(--screen-line);
+  background: var(--screen-card);
 }
 .screen-panel-card strong {
   font-size: clamp(11px, 1.7vw, 14px);
-  color: var(--gold-bright);
+  color: var(--screen-ink);
 }
 .screen-panel-card span {
   font-size: clamp(9px, 1.4vw, 11px);
   line-height: 1.4;
-  color: var(--muted);
+  color: var(--screen-body);
 }
 .screen-panel-tags {
   display: flex;
@@ -242,11 +256,11 @@
 .screen-panel-tag {
   padding: clamp(7px, 1.2vw, 10px) clamp(12px, 1.8vw, 16px);
   border-radius: 999px;
-  border: 1px solid var(--line-strong);
-  background: var(--panel-raised);
+  border: 1px solid var(--screen-line);
+  background: var(--screen-card);
   font-size: clamp(9px, 1.4vw, 11px);
   font-weight: 700;
-  color: var(--text);
+  color: var(--screen-ink);
 }
 
 @media (max-width: 980px) {
@@ -357,7 +371,7 @@
   border-radius: 50%;
   border: 1px solid rgba(245, 242, 234, 0.28);
   background: rgba(7, 7, 10, 0.6);
-  color: #f5f2ea;
+  color: #f2f0f8;
   cursor: pointer;
   transition: background .2s ease, transform .2s ease;
 }
@@ -419,7 +433,7 @@
   gap: 4px;
 }
 .ai-commercials-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--gold-bright); }
-.ai-commercials-title { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: #f5f2ea; line-height: 1.08; }
+.ai-commercials-title { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: #f2f0f8; line-height: 1.08; }
 .ai-commercials-play {
   position: absolute;
   top: 16px;
@@ -431,7 +445,7 @@
   border-radius: 50%;
   background: rgba(7, 7, 10, 0.5);
   border: 1px solid rgba(245, 242, 234, 0.3);
-  color: #f5f2ea;
+  color: #f2f0f8;
   backdrop-filter: blur(6px);
   transition: transform .25s ease, background .25s ease;
 }
@@ -480,7 +494,7 @@
   border-radius: 50%;
   background: rgba(245, 242, 234, 0.1);
   border: 1px solid rgba(245, 242, 234, 0.25);
-  color: #f5f2ea;
+  color: #f2f0f8;
   cursor: pointer;
   backdrop-filter: blur(8px);
   transition: transform .2s ease, background .2s ease;

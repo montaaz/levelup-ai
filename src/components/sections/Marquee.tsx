@@ -1,6 +1,10 @@
-const ITEMS = ["Websites that work", "AI videos that sell", "Automations that save time"];
+import { getDictionary } from "@/i18n/dictionaries";
+import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
-export default function Marquee() {
+export default async function Marquee({ lang }: { lang: string }) {
+  const t = getDictionary(isLocale(lang) ? lang : DEFAULT_LOCALE);
+  const ITEMS = t.marquee;
+
   return (
     <div className="marquee" aria-hidden="true">
       <div className="marquee-track">

@@ -2,19 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useTransform, type MotionValue } from "framer-motion";
+import { useTranslations } from "@/i18n/LocaleProvider";
 
-type Notification = {
-  id: string;
-  label: string;
-  title: string;
-  detail: string;
-};
-
-const NOTIFICATIONS: Notification[] = [
-  { id: "lead", label: "New lead", title: "Sarah M.", detail: "Website contact form" },
-  { id: "ai", label: "AI qualifying", title: "Budget confirmed", detail: "Ready for outreach" },
-  { id: "follow-up", label: "Follow-up sent", title: "Call booked", detail: "Tomorrow, 2:00 PM" },
-];
 
 const CYCLE_MS = 2800;
 
@@ -34,8 +23,11 @@ type AutomationPhoneProps = {
  * effect, and only if the user hasn't asked for reduced motion.
  */
 export default function AutomationPhone({ tiltX, tiltY, activeIndex: controlledIndex }: AutomationPhoneProps) {
+  const t = useTranslations();
+  const notifications = t.phone.notifications;
   const [internalIndex, setInternalIndex] = useState(0);
   const isControlled = controlledIndex !== undefined;
+  const count = notifications.length;
 
   useEffect(() => {
     if (isControlled) return;
@@ -43,18 +35,18 @@ export default function AutomationPhone({ tiltX, tiltY, activeIndex: controlledI
     if (reducedMotion) return;
 
     const interval = window.setInterval(() => {
-      setInternalIndex((current) => (current + 1) % NOTIFICATIONS.length);
+      setInternalIndex((current) => (current + 1) % count);
     }, CYCLE_MS);
 
     return () => window.clearInterval(interval);
-  }, [isControlled]);
+  }, [isControlled, count]);
 
   const rotateY = useTransform(tiltX, [-1, 1], [-9, 9]);
   const rotateX = useTransform(tiltY, [-1, 1], [6, -6]);
   const translateX = useTransform(tiltX, [-1, 1], [-14, 14]);
 
   const activeIndex = isControlled ? controlledIndex : internalIndex;
-  const active = NOTIFICATIONS[activeIndex];
+  const active = notifications[activeIndex];
 
   return (
     <motion.div
@@ -70,13 +62,13 @@ export default function AutomationPhone({ tiltX, tiltY, activeIndex: controlledI
       <div className="automation-phone-glow" aria-hidden="true" />
       <div className="automation-phone-screen">
         <div className="automation-phone-header">
-          <span>Lead follow-up</span>
-          <span className="live">● Live</span>
+          <span>{t.phone.header}</span>
+          <span className="live">● {t.phone.live}</span>
         </div>
         <div className="automation-phone-stack">
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.div
-              key={active.id}
+              key={activeIndex}
               className="automation-phone-toast"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
@@ -90,9 +82,9 @@ export default function AutomationPhone({ tiltX, tiltY, activeIndex: controlledI
           </AnimatePresence>
         </div>
         <div className="automation-phone-dots">
-          {NOTIFICATIONS.map((notification, index) => (
+          {notifications.map((notification, index) => (
             <span
-              key={notification.id}
+              key={notification.label}
               className={index === activeIndex ? "dot dot-active" : "dot"}
             />
           ))}

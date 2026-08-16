@@ -14,7 +14,11 @@ import Faq from "@/components/sections/Faq";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
-export default function Home() {
+/** Server sections take `lang` and load the dictionary directly; client
+ *  sections read it from LocaleProvider (set in the layout) instead. */
+export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+
   return (
     <>
       <div className="grain-overlay" aria-hidden="true"></div>
@@ -22,19 +26,19 @@ export default function Home() {
       <SiteNav />
       <main id="top">
         <Hero />
-        <Marquee />
-        <Services />
-        <Pricing />
+        <Marquee lang={lang} />
+        <Services lang={lang} />
+        <Pricing lang={lang} />
         <FitList />
-        <WorkShowcase />
+        <WorkShowcase lang={lang} />
         <VideoCarousel />
         <AICommercials />
         <ProcessTimeline />
         <QuoteBox />
         <Faq />
-        <Contact />
+        <Contact lang={lang} />
       </main>
-      <Footer />
+      <Footer lang={lang} />
     </>
   );
 }

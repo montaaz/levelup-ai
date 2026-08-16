@@ -1,70 +1,118 @@
 :root {
-  /* Pastel base */
-  --ink: #fffdfb;
-  --panel: #faf3e8;
-  --panel-raised: #f4e9d8;
-  --paper: #2b2438;
+  /* ---- Brand palette ----
+     The four source colours, as given:
+       #0100EC  electric blue     #FB36F4  magenta
+       #00FFED  cyan              #9D00C6  purple
+     They pair into the two reference gradients:
+       blue -> magenta   (primary)
+       cyan -> purple    (secondary)
+     Everything below is derived from these four. */
+  --brand-blue: #0100ec;
+  --brand-magenta: #fb36f4;
+  --brand-cyan: #00ffed;
+  --brand-purple: #9d00c6;
 
-  /* Coral / peach accents (primary), pastel family for backgrounds */
-  --gold: #e8748a;
-  --gold-bright: #f5967a;
-  --champagne: #d15f7a;
-  --bronze: #e0895f;
-  --gold-vivid: #f5967a;
-  --amber-deep: #e8748a;
-  --red-vivid: #ef6f7c;
-  --red-deep: #d8536a;
+  /* Lifted variants. #0100EC is very dark for a "bright" accent (it reads
+     near-navy on black), so the lifted blue is what actually gets used
+     wherever the raw token would disappear into the background.
+     Both are held bright enough that --on-accent (near-black) clears
+     4.5:1 on them — they form the two ends of the button gradient, so a
+     dark end would strand the label at ~3:1 halfway across the fill. */
+  --brand-blue-lit: #7b6bff;
+  --brand-purple-lit: #e26bfb;
 
-  /* Pastel palette swatches */
-  --pastel-lavender: #d6cdf0;
-  --pastel-sky: #bfe6f5;
-  --pastel-sand: #ded6c4;
-  --pastel-mint: #bfe6d4;
-  --pastel-pink: #f2c8d8;
-  --pastel-butter: #fbe8b0;
-  --pastel-peach: #f6c39a;
-  --pastel-coral: #ef7d8a;
+  /* Ground. Deep saturated indigo-violet, not near-black — the palette
+     lives on colour, so even the base surfaces carry hue. --ink is the
+     deepest (used for text on bright fills); --panel/--panel-raised step
+     up for cards and read as lit violet rather than grey boxes. */
+  --ink: #140a2e;
+  --paper: #1d1046;
+  --panel: #2a1660;
+  --panel-raised: #371d78;
 
-  /* Card-fill tints: each swatch above at 65% over white. Used where a
-     pastel is a *background* carrying dark text (e.g. the service cards on
-     the light Pricing band). The full-strength swatches are too saturated
-     for small body copy — --pastel-coral only reaches 2.4:1 behind --muted,
-     while every tint below clears 4.5:1 for body and 8:1 for titles. */
-  --tint-lavender: #e4def5;
-  --tint-sky: #d5eff8;
-  --tint-sand: #eae4d9;
-  --tint-mint: #d5efe3;
-  --tint-pink: #f7dbe6;
-  --tint-butter: #fcf0cc;
-  --tint-peach: #f9d8bd;
-  --tint-coral: #f5aab3;
-  /* Darkened one step from #654257 so body copy still clears 4.5:1 on the
-     translucent glass fills, including coral over the band's darkest end. */
-  --tint-body: #59394a;
+  /* ---- Accent aliases ----
+     Kept under their original names so the ~200 existing usages across the
+     stylesheets remap in place instead of needing a rename pass. The names
+     are now historical (there is no gold in this palette); the values are
+     the brand colours. */
+  --gold: #fb36f4;
+  --gold-bright: #e26bfb;
+  --champagne: #00ffed;
+  --bronze: #7b6bff;
+  --gold-vivid: #fb36f4;
+  --amber-deep: #00ffed;
+  --red-vivid: #fb36f4;
+  --red-deep: #9d00c6;
 
-  /* Deep companions to the swatches above — same hue, dropped to ~30%
-     lightness. Used for card titles so each heading echoes its own card
-     colour instead of defaulting to near-black; every one clears 4.5:1 on
-     its matching glass fill (coral, the tightest, sits at 6.3:1). */
-  --deep-lavender: #2e196b;
-  --deep-sky: #19556b;
-  --deep-sand: #6b5219;
-  --deep-mint: #196b45;
-  --deep-pink: #6b1939;
-  --deep-butter: #6b5719;
-  --deep-peach: #6b3e19;
-  --deep-coral: #6b1923;
+  /* Palette swatches. On a dark ground these are used as *luminous* marks —
+     borders, glows, small fills, gradient stops — not as large backgrounds
+     carrying text. */
+  --pastel-lavender: #a78bfa;
+  --pastel-sky: #38bdf8;
+  --pastel-sand: #a78bfa;
+  --pastel-mint: #00ffed;
+  --pastel-pink: #fb36f4;
+  --pastel-butter: #7dd3fc;
+  --pastel-peach: #e26bfb;
+  --pastel-coral: #fb36f4;
 
-  /* Text */
-  --text: #2b2438;
-  --muted: #746c85;
-  --muted-dim: #948da3;
-  --on-accent: #33172a;
+  /* Band grounds — full-viewport section backgrounds. These are the
+     saturated mid-tones from the reference gradients, NOT near-black
+     tints: the whole point of the palette is that sections read as
+     vivid blue / magenta / cyan / purple, not as a dark room with a
+     faint colour cast. They sit around 35-45% lightness, which is the
+     window where the hue is unmistakably itself and white body copy
+     still clears 4.5:1 on top. Anything darker kills the palette;
+     anything brighter breaks the text contrast. */
+  --band-blue: #2a1de0;
+  --band-indigo: #4b23d8;
+  --band-purple: #7a1fc4;
+  --band-magenta: #8a189a;
+  --band-teal: #12566f;
+  --band-cyan: #0e5570;
 
-  /* Structure */
-  --line: rgba(43, 36, 56, 0.12);
-  --line-strong: rgba(43, 36, 56, 0.2);
-  --shadow: 0 30px 90px rgba(43, 36, 56, 0.14);
+  /* Card-fill tints. On the light theme these were pale washes carrying
+     dark text; inverted here into translucent neon veils over the dark
+     ground, carrying LIGHT text. Alpha is kept low (~14%) so the fill
+     tints the card without ever competing with the copy on top — every
+     one of these clears 4.5:1 behind --tint-body below. */
+  --tint-lavender: rgba(167, 139, 250, 0.14);
+  --tint-sky: rgba(56, 189, 248, 0.14);
+  --tint-sand: rgba(125, 211, 252, 0.12);
+  --tint-mint: rgba(0, 255, 237, 0.12);
+  --tint-pink: rgba(251, 54, 244, 0.14);
+  --tint-butter: rgba(125, 211, 252, 0.14);
+  --tint-peach: rgba(226, 107, 251, 0.14);
+  --tint-coral: rgba(251, 54, 244, 0.16);
+  /* Body copy on those translucent fills. Light, slightly cooled to sit
+     with the palette rather than reading as plain grey. */
+  --tint-body: #e6e1f2;
+
+  /* Card titles. On the light theme these were *darkened* companions to
+     each swatch; on dark they invert to BRIGHTENED ones, so each heading
+     still echoes its own card colour while clearing 4.5:1 on the fill. */
+  --deep-lavender: #c4b5fd;
+  --deep-sky: #7dd3fc;
+  --deep-sand: #bfdbfe;
+  --deep-mint: #5cffef;
+  --deep-pink: #fd8bf8;
+  --deep-butter: #a5e8fc;
+  --deep-peach: #e08bfa;
+  --deep-coral: #fd8bf8;
+
+  /* Text. --on-accent rides on top of the saturated brand fills (buttons,
+     the brand mark); near-black holds up on magenta, cyan and the lifted
+     purple alike, where white would vibrate on cyan. */
+  --text: #f2f0f8;
+  --muted: #cdc6e4;
+  --muted-dim: #a49dbe;
+  --on-accent: #140a2e;
+
+  /* Structure. Hairlines are light-on-dark now, and the shadow is pure
+     black — a tinted shadow reads as haze against a dark ground. */
+  --line: rgba(242, 240, 248, 0.12);
+  --line-strong: rgba(242, 240, 248, 0.22);
+  --shadow: 0 30px 90px rgba(10, 4, 30, 0.5);
   --radius: 26px;
   --radius-sm: 16px;
 

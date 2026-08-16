@@ -3,16 +3,15 @@ import type { CSSProperties } from "react";
 import CinematicBackground from "@/components/media/CinematicBackground";
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
+import { getDictionary } from "@/i18n/dictionaries";
+import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
-const SERVICES = [
+/** Visual-only per-pack data. All copy lives in the dictionaries and is
+ *  joined to these by index — the icons are JSX and the accents are CSS
+ *  vars, so neither belongs in a translation file. */
+const PACK_VISUALS = [
   {
-    number: "PACK 01",
-    title: "Discovery Pack",
-    price: "From 890 TND",
     accent: "var(--pastel-lavender)",
-    copy: "The easiest way to start. Pick the one thing your business needs most right now and get it done properly.",
-    list: ["AI showcase website (5-6 pages)", "or AI product shoot (10 visuals)", "Perfect first step for a new brand"],
-    cta: "Start with Discovery",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
         <rect x="3" y="4" width="18" height="16" rx="2" />
@@ -21,13 +20,7 @@ const SERVICES = [
     ),
   },
   {
-    number: "PACK 02",
-    title: "Launch Pack",
-    price: "1,890 TND",
     accent: "var(--pastel-sky)",
-    copy: "Everything you need to go live with confidence: a website, a full set of visuals, and your first video.",
-    list: ["AI showcase website", "AI product shoot (10 visuals)", "1 short video"],
-    cta: "Launch my brand",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
         <rect x="3" y="5" width="14" height="14" rx="2" />
@@ -36,13 +29,7 @@ const SERVICES = [
     ),
   },
   {
-    number: "PACK 03",
-    title: "Growth Pack",
-    price: "3,490 TND",
     accent: "var(--pastel-mint)",
-    copy: "Built for brands already selling. More visuals, more video, and enough content to stay visible every week.",
-    list: ["AI showcase website", "AI product shoot (20 visuals)", "2 short videos"],
-    cta: "Grow my business",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
         <path d="M4 18V10M10 18V6M16 18v-5M22 18V4" />
@@ -51,13 +38,7 @@ const SERVICES = [
     ),
   },
   {
-    number: "PACK 04",
-    title: "Pro Max Pack",
-    price: "4,900 TND",
     accent: "var(--pastel-butter)",
-    copy: "Our complete package. A full content library for brands that want to dominate their market all year.",
-    list: ["AI showcase website", "AI product shoot (40 visuals)", "4 short videos"],
-    cta: "Go Pro Max",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
         <path d="m12 3 2.6 5.5 6 .9-4.3 4.3 1 6.1-5.3-2.9-5.3 2.9 1-6.1L3.4 9.4l6-.9z" />
@@ -66,23 +47,24 @@ const SERVICES = [
   },
 ];
 
-export default function Services() {
+export default async function Services({ lang }: { lang: string }) {
+  const t = getDictionary(isLocale(lang) ? lang : DEFAULT_LOCALE);
+  const packs = t.services.packs.map((pack, i) => ({ ...pack, ...PACK_VISUALS[i] }));
+
   return (
     <section className="section section-dark section-dark-bridge" id="packs">
       <CinematicBackground variant="services" src="/videos/services-bg.mp4" />
       <div className="wrap">
         <Reveal className="section-head">
           <div>
-            <span className="section-kicker">What we do</span>
-            <h2>Four packs to level up your business.</h2>
+            <span className="section-kicker">{t.services.kicker}</span>
+            <h2>{t.services.title}</h2>
           </div>
-          <p className="section-lead">
-            You do not need a giant agency budget. Pick the pack that matches where your business is today — website, visuals, and video, bundled at one clear price.
-          </p>
+          <p className="section-lead">{t.services.lead}</p>
         </Reveal>
 
         <div className="services">
-          {SERVICES.map((service, index) => (
+          {packs.map((service, index) => (
             <Reveal key={service.number} delay={index * 0.1}>
               <GlassCard className="service" style={{ "--accent": service.accent } as CSSProperties}>
                 <div className="service-number">{service.number}</div>

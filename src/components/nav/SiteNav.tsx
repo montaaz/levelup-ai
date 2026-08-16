@@ -2,17 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
+import Image from "next/image";
 import clsx from "clsx";
+import { useTranslations } from "@/i18n/LocaleProvider";
+import LocaleSwitcher from "./LocaleSwitcher";
 
+/** Link targets are locale-independent (they are same-page anchors); only
+ *  the visible label is translated, keyed by `key` into nav.links. */
 const LINKS = [
-  { href: "#services", label: "Services" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#work", label: "Our work" },
-  { href: "#process", label: "Process" },
-  { href: "#faq", label: "FAQ" },
-];
+  { href: "#services", key: "services" },
+  { href: "#pricing", key: "pricing" },
+  { href: "#work", key: "work" },
+  { href: "#process", key: "process" },
+  { href: "#faq", key: "faq" },
+] as const;
 
 export default function SiteNav() {
+  const t = useTranslations();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
@@ -30,37 +36,45 @@ export default function SiteNav() {
   }, [open]);
 
   return (
-    <nav className={clsx("nav", scrolled && "nav-scrolled", "glass")} aria-label="Main navigation">
+    <nav className={clsx("nav", scrolled && "nav-scrolled")} aria-label={t.nav.ariaLabel}>
       <div className="wrap nav-inner">
-        <a className="brand" href="#top" aria-label="LevelUp AI home">
-          <span className="brand-mark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} aria-hidden="true">
-              <path d="M5 17 12 5l7 12M8.5 13h7" />
-            </svg>
-          </span>
-          <span>LevelUp AI</span>
+        <a className="brand" href="#top" aria-label={t.nav.brandHome}>
+          {/* Full lockup — it already contains the wordmark and tagline, so
+              it replaces both the old icon and the "LevelUp AI" text. The
+              alt is empty because the parent anchor carries the label. */}
+          <Image
+            className="brand-logo"
+            src="/LEVEL_UP_IA_MASTER_TRANSPARENT.png"
+            alt=""
+            width={1150}
+            height={365}
+            priority
+          />
         </a>
-
-        <button
-          className="menu-button"
-          aria-label={open ? "Close navigation" : "Open navigation"}
-          aria-expanded={open}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-          </svg>
-        </button>
 
         <div className="nav-links nav-links-desktop">
           {LINKS.map((link) => (
             <a key={link.href} href={link.href}>
-              {link.label}
+              {t.nav.links[link.key]}
             </a>
           ))}
           <a className="nav-cta" href="#contact">
-            Start a project
+            {t.nav.cta}
           </a>
+        </div>
+
+        <div className="nav-tools">
+          <LocaleSwitcher />
+          <button
+            className="menu-button"
+            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={open}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -82,7 +96,7 @@ export default function SiteNav() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.05 * index, duration: 0.35 }}
               >
-                {link.label}
+                {t.nav.links[link.key]}
               </motion.a>
             ))}
             <motion.a
@@ -93,8 +107,16 @@ export default function SiteNav() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.05 * LINKS.length, duration: 0.35 }}
             >
-              Start a project
+              {t.nav.cta}
             </motion.a>
+            <motion.div
+              className="nav-mobile-locale"
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.05 * (LINKS.length + 1), duration: 0.35 }}
+            >
+              <LocaleSwitcher onSwitch={() => setOpen(false)} />
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -7,6 +7,7 @@ import VideoSlot from "./VideoSlot";
 import VideoRipple from "./VideoRipple";
 import { useParallaxY } from "@/hooks/useParallaxY";
 import { useUnmutableVideo } from "@/hooks/useUnmutableVideo";
+import { useTranslations } from "@/i18n/LocaleProvider";
 
 type Variant = "hero" | "services" | "process" | "contact";
 
@@ -64,8 +65,9 @@ const VARIANT_FALLBACK: Record<Variant, React.ReactNode> = {
  * regardless of its own z-index. The button has to live outside that
  * subtree entirely to be clickable over the hero copy/laptop. */
 function SoundButton({ onClick }: { onClick: () => void }) {
+  const t = useTranslations();
   return (
-    <button type="button" className="video-slot-sound" onClick={onClick} aria-label="Play with sound">
+    <button type="button" className="video-slot-sound" onClick={onClick} aria-label={t.media.playWithSound}>
       <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
         <path
           d="M4 9v6h4l5 4V5L8 9H4Z M16 8.5a4.5 4.5 0 0 1 0 7"
@@ -76,7 +78,7 @@ function SoundButton({ onClick }: { onClick: () => void }) {
           fill="none"
         />
       </svg>
-      <span>Sound on</span>
+      <span>{t.media.soundOn}</span>
     </button>
   );
 }

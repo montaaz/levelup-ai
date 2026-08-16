@@ -4,21 +4,25 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
+import { useTranslations } from "@/i18n/LocaleProvider";
+import { interpolate } from "@/i18n/dictionaries";
+
+/** label/title live in the dictionaries, keyed by id. */
+type ClipId = "mascara" | "grape-beauty" | "eyeshadow" | "lumea" | "jewel";
 
 type Clip = {
-  id: string;
-  label: string;
-  title: string;
+  id: ClipId;
   src: string;
   orientation: "landscape" | "portrait";
 };
 
 const CLIPS: Clip[] = [
-  { id: "mascara", label: "Beauty commercial", title: "Volume, in motion.", src: "/videos/new/1.mp4", orientation: "landscape" },
-  { id: "grape-beauty", label: "Product concept", title: "Grape Beauty.", src: "/videos/new/2.mp4", orientation: "portrait" },
-  { id: "eyeshadow", label: "Macro detail", title: "Every shade, up close.", src: "/videos/new/3.mp4", orientation: "portrait" },
-  { id: "lumea", label: "Product hero shot", title: "Lumea, crystal edition.", src: "/videos/new/4.mp4", orientation: "portrait" },
-  { id: "jewel", label: "Jewelry campaign", title: "The jewel is the look.", src: "/videos/new/5.mp4", orientation: "portrait" },
+ { id: "jewel", src: "/videos/new/5.mp4", orientation: "landscape" },
+  { id: "grape-beauty", src: "/videos/new/15.mp4", orientation: "portrait" },
+  { id: "eyeshadow", src: "/videos/new/3.mp4", orientation: "portrait" },
+  { id: "lumea", src: "/videos/new/16.mp4", orientation: "portrait" },
+    { id: "mascara", src: "/videos/new/1.mp4", orientation: "portrait" },
+ 
 ];
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -33,6 +37,7 @@ const EASE_DRAMATIC: [number, number, number, number] = [0.76, 0, 0.24, 1];
  * so nothing keeps burning bandwidth/CPU behind the modal.
  */
 export default function AICommercials() {
+  const t = useTranslations();
   const [activeId, setActiveId] = useState<string | null>(null);
   const cardVideoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const modalVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -96,11 +101,11 @@ export default function AICommercials() {
       <div className="wrap">
         <Reveal className="section-head">
           <div>
-            <span className="section-kicker">Real AI output</span>
-            <h2>Commercials, made by AI.</h2>
+            <span className="section-kicker">{t.commercials.kicker}</span>
+            <h2>{t.commercials.title}</h2>
           </div>
           <p className="section-lead">
-            Five real product spots, fully generated — no camera, no studio, no crew. Tap any card to watch with sound.
+            {t.commercials.lead}
           </p>
         </Reveal>
 
@@ -116,7 +121,7 @@ export default function AICommercials() {
                   type="button"
                   className="ai-commercials-trigger"
                   onClick={() => openClip(clip.id)}
-                  aria-label={`Play ${clip.title} with sound`}
+                  aria-label={interpolate(t.commercials.playWithSound, { title: t.commercials.clips[clip.id].title })}
                 >
                   <video
                     ref={(el) => {
@@ -132,8 +137,8 @@ export default function AICommercials() {
                   />
                   <span className="ai-commercials-scrim" aria-hidden="true" />
                   <span className="ai-commercials-meta">
-                    <span className="ai-commercials-label">{clip.label}</span>
-                    <span className="ai-commercials-title">{clip.title}</span>
+                    <span className="ai-commercials-label">{t.commercials.clips[clip.id].label}</span>
+                    <span className="ai-commercials-title">{t.commercials.clips[clip.id].title}</span>
                   </span>
                   <span className="ai-commercials-play" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="20" height="20">
@@ -175,18 +180,18 @@ export default function AICommercials() {
                 controls={false}
               />
               <div className="ai-commercials-lightbox-caption">
-                <span className="ai-commercials-label">{activeClip.label}</span>
-                <span className="ai-commercials-title">{activeClip.title}</span>
+                <span className="ai-commercials-label">{t.commercials.clips[activeClip.id].label}</span>
+                <span className="ai-commercials-title">{t.commercials.clips[activeClip.id].title}</span>
               </div>
             </motion.div>
 
-            <button type="button" className="ai-commercials-nav ai-commercials-nav-prev" onClick={(e) => { e.stopPropagation(); step(-1); }} aria-label="Previous clip">
+            <button type="button" className="ai-commercials-nav ai-commercials-nav-prev" onClick={(e) => { e.stopPropagation(); step(-1); }} aria-label={t.commercials.previous}>
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2.3}><path d="M15 6 9 12l6 6" /></svg>
             </button>
-            <button type="button" className="ai-commercials-nav ai-commercials-nav-next" onClick={(e) => { e.stopPropagation(); step(1); }} aria-label="Next clip">
+            <button type="button" className="ai-commercials-nav ai-commercials-nav-next" onClick={(e) => { e.stopPropagation(); step(1); }} aria-label={t.commercials.next}>
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2.3}><path d="m9 6 6 6-6 6" /></svg>
             </button>
-            <button type="button" className="ai-commercials-close" onClick={closeClip} aria-label="Close">
+            <button type="button" className="ai-commercials-close" onClick={closeClip} aria-label={t.commercials.close}>
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth={2.3}><path d="M6 6l12 12M18 6 6 18" /></svg>
             </button>
           </motion.div>

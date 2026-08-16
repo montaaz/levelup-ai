@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Reveal from "@/components/ui/Reveal";
+import { useTranslations } from "@/i18n/LocaleProvider";
 import ProcessCursorVideo from "@/components/hero/ProcessCursorVideo";
 import VideoSlot from "@/components/media/VideoSlot";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
@@ -13,11 +14,13 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const STEPS = [
-  { title: "Discover", copy: "We understand your business, audience, offer, and the result you need.", video: "/videos/process-discover.mp4" },
-  { title: "Shape", copy: "We define the right scope, creative direction, message, and project plan.", video: "/videos/process-shape.mp4" },
-  { title: "Build", copy: "We create, test, and refine the experience with your feedback.", video: "/videos/process-build.mp4" },
-  { title: "Launch", copy: "We deliver the final project, explain how it works, and help you move forward.", video: "/videos/process-launch.mp4" },
+/** Video paths only — step titles/copy come from the dictionary and are
+ *  joined by index. */
+const STEP_VIDEOS = [
+  "/videos/process-discover.mp4",
+  "/videos/process-shape.mp4",
+  "/videos/process-build.mp4",
+  "/videos/process-launch.mp4",
 ];
 
 /**
@@ -27,6 +30,8 @@ const STEPS = [
  * 4 steps render as a plain sequential whileInView reveal via <Reveal>.
  */
 export default function ProcessTimeline() {
+  const t = useTranslations();
+  const steps = t.process.steps.map((step, i) => ({ ...step, video: STEP_VIDEOS[i] }));
   const sectionRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
   const reducedMotion = usePrefersReducedMotion();
@@ -104,7 +109,7 @@ export default function ProcessTimeline() {
     { scope: sectionRef, dependencies: [reducedMotion], revertOnUpdate: true }
   );
 
-  const activeStep = STEPS[activeIndex ?? 0];
+  const activeStep = steps[activeIndex ?? 0];
 
   return (
     <section className="section section-vivid section-vivid-process process-section process-cursor-active" id="process" ref={sectionRef}>
@@ -112,14 +117,14 @@ export default function ProcessTimeline() {
       <div className="wrap">
         <Reveal className="section-head">
           <div>
-            <span className="section-kicker">Our process</span>
-            <h2>Clear from idea to launch.</h2>
+            <span className="section-kicker">{t.process.kicker}</span>
+            <h2>{t.process.title}</h2>
           </div>
-          <p className="section-lead">A focused process keeps projects moving, decisions easy, and surprises to a minimum.</p>
+          <p className="section-lead">{t.process.lead}</p>
         </Reveal>
 
         <div className="process">
-          {STEPS.map((step, index) => (
+          {steps.map((step, index) => (
             <Reveal
               as="article"
               key={step.title}
