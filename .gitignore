@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Sentry native crash-report scratch dir (local telemetry, machine-specific)
+.sentry-native/
