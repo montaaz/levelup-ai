@@ -147,18 +147,30 @@ button { color: inherit; }
    loose tag, so it spans the H1's own measure (same 690px max) instead of
    shrink-wrapping its text. `display: flex` — not inline-flex — is what
    lets the max-width actually stretch it. */
+/* Electric Gold (#FFD500) — the same warm accent used for the Pricing
+   kicker, and the one non-cool colour on the page, so it pulls the eye
+   straight to the studio's positioning line. It clears 13.8:1 on the dark
+   hero video. The pill is a soft gold-tinted glass rather than a solid
+   fill: a solid gold bar this size would out-shout the headline under it. */
 .hero-content .eyebrow {
   display: flex;
   width: 100%;
   max-width: 690px;
-  /* Scaled up from the global 12px so it carries real weight next to the
-     headline instead of reading as a small tag above it. Padding and dot
-     grow with it so the pill stays proportioned. */
-  padding: 14px 22px;
-  font-size: clamp(18px, 1.9vw, 26px);
-  letter-spacing: .08em;
+  padding: 16px 26px;
+  font-size: clamp(22px, 2.4vw, 33px);
+  letter-spacing: .07em;
+  color: #ffd500;
+  border-color: rgba(255, 213, 0, 0.55);
+  background: rgba(255, 213, 0, 0.1);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 6px 26px rgba(255, 213, 0, 0.16);
 }
-.hero-content .eyebrow .eyebrow-dot { width: 11px; height: 11px; }
+.hero-content .eyebrow .eyebrow-dot {
+  width: 13px;
+  height: 13px;
+  background: #ffd500;
+  box-shadow: 0 0 14px rgba(255, 213, 0, 0.9);
+}
 .eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulse 1.8s ease-in-out infinite; }
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3, blockquote { font-family: var(--font-display); }
@@ -168,7 +180,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .hero-h1 {
   margin: 31px 0 25px;
   max-width: 690px;
-  font-size: clamp(28px, 2.9vw, 42px);
+  font-size: clamp(22px, 2.1vw, 31px);
   line-height: 1.08;
   letter-spacing: -.03em;
   font-weight: 600;
@@ -236,11 +248,14 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    viewport top by the nav's height and can run slightly taller than the
    visible viewport slice, so a bottom-anchored control can land just
    below the fold. Top-right always stays inside the visible area. */
+/* top offset clears the fixed 82px nav (which is z-index 40): at the old
+   top:20px these controls sat *inside* the nav band and the nav swallowed
+   every click, so they looked broken. z-index 41 puts them above it. */
 .video-slot-sound {
   position: absolute;
   right: 20px;
-  top: 20px;
-  z-index: 2;
+  top: 100px;
+  z-index: 41;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -266,8 +281,8 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .hero-cinematic-toggle {
   position: absolute;
   right: 154px;
-  top: 20px;
-  z-index: 3;
+  top: 100px;
+  z-index: 41;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -423,7 +438,16 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    panel only 1.3:1 apart from its own background — legible in isolation
    but visually indistinct. 0.7 gives a real surface (sep 1.9) without
    losing the frosted quality. */
-.section-vivid .glass { background: rgba(20, 10, 46, 0.7); border-color: rgba(242, 240, 248, 0.3); }
+/* Opaque for the same reason as .pricing-service above: .glass carries a
+   `backdrop-filter: saturate()`, which re-vivified the bright band showing
+   through and washed the panel back toward the band's own colour. Killing
+   the filter and the translucency puts the copy on one known surface. */
+.section-vivid .glass {
+  background: #1e0e3d;
+  border-color: rgba(242, 240, 248, 0.3);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
 .section-vivid .fit-index { background: rgba(20, 10, 46, 0.3); border-color: rgba(242, 240, 248, 0.35); }
 .section-vivid .fit-index-fill { background: rgba(242, 240, 248, 0.75); }
 .section-vivid .fit-index-label { color: var(--on-accent); mix-blend-mode: normal; }
@@ -439,11 +463,12 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    6.3:1 on the band-blue it sits over. The #id selector (1,1,0) already
    outranks `.section-vivid .section-kicker` (0,2,0), so no !important. */
 #pricing .section-kicker {
-  font-size: clamp(24px, 2.6vw, 34px);
-  letter-spacing: .08em;
+  font-size: clamp(34px, 4vw, 54px);
+  letter-spacing: .06em;
+  line-height: 1.05;
   color: #ffd500;
 }
-#pricing h2 { margin-top: 16px; max-width: 640px; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.06; }
+#pricing h2 { margin-top: 14px; max-width: 620px; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.16; }
 .section-vivid-fit { background: linear-gradient(180deg, var(--band-purple) 0%, var(--band-magenta) 55%, var(--band-magenta) 100%); }
 /* FitList -> WorkShowcase -> VideoCarousel -> AICommercials -> ProcessTimeline
    is one continuous gradient chain — every section here starts exactly on
@@ -475,10 +500,12 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 
 /* ---------- Services ---------- */
 .services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 10px; }
+/* Height is driven by content now that the cards collapse to a summary —
+   no reserved min-height, no bottom padding held open for an absolutely
+   positioned link. align-items:stretch on .services keeps the four equal. */
 .service {
   position: relative;
-  min-height: 580px;
-  padding: 32px 24px 74px;
+  padding: 32px 24px 26px;
   border-radius: var(--radius);
 }
 /* Each pack card carries its own pastel --accent (set inline in Services.tsx)
@@ -487,30 +514,78 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    background here, where each clears 12:1 contrast. */
 .service { --accent: var(--gold); }
 .service-number { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: var(--accent); }
+/* Holder for the 3D-style pack icons. The icons carry their own gradient
+   fills now (not `currentColor` strokes), so this only provides the lit
+   plinth they sit on: a soft radial pool of the pack's accent plus an
+   inner top highlight, which reads as light falling on a rounded surface
+   rather than a flat outlined chip. */
 .service-icon {
   margin: 28px 0 32px;
-  width: 74px;
-  height: 74px;
+  width: 78px;
+  height: 78px;
   display: grid;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
   border-radius: 50%;
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-  color: var(--accent);
+  background:
+    radial-gradient(circle at 50% 28%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 68%),
+    color-mix(in srgb, var(--accent) 8%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 10px 26px color-mix(in srgb, var(--accent) 18%, transparent);
 }
-.service-icon svg { width: 36px; }
+.service-icon svg { width: 46px; height: 46px; overflow: visible; }
 .service h3 { max-width: 300px; margin-bottom: 8px; font-size: 25px; line-height: 1.05; letter-spacing: -.015em; font-weight: 600; color: var(--accent); }
 .service-price { margin-bottom: 16px; font-size: 15px; font-weight: 700; letter-spacing: -.01em; color: var(--text); }
-.service-copy { margin: 0; min-height: 92px; color: var(--muted); font-size: 14px; line-height: 1.65; }
-/* Flex column so the bullet list is pushed to the bottom of the card and the
-   absolutely-pinned .service-link never rides on top of the last bullet,
-   however uneven the copy lengths are across the four packs. */
-.service .glass-card-content { display: flex; flex-direction: column; }
-.service-list { margin: auto 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 13px; font-weight: 600; }
+.service .glass-card-content { display: flex; flex-direction: column; height: 100%; }
+/* The always-visible one-line contents summary. */
+.service-summary {
+  margin: 0 0 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+/* Expanded detail. overflow:hidden is what lets Framer animate height:auto
+   without the content spilling during the transition. */
+.service-details { overflow: hidden; }
+.service-copy { margin: 0 0 4px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+.service-list { margin: 0; padding: 0; list-style: none; color: var(--muted); font-size: 13px; font-weight: 600; }
 .service-list li { padding: 10px 0; border-top: 1px solid var(--line); }
-.service-link { position: absolute; left: 24px; bottom: 30px; display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: var(--accent); }
-.service-link svg { width: 17px; transition: transform .2s ease; }
-.service-link:hover svg { transform: translateX(5px); }
+.service-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.service-contact svg { width: 17px; transition: transform .2s ease; }
+.service-contact:hover svg { transform: translateX(5px); }
+/* Expand/collapse control. `margin-top: auto` pins it to the bottom of the
+   card in flow — so unlike the old absolutely-positioned link it can never
+   be overlapped by copy above it, however uneven the four packs are. */
+.service-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding: 11px 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  width: 100%;
+  background: transparent;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+.service-toggle svg { width: 16px; margin-left: auto; transition: transform .3s ease; }
+.service-toggle:hover { color: var(--text); }
 
 /* ---------- Pricing ---------- */
 .pricing-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 10px 0 60px; }
@@ -524,25 +599,30 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    Contrast: body copy uses --tint-body (>=4.5:1 on every tint, over both
    ends of the band); titles use --deep (>=5:1, coral tightest at 6.3:1). */
 .section-vivid .pricing-service {
-  padding: 26px 24px;
+  padding: 30px 28px;
   border-radius: var(--radius-sm);
-  /* Inverted for the dark theme: the tint veil sits over a dark base
-     instead of white, and the top sheen is a faint light wash rather than
-     a strong white one. --tint-* are already rgba veils, so they layer
-     directly over the base without a color-mix.
-     The base is deliberately opaque (0.8, not the 0.4 it started at): on
-     the bright Pricing band a thin veil let the blue read straight
-     through, so the cards barely separated from their own background and
-     the copy sat on a busy, near-band-coloured fill. At 0.8 the card
-     reads as its own surface (separation 1.47 -> 2.04) and body copy goes
-     from ~6:1 to ~11.6:1, while the tint still tints. */
+  /* FULLY OPAQUE — no translucency, and no backdrop-filter.
+     Every earlier attempt kept a see-through fill and just raised its
+     alpha, but `backdrop-filter: saturate(150%)` was re-saturating the
+     bright band showing through, dragging each card back toward the band's
+     own purple. The measured numbers looked fine while the cards still
+     read as washed out. A solid base removes the variable entirely: the
+     copy sits on one flat known colour instead of a filtered view of
+     whatever is behind it. The per-card --tint is layered on top at low
+     alpha so each card keeps its own hue. */
   background:
-    linear-gradient(150deg, rgba(242, 240, 248, 0.08), rgba(242, 240, 248, 0) 58%),
-    var(--tint, rgba(242, 240, 248, 0.06)),
-    rgba(20, 10, 46, 0.8);
-  border: 1px solid color-mix(in srgb, var(--deep, #fff) 45%, transparent);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
+    linear-gradient(150deg, rgba(242, 240, 248, 0.07), rgba(242, 240, 248, 0) 58%),
+    var(--tint, rgba(242, 240, 248, 0.05)),
+    #1e0e3d;
+  border: 1px solid color-mix(in srgb, var(--deep, #fff) 50%, transparent);
+  /* MUST be explicit, not merely omitted. These cards are rendered by
+     GlassCard, which always applies the `.glass` class, and `.glass` sets
+     `backdrop-filter: blur(20px) saturate(160%)`. Dropping the property
+     here does not cancel that — the base rule keeps filtering the bright
+     band through the card and re-saturating it, which is exactly what kept
+     the copy looking washed out. `none` is what actually turns it off. */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   box-shadow:
     0 10px 30px rgba(10, 4, 30, 0.4),
     inset 0 1px 0 rgba(242, 240, 248, 0.1);
@@ -555,13 +635,13 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
     inset 0 1px 0 rgba(242, 240, 248, 0.16);
 }
 .pricing-service .glass-card-glow { display: none; }
-.pricing-service h3 { font-size: 17px; letter-spacing: -.01em; margin-bottom: 10px; color: var(--deep, var(--text)); }
-.pricing-service p { margin: 0; color: var(--tint-body); font-size: 13px; line-height: 1.6; }
+.pricing-service h3 { font-size: 22px; letter-spacing: -.01em; margin-bottom: 12px; line-height: 1.2; color: var(--deep, var(--text)); }
+.pricing-service p { margin: 0; color: var(--tint-body); font-size: 16px; line-height: 1.65; }
 /* Clears the 82px sticky nav (68px under 740px) so an anchored heading like
    #services isn't hidden behind it when jumped to from the nav. */
 .pricing-block-head { margin: 0 0 18px; scroll-margin-top: 104px; }
 .pricing-block-head h3 { font-size: 26px; letter-spacing: -.01em; margin: 0 0 6px; font-family: var(--font-display); font-weight: 600; }
-.pricing-block-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.pricing-block-head p { margin: 0; color: var(--muted); font-size: 17px; }
 .pricing-table-card { padding: 8px; border-radius: var(--radius); margin-bottom: 50px; overflow-x: auto; }
 .pricing-table { width: 100%; border-collapse: collapse; }
 .pricing-table th, .pricing-table td { text-align: left; padding: 16px 18px; }
@@ -801,7 +881,6 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
   .hero-cine-bg { margin-top: -60px; margin-bottom: calc(-100vh + 60px); }
   .hero-device-phone { position: static; margin: 24px auto 0; display: flex; justify-content: center; }
   .services { grid-template-columns: 1fr 1fr; }
-  .service { min-height: 475px; }
   .pricing-services { grid-template-columns: 1fr 1fr; }
   .sticky-copy { position: static; }
   .work-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 500px 300px; }
@@ -834,8 +913,8 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
   .nav-links-mobile a { padding: 10px 4px; font-weight: 600; }
   .hero { padding: 48px 0 68px; min-height: auto; }
   .hero-cine-bg { margin-top: -48px; margin-bottom: calc(-100vh + 48px); }
-  .hero-h1 { font-size: 27px; }
-  .hero-content .eyebrow { padding: 11px 16px; font-size: 15px; }
+  .hero-h1 { font-size: 21px; }
+  .hero-content .eyebrow { padding: 12px 18px; font-size: 18px; }
   .hero-copy { font-size: 17px; }
   .video-slot-sound { padding: 8px 12px; font-size: 11px; }
   .video-slot-sound span { display: none; }
@@ -851,8 +930,7 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
   .section-head { gap: 20px; margin-bottom: 40px; }
   .section h2 { font-size: 44px; }
   .services { grid-template-columns: 1fr; }
-  .service { min-height: 510px; padding-inline: 22px; }
-  .service-link { left: 22px; }
+  .service { padding-inline: 22px; }
   .pricing-services { grid-template-columns: 1fr; }
   .pricing-table thead { display: none; }
   .pricing-table, .pricing-table tbody, .pricing-table tr, .pricing-table td { display: block; width: 100%; }
@@ -926,11 +1004,17 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
 /* No filter: the logo renders in its own colours, exactly as supplied.
    A soft dark glow sits behind it instead, so the navy wordmark keeps a
    readable edge over light video without altering a single logo pixel. */
+/* The supplied master lockup is dark navy artwork (#262B61) drawn for light
+   backgrounds; over the hero video it measured ~1.4:1 — invisible.
+   brightness(0) invert(1) flattens it to a pure-white silhouette (17:1).
+   The swoosh's purple/blue gradient is deliberately traded for legibility;
+   drop in a purpose-made light export and delete this filter to get it back.
+   The drop-shadow keeps an edge on the occasional bright video frame. */
 .brand-logo {
   height: 38px;
   width: auto;
-  filter: drop-shadow(0 1px 10px rgba(8, 4, 22, 0.85))
-          drop-shadow(0 0 22px rgba(8, 4, 22, 0.6));
+  filter: brightness(0) invert(1)
+          drop-shadow(0 1px 8px rgba(8, 4, 22, 0.7));
 }
 .brand { gap: 0; }
 footer .brand-logo { height: 34px; }
@@ -940,16 +1024,15 @@ footer .brand-logo { height: 34px; }
 }
 
 /* ---------- Transparent-nav legibility ---------- */
-/* With no bar background at all, every nav element has to carry its own
-   contrast against whatever video or band scrolls underneath. A tight
-   text-shadow does that without painting anything visible. */
-.nav-links a,
-.locale-option {
+/* With no bar background at all, the plain nav links have to carry their
+   own contrast against whatever video or band scrolls underneath. A tight
+   text-shadow does that without painting anything visible.
+   :not(.nav-cta) excludes the CTA at the source rather than trying to
+   reset it afterwards — `.nav-links a` (0,1,1) outranks a bare `.nav-cta`
+   (0,1,0), so a follow-up reset silently lost and left the button's label
+   looking blurred. Elements with their own solid fill (the CTA, the active
+   locale chip) need no shadow and only look muddy with one. */
+.nav-links a:not(.nav-cta),
+.locale-option:not(.locale-option-active) {
   text-shadow: 0 1px 4px rgba(8, 4, 22, 0.9), 0 0 12px rgba(8, 4, 22, 0.6);
-}
-/* The CTA and the active locale chip keep solid fills, so they don't need
-   the shadow — it would only muddy their labels. */
-.nav-cta,
-.locale-option-active {
-  text-shadow: none;
 }

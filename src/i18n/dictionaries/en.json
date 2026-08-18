@@ -20,9 +20,17 @@
   },
   "hero": {
     "eyebrow": "AI powered creative studio",
-    "headline": ["Big ideas.", "Smart build.", "Real growth."],
+    "headline": [
+      "Big ideas.",
+      "Smart build.",
+      "Real growth."
+    ],
     "copy": "LevelUp AI helps small businesses and startups look bigger, move faster, and grow smarter with affordable websites, AI commercial videos, and practical automations.",
-    "proof": ["Small-business friendly", "Fast, focused delivery", "Human-guided AI"],
+    "proof": [
+      "Small-business friendly",
+      "Fast, focused delivery",
+      "Human-guided AI"
+    ],
     "ctaPrimary": "Let's build your project",
     "ctaSecondary": "Explore services",
     "showText": "Show text",
@@ -34,7 +42,11 @@
   },
   "screens": {
     "hero": {
-      "nav": ["Services", "Work", "Contact"],
+      "nav": [
+        "Services",
+        "Work",
+        "Contact"
+      ],
       "title": "A sharper website for your next chapter.",
       "copy": "Clear strategy, beautiful design, built to turn curious visitors into confident customers.",
       "button": "See the work"
@@ -43,27 +55,56 @@
       "kicker": "What we do",
       "title": "Three ways to level up.",
       "items": [
-        { "label": "Websites", "desc": "Launch fast, look sharp" },
-        { "label": "AI Video", "desc": "Commercials that convert" },
-        { "label": "Automation", "desc": "Leads followed up instantly" }
+        {
+          "label": "Websites",
+          "desc": "Launch fast, look sharp"
+        },
+        {
+          "label": "AI Video",
+          "desc": "Commercials that convert"
+        },
+        {
+          "label": "Automation",
+          "desc": "Leads followed up instantly"
+        }
       ]
     },
     "work": {
       "kicker": "What it looks like",
       "title": "One studio. Many ways to grow.",
-      "tags": ["Website experience", "AI product commercial", "Smart automation"]
+      "tags": [
+        "Website experience",
+        "AI product commercial",
+        "Smart automation"
+      ]
     }
   },
   "phone": {
     "header": "Lead follow-up",
     "live": "Live",
     "notifications": [
-      { "label": "New lead", "title": "Sarah M.", "detail": "Website contact form" },
-      { "label": "AI qualifying", "title": "Budget confirmed", "detail": "Ready for outreach" },
-      { "label": "Follow-up sent", "title": "Call booked", "detail": "Tomorrow, 2:00 PM" }
+      {
+        "label": "New lead",
+        "title": "Sarah M.",
+        "detail": "Website contact form"
+      },
+      {
+        "label": "AI qualifying",
+        "title": "Budget confirmed",
+        "detail": "Ready for outreach"
+      },
+      {
+        "label": "Follow-up sent",
+        "title": "Call booked",
+        "detail": "Tomorrow, 2:00 PM"
+      }
     ]
   },
-  "marquee": ["Websites that work", "AI videos that sell", "Automations that save time"],
+  "marquee": [
+    "Websites that work",
+    "AI videos that sell",
+    "Automations that save time"
+  ],
   "services": {
     "kicker": "What we do",
     "title": "Four packs to level up your business.",
@@ -74,34 +115,56 @@
         "title": "Discovery Pack",
         "price": "From 890 TND",
         "copy": "The easiest way to start. Pick the one thing your business needs most right now and get it done properly.",
-        "list": ["AI showcase website (5-6 pages)", "or AI product shoot (10 visuals)", "Perfect first step for a new brand"],
-        "cta": "Start with Discovery"
+        "list": [
+          "AI showcase website (5-6 pages)",
+          "or AI product shoot (10 visuals)",
+          "Perfect first step for a new brand"
+        ],
+        "cta": "Start with Discovery",
+        "summary": "AI showcase website (5-6 pages) or AI product shoot (10 visuals)"
       },
       {
         "number": "PACK 02",
         "title": "Launch Pack",
         "price": "1,890 TND",
         "copy": "Everything you need to go live with confidence: a website, a full set of visuals, and your first video.",
-        "list": ["AI showcase website", "AI product shoot (10 visuals)", "1 short video"],
-        "cta": "Launch my brand"
+        "list": [
+          "AI showcase website",
+          "AI product shoot (10 visuals)",
+          "1 short video"
+        ],
+        "cta": "Launch my brand",
+        "summary": "AI showcase website + product shoot (10 visuals) + 1 short video"
       },
       {
         "number": "PACK 03",
         "title": "Growth Pack",
         "price": "3,490 TND",
         "copy": "Built for brands already selling. More visuals, more video, and enough content to stay visible every week.",
-        "list": ["AI showcase website", "AI product shoot (20 visuals)", "2 short videos"],
-        "cta": "Grow my business"
+        "list": [
+          "AI showcase website",
+          "AI product shoot (20 visuals)",
+          "2 short videos"
+        ],
+        "cta": "Grow my business",
+        "summary": "AI showcase website + product shoot (20 visuals) + 2 short videos"
       },
       {
         "number": "PACK 04",
         "title": "Pro Max Pack",
         "price": "4,900 TND",
         "copy": "Our complete package. A full content library for brands that want to dominate their market all year.",
-        "list": ["AI showcase website", "AI product shoot (40 visuals)", "4 short videos"],
-        "cta": "Go Pro Max"
+        "list": [
+          "AI showcase website",
+          "AI product shoot (40 visuals)",
+          "4 short videos"
+        ],
+        "cta": "Go Pro Max",
+        "summary": "AI showcase website + product shoot (40 visuals) + 4 short videos"
       }
-    ]
+    ],
+    "showDetails": "See details",
+    "hideDetails": "Hide details"
   },
   "pricing": {
     "kicker": "Services",
@@ -109,23 +172,66 @@
     "lead": "Level Up is expanding into one of the first players on the market offering fully AI-powered digital marketing services. Websites, product shoots, and videos, produced faster, at the same quality bar, for noticeably more competitive rates. Built for businesses that want a professional digital presence without the delays and costs of classic production, and for existing clients ready to go further in their digital transformation.",
     "servicesIntro": "Everything we can build for you, powered end to end by AI.",
     "aiServices": [
-      { "title": "AI websites", "copy": "Professional, fast, optimized showcase sites. Delivered in days instead of weeks." },
-      { "title": "AI product shoots", "copy": "Product visuals generated in a virtual studio or lifestyle setting, no travel or photo gear, high-quality output." },
-      { "title": "AI videos", "copy": "Short videos for social media, ads, or product presentations, made to the same visual standard as a classic production." },
-      { "title": "AI copywriting", "copy": "Product sheets, e-commerce descriptions, and ad copy written and tailored to the client's brand voice." },
-      { "title": "Voiceover & multilingual dubbing", "copy": "Videos available in multiple languages with no new shoot, so you can reach international markets." },
-      { "title": "Avatars & virtual spokespeople", "copy": "Regular on-camera presence for the brand without needing a real person for every shoot." },
-      { "title": "Chatbots & automation", "copy": "Conversational agents for customer support or booking, on WhatsApp, your website, or Messenger." },
-      { "title": "Automated email marketing", "copy": "Segmentation, message personalization, and automated follow-ups driven by AI." },
-      { "title": "Express visual identity", "copy": "Logo and brand guidelines generated quickly for businesses just getting started." }
+      {
+        "title": "AI websites",
+        "copy": "Professional, fast, optimized showcase sites. Delivered in days instead of weeks."
+      },
+      {
+        "title": "AI product shoots",
+        "copy": "Product visuals generated in a virtual studio or lifestyle setting, no travel or photo gear, high-quality output."
+      },
+      {
+        "title": "AI videos",
+        "copy": "Short videos for social media, ads, or product presentations, made to the same visual standard as a classic production."
+      },
+      {
+        "title": "AI copywriting",
+        "copy": "Product sheets, e-commerce descriptions, and ad copy written and tailored to the client's brand voice."
+      },
+      {
+        "title": "Voiceover & multilingual dubbing",
+        "copy": "Videos available in multiple languages with no new shoot, so you can reach international markets."
+      },
+      {
+        "title": "Avatars & virtual spokespeople",
+        "copy": "Regular on-camera presence for the brand without needing a real person for every shoot."
+      },
+      {
+        "title": "Chatbots & automation",
+        "copy": "Conversational agents for customer support or booking, on WhatsApp, your website, or Messenger."
+      },
+      {
+        "title": "Automated email marketing",
+        "copy": "Segmentation, message personalization, and automated follow-ups driven by AI."
+      },
+      {
+        "title": "Express visual identity",
+        "copy": "Logo and brand guidelines generated quickly for businesses just getting started."
+      }
     ],
     "subscriptionsTitle": "Monthly subscriptions",
     "subscriptionsLead": "For an ongoing digital presence, maintained continuously.",
-    "tableHeaders": { "plan": "Plan", "content": "Content", "price": "Price" },
+    "tableHeaders": {
+      "plan": "Plan",
+      "content": "Content",
+      "price": "Price"
+    },
     "subscriptions": [
-      { "name": "Starter", "content": "8 visuals + 2 short videos per month.", "price": "1,190 TND/mo" },
-      { "name": "Pro", "content": "12 visuals + 4 videos.", "price": "1,490 TND/mo" },
-      { "name": "Social media management", "content": "Feed management (Instagram, Facebook, LinkedIn).", "price": "290 TND/mo" }
+      {
+        "name": "Starter",
+        "content": "8 visuals + 2 short videos per month.",
+        "price": "1,190 TND/mo"
+      },
+      {
+        "name": "Pro",
+        "content": "12 visuals + 4 videos.",
+        "price": "1,490 TND/mo"
+      },
+      {
+        "name": "Social media management",
+        "content": "Feed management (Instagram, Facebook, LinkedIn).",
+        "price": "290 TND/mo"
+      }
     ],
     "cta": "Talk to us about a pack"
   },
@@ -134,10 +240,22 @@
     "title": "Agency-quality thinking. Small-business reality.",
     "lead": "We keep the process clear, collaborative, and focused on what will actually help your business grow.",
     "items": [
-      { "title": "Start with the business goal", "copy": "We do not add AI just because it is trendy. We begin with the customer, the bottleneck, and the result you want." },
-      { "title": "Design for clarity", "copy": "Your website, video, or automation should feel simple to use and easy to understand - even when the technology behind it is advanced." },
-      { "title": "Build the right-sized solution", "copy": "No bloated package. No unnecessary complexity. You get what your business needs now, with room to grow later." },
-      { "title": "Stay human where it matters", "copy": "AI helps us move faster, but your voice, judgment, and customer relationships stay at the center." }
+      {
+        "title": "Start with the business goal",
+        "copy": "We do not add AI just because it is trendy. We begin with the customer, the bottleneck, and the result you want."
+      },
+      {
+        "title": "Design for clarity",
+        "copy": "Your website, video, or automation should feel simple to use and easy to understand - even when the technology behind it is advanced."
+      },
+      {
+        "title": "Build the right-sized solution",
+        "copy": "No bloated package. No unnecessary complexity. You get what your business needs now, with room to grow later."
+      },
+      {
+        "title": "Stay human where it matters",
+        "copy": "AI helps us move faster, but your voice, judgment, and customer relationships stay at the center."
+      }
     ]
   },
   "work": {
@@ -148,7 +266,10 @@
     "commercialTag": "AI product commercial",
     "mockupEyebrow": "SMALL BUSINESS / BIG PRESENCE",
     "mockupTitle": "Turn your idea into a brand customers trust.",
-    "productFallback": ["YOUR", "PRODUCT"]
+    "productFallback": [
+      "YOUR",
+      "PRODUCT"
+    ]
   },
   "carousel": {
     "kicker": "More from the studio",
@@ -168,11 +289,26 @@
     "title": "Commercials, made by AI.",
     "lead": "Five real product spots, fully generated — no camera, no studio, no crew. Tap any card to watch with sound.",
     "clips": {
-      "mascara": { "label": "Beauty commercial", "title": "Volume, in motion." },
-      "grape-beauty": { "label": "Makeup commercial", "title": "Lipstick, in full colour." },
-      "eyeshadow": { "label": "Macro detail", "title": "Every shade, up close." },
-      "lumea": { "label": "Restaurant commercial", "title": "Food, worth the table." },
-      "jewel": { "label": "Jewelry campaign", "title": "The jewel is the look." }
+      "mascara": {
+        "label": "Beauty commercial",
+        "title": "Volume, in motion."
+      },
+      "grape-beauty": {
+        "label": "Makeup commercial",
+        "title": "Lipstick, in full colour."
+      },
+      "eyeshadow": {
+        "label": "Macro detail",
+        "title": "Every shade, up close."
+      },
+      "lumea": {
+        "label": "Restaurant commercial",
+        "title": "Food, worth the table."
+      },
+      "jewel": {
+        "label": "Jewelry campaign",
+        "title": "The jewel is the look."
+      }
     },
     "playWithSound": "Play {title} with sound",
     "previous": "Previous clip",
@@ -184,10 +320,22 @@
     "title": "Clear from idea to launch.",
     "lead": "A focused process keeps projects moving, decisions easy, and surprises to a minimum.",
     "steps": [
-      { "title": "Discover", "copy": "We understand your business, audience, offer, and the result you need." },
-      { "title": "Shape", "copy": "We define the right scope, creative direction, message, and project plan." },
-      { "title": "Build", "copy": "We create, test, and refine the experience with your feedback." },
-      { "title": "Launch", "copy": "We deliver the final project, explain how it works, and help you move forward." }
+      {
+        "title": "Discover",
+        "copy": "We understand your business, audience, offer, and the result you need."
+      },
+      {
+        "title": "Shape",
+        "copy": "We define the right scope, creative direction, message, and project plan."
+      },
+      {
+        "title": "Build",
+        "copy": "We create, test, and refine the experience with your feedback."
+      },
+      {
+        "title": "Launch",
+        "copy": "We deliver the final project, explain how it works, and help you move forward."
+      }
     ]
   },
   "quote": {
@@ -226,13 +374,26 @@
     "ctaSecondary": "Review services",
     "cardTitle": "A good first message includes:",
     "points": [
-      { "title": "What your business does", "copy": "A short description is enough." },
-      { "title": "What you want to create", "copy": "Website, video, automation, or a combination." },
-      { "title": "Your goal and timing", "copy": "What success looks like and when you need it." }
+      {
+        "title": "What your business does",
+        "copy": "A short description is enough."
+      },
+      {
+        "title": "What you want to create",
+        "copy": "Website, video, automation, or a combination."
+      },
+      {
+        "title": "Your goal and timing",
+        "copy": "What success looks like and when you need it."
+      }
     ]
   },
   "footer": {
-    "items": ["Websites", "AI Commercial Video", "Business Automation"],
+    "items": [
+      "Websites",
+      "AI Commercial Video",
+      "Business Automation"
+    ],
     "copyright": "© {year} LevelUp AI"
   }
 }

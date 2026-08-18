@@ -86,7 +86,7 @@
   --tint-coral: rgba(251, 54, 244, 0.16);
   /* Body copy on those translucent fills. Light, slightly cooled to sit
      with the palette rather than reading as plain grey. */
-  --tint-body: #e6e1f2;
+  --tint-body: #f2eff9;
 
   /* Card titles. On the light theme these were *darkened* companions to
      each swatch; on dark they invert to BRIGHTENED ones, so each heading

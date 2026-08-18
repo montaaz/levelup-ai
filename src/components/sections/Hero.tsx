@@ -190,7 +190,7 @@ export default function Hero() {
         className="hero-cinematic-toggle"
         onClick={() => setCinematicMode((value) => !value)}
         aria-pressed={cinematicMode}
-        aria-label={cinematicMode ? "Show text" : "Hide text"}
+        aria-label={cinematicMode ? copy.hero.showText : copy.hero.hideText}
       >
         <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
           {cinematicMode ? (
@@ -199,7 +199,7 @@ export default function Hero() {
             <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
           )}
         </svg>
-        <span>{cinematicMode ? "Show text" : "Hide text"}</span>
+        <span>{cinematicMode ? copy.hero.showText : copy.hero.hideText}</span>
       </button>
 
       {/* Both halves below stay permanently mounted — the text column
