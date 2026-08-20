@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useState, type CSSProperties } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import GlassCard from "@/components/ui/GlassCard";
 
@@ -17,7 +17,6 @@ type Pack = {
 type Props = {
   pack: Pack;
   accent: string;
-  icon: ReactNode;
   showDetails: string;
   hideDetails: string;
 };
@@ -37,7 +36,6 @@ type Props = {
 export default function ServicePackCard({
   pack,
   accent,
-  icon,
   showDetails,
   hideDetails,
 }: Props) {
@@ -46,7 +44,6 @@ export default function ServicePackCard({
   return (
     <GlassCard className="service" style={{ "--accent": accent } as CSSProperties}>
       <div className="service-number">{pack.number}</div>
-      <div className="service-icon">{icon}</div>
       <h3>{pack.title}</h3>
       <div className="service-price">{pack.price}</div>
 

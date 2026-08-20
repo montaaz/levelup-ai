@@ -225,7 +225,8 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: EASE_OUT }}
           >
-            <span className="eyebrow-dot"></span> {copy.hero.eyebrow}
+            <span className="eyebrow-dot"></span>
+            <span className="eyebrow-text">{copy.hero.eyebrow}</span>
           </motion.span>
 
           <RevealText

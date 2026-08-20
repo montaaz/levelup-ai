@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
-import Image from "next/image";
 import clsx from "clsx";
 import { useTranslations } from "@/i18n/LocaleProvider";
 import LocaleSwitcher from "./LocaleSwitcher";
@@ -40,16 +39,13 @@ export default function SiteNav() {
       <div className="wrap nav-inner">
         <a className="brand" href="#top" aria-label={t.nav.brandHome}>
           {/* Full lockup — it already contains the wordmark and tagline, so
-              it replaces both the old icon and the "LevelUp AI" text. The
-              alt is empty because the parent anchor carries the label. */}
-          <Image
-            className="brand-logo"
-            src="/LEVEL_UP_IA_MASTER_TRANSPARENT.png"
-            alt=""
-            width={1150}
-            height={365}
-            priority
-          />
+              it replaces both the old icon and the "LevelUp AI" text.
+              Rendered as a CSS-masked span rather than an <img>: the PNG's
+              alpha channel becomes the mask and the brand gradient is
+              painted through it, so the logo takes the CTA's exact colours
+              instead of an approximation from chained filters. The anchor
+              carries the accessible name. */}
+          <span className="brand-logo" aria-hidden="true" />
         </a>
 
         <div className="nav-links nav-links-desktop">

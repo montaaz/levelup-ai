@@ -10,6 +10,14 @@ import {
   localeFromCountry,
   type Locale,
 } from "@/i18n/config";
+import {
+  CURRENCY_COOKIE,
+  CURRENCY_COOKIE_MAX_AGE,
+  DEFAULT_CURRENCY,
+  currencyFromCountry,
+  isCurrency,
+  type Currency,
+} from "@/i18n/currency";
 
 /** Geo headers by host, tried in order. `request.geo` was removed in
  *  Next.js 15, so the country has to come from whatever the edge put on
@@ -21,6 +29,22 @@ const GEO_HEADERS = [
   "x-nf-country",        // Netlify
   "x-country-code",      // Fastly / misc proxies
 ];
+
+function detectCountry(request: NextRequest): string | null {
+  for (const header of GEO_HEADERS) {
+    const value = request.headers.get(header);
+    if (value) return value;
+  }
+  return null;
+}
+
+/** Display currency, resolved from the same geo signal as the locale.
+ *  An explicit cookie wins, exactly as it does for language. */
+function detectCurrency(request: NextRequest): Currency {
+  const cookie = request.cookies.get(CURRENCY_COOKIE)?.value;
+  if (cookie && isCurrency(cookie)) return cookie;
+  return currencyFromCountry(detectCountry(request)) ?? DEFAULT_CURRENCY;
+}
 
 function detectLocale(request: NextRequest): Locale {
   // 1. Explicit choice always wins.
@@ -47,7 +71,17 @@ export function proxy(request: NextRequest) {
   const hasLocale = LOCALES.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)
   );
-  if (hasLocale) return NextResponse.next();
+  if (hasLocale) {
+    const passthrough = NextResponse.next();
+    if (!request.cookies.get(CURRENCY_COOKIE)) {
+      passthrough.cookies.set(CURRENCY_COOKIE, detectCurrency(request), {
+        maxAge: CURRENCY_COOKIE_MAX_AGE,
+        sameSite: "lax",
+        path: "/",
+      });
+    }
+    return passthrough;
+  }
 
   const locale = detectLocale(request);
   const url = request.nextUrl.clone();
@@ -59,6 +93,11 @@ export function proxy(request: NextRequest) {
   // be bounced between languages between page loads.
   response.cookies.set(LOCALE_COOKIE, locale, {
     maxAge: LOCALE_COOKIE_MAX_AGE,
+    sameSite: "lax",
+    path: "/",
+  });
+  response.cookies.set(CURRENCY_COOKIE, detectCurrency(request), {
+    maxAge: CURRENCY_COOKIE_MAX_AGE,
     sameSite: "lax",
     path: "/",
   });

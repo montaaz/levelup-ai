@@ -55,33 +55,6 @@ export default async function Pricing({ lang }: { lang: string }) {
           ))}
         </div>
 
-        <Reveal className="pricing-block-head">
-          <h3>{t.pricing.subscriptionsTitle}</h3>
-          <p>{t.pricing.subscriptionsLead}</p>
-        </Reveal>
-        <Reveal>
-          <GlassCard className="pricing-table-card">
-            <table className="pricing-table">
-              <thead>
-                <tr>
-                  <th>{t.pricing.tableHeaders.plan}</th>
-                  <th>{t.pricing.tableHeaders.content}</th>
-                  <th>{t.pricing.tableHeaders.price}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {t.pricing.subscriptions.map((sub) => (
-                  <tr key={sub.name}>
-                    <td data-label={t.pricing.tableHeaders.plan}>{sub.name}</td>
-                    <td data-label={t.pricing.tableHeaders.content}>{sub.content}</td>
-                    <td data-label={t.pricing.tableHeaders.price} className="pricing-price">{sub.price}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </GlassCard>
-        </Reveal>
-
         <Reveal className="pricing-cta">
           <a className="button" href="#contact">
             {t.pricing.cta}
