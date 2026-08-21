@@ -619,6 +619,13 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 
 /* ---------- Pricing ---------- */
 .pricing-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 10px 0 60px; }
+/* Equal-height cards without touching the copy. Grid rows already stretch,
+   but each card is wrapped in a <Reveal>: the wrapper is the grid item and
+   fills the row, while the card inside only grew to fit its own text. These
+   two rules pass the full row height down to the card itself, so every card
+   in a row matches the tallest one regardless of how long its text is. */
+.pricing-services > * { height: 100%; }
+.pricing-services .pricing-service { height: 100%; }
 /* Frosted pastel glass. Each card carries its own --tint/--deep pair inline
    (set in Pricing.tsx). The fill is a translucent wash of the tint over a
    white base rather than the flat colour it used to be: the white keeps the

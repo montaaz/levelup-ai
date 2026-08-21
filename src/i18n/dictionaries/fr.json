@@ -120,7 +120,8 @@
                     "ou shooting produit IA (10 visuels)",
                     "La première étape idéale pour une nouvelle marque"
                 ],
-                "cta": "Commencer avec Découverte"
+                "cta": "Commencer avec Découverte",
+                "summary": "Site vitrine IA (5-6 pages) ou shooting produit IA (10 visuels)"
             },
             {
                 "number": "PACK 02",
@@ -132,7 +133,8 @@
                     "Shooting produit IA (10 visuels)",
                     "1 vidéo courte"
                 ],
-                "cta": "Lancer ma marque"
+                "cta": "Lancer ma marque",
+                "summary": "Site vitrine IA + Shooting produit IA (10 visuels) + 1 vidéo courte"
             },
             {
                 "number": "PACK 03",
@@ -144,7 +146,8 @@
                     "Shooting produit IA (20 visuels)",
                     "2 vidéos courtes"
                 ],
-                "cta": "Développer mon activité"
+                "cta": "Développer mon activité",
+                "summary": "Site vitrine IA + Shooting produit IA (20 visuels) + 2 vidéos courtes"
             },
             {
                 "number": "PACK 04",
@@ -156,9 +159,12 @@
                     "Shooting produit IA (40 visuels)",
                     "4 vidéos courtes"
                 ],
-                "cta": "Passer en Pro Max"
+                "cta": "Passer en Pro Max",
+                "summary": "Site vitrine IA + Shooting produit IA (40 visuels) + 4 vidéos courtes"
             }
-        ]
+        ],
+        "showDetails": "Voir le détail",
+        "hideDetails": "Masquer le détail"
     },
     "pricing": {
         "kicker": "Services",
@@ -334,7 +340,7 @@
     },
     "quote": {
         "text": "L'IA devrait rendre votre entreprise plus capable — pas plus compliquée.",
-        "attribution": "C'est la promesse LevelUp AI."
+        "attribution": "C'est la promesse LevelUp IA."
     },
     "faq": {
         "kicker": "Questions",
