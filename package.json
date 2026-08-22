@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.120.0",
     "@flora-ai/flora": "^0.10.0",
     "@gsap/react": "^2.1.2",
     "clsx": "^2.1.1",

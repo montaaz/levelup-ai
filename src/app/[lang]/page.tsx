@@ -13,6 +13,7 @@ import QuoteBox from "@/components/sections/QuoteBox";
 import Faq from "@/components/sections/Faq";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import ChatWidget from "@/components/chat/ChatWidget";
 
 /** Server sections take `lang` and load the dictionary directly; client
  *  sections read it from LocaleProvider (set in the layout) instead. */
@@ -39,6 +40,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         <Contact lang={lang} />
       </main>
       <Footer lang={lang} />
+      <ChatWidget />
     </>
   );
 }

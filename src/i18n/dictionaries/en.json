@@ -395,5 +395,16 @@
       "Business Automation"
     ],
     "copyright": "© {year} LevelUp AI"
+  },
+  "chat": {
+    "title": "Ask us anything",
+    "subtitle": "About our services, packs and pricing.",
+    "placeholder": "Type your question…",
+    "send": "Send",
+    "open": "Open chat",
+    "close": "Close chat",
+    "greeting": "Hi! I'm the LevelUp AI assistant. Ask me about our packs, services or pricing.",
+    "error": "Sorry, something went wrong. Please try again or email hello@levelupai.studio.",
+    "thinking": "Thinking…"
   }
 }
