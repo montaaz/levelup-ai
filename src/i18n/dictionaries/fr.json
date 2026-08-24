@@ -1,11 +1,11 @@
 {
     "meta": {
-        "title": "LevelUp AI — Sites web, vidéo IA & automatisation",
-        "description": "LevelUp AI crée des sites web accessibles, des vidéos commerciales générées par IA et des automatisations concrètes pour les PME et les startups."
+        "title": "LevelUp IA — Sites web, vidéo IA & automatisation",
+        "description": "LevelUp IA crée des sites web accessibles, des vidéos commerciales générées par IA et des automatisations concrètes pour les PME et les startups."
     },
     "nav": {
         "ariaLabel": "Navigation principale",
-        "brandHome": "Accueil LevelUp AI",
+        "brandHome": "Accueil LevelUp IA",
         "openMenu": "Ouvrir le menu",
         "closeMenu": "Fermer le menu",
         "cta": "Démarrer un projet",
@@ -25,7 +25,7 @@
             "Exécution précise.",
             "Croissance visible."
         ],
-        "copy": "LevelUp AI aide les PME et les startups à gagner en crédibilité, à avancer plus vite et à croître plus intelligemment : sites web accessibles, vidéos commerciales IA et automatisations concrètes.",
+        "copy": "LevelUp IA aide les PME et les startups à gagner en crédibilité, à avancer plus vite et à croître plus intelligemment : sites web accessibles, vidéos commerciales IA et automatisations concrètes.",
         "proof": [
             "Pensé pour les TPE-PME",
             "Livraison rapide et ciblée",
@@ -369,7 +369,7 @@
         "kicker": "Démarrons la conversation",
         "title": "Prêt à passer au niveau supérieur ?",
         "copy": "Dites-nous ce que vous construisez, ce que vous promouvez ou ce que vous cherchez à simplifier. Nous vous aiderons à choisir la première étape la plus pertinente.",
-        "mailSubject": "Demande de projet LevelUp AI",
+        "mailSubject": "Demande de projet LevelUp IA",
         "ctaPrimary": "Écrire au studio",
         "ctaSecondary": "Voir les services",
         "cardTitle": "Un bon premier message contient :",
@@ -394,7 +394,7 @@
             "Vidéo commerciale IA",
             "Automatisation d'entreprise"
         ],
-        "copyright": "© {year} LevelUp AI"
+        "copyright": "© {year} LevelUp IA"
     },
     "chat": {
         "title": "Posez-nous vos questions",
@@ -403,7 +403,7 @@
         "send": "Envoyer",
         "open": "Ouvrir le chat",
         "close": "Fermer le chat",
-        "greeting": "Bonjour ! Je suis l'assistant LevelUp AI. Posez-moi vos questions sur nos packs, services ou tarifs.",
+        "greeting": "Bonjour ! Je suis l'assistant LevelUp IA. Posez-moi vos questions sur nos packs, services ou tarifs.",
         "error": "Désolé, une erreur est survenue. Réessayez ou écrivez-nous à hello@levelupai.studio.",
         "thinking": "Réflexion…"
     }
