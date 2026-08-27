@@ -9,7 +9,7 @@ import CinematicBackground from "@/components/media/CinematicBackground";
 import RevealText from "@/components/ui/RevealText";
 import DeviceMockup from "@/components/hero/DeviceMockup";
 import AutomationPhone from "@/components/hero/AutomationPhone";
-import { useTranslations } from "@/i18n/LocaleProvider";
+import { useLocale } from "@/i18n/LocaleProvider";
 import { useCursorTilt } from "@/hooks/useCursorTilt";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -44,8 +44,18 @@ const cinematicContent: Variants = {
   }),
 };
 
+/** Hero background footage per locale. Keys must match the LOCALES set. */
+const HERO_VIDEOS: Record<string, { desktop: string; mobile: string }> = {
+  en: { desktop: "/desktop-preview-v2.mp4", mobile: "/phone-preview-v2.mp4" },
+  fr: { desktop: "/desktop-preview-v2-fr.mp4", mobile: "/phone-preview-v2-fr.mp4" },
+};
+
 export default function Hero() {
-  const copy = useTranslations();
+  const { locale, dict: copy } = useLocale();
+  // French visitors get the French-language cut of the hero footage; every
+  // other locale keeps the original. Suffix-based so adding a locale only
+  // means dropping "<name>-<locale>.mp4" into public/ and extending the map.
+  const heroVideo = HERO_VIDEOS[locale] ?? HERO_VIDEOS.en;
   const { containerRef: tiltRef, tiltX, tiltY } = useCursorTilt();
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
@@ -177,8 +187,8 @@ export default function Hero() {
       <CinematicBackground
         variant="hero"
         className="hero-cine-bg"
-        src="/desktop-preview-v2.mp4"
-        mobileSrc="/phone-preview-v2.mp4"
+        src={heroVideo.desktop}
+        mobileSrc={heroVideo.mobile}
         poster="/videos/hero-bg-poster.jpg"
         priority
         ripple

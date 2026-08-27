@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getDictionary, interpolate } from "@/i18n/dictionaries";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
@@ -8,9 +9,13 @@ export default async function Footer({ lang }: { lang: string }) {
     <footer>
       <div className="wrap footer-inner">
         <div className="footer-brand">
-          {/* Masked span, same technique as the nav (see .brand-logo). role
-              + aria-label keep the accessible name the alt text carried. */}
-          <span className="brand-logo" role="img" aria-label="LevelUp AI" />
+          <Image
+            className="brand-logo"
+            src="/LEVEL_UP_IA_LIGHT.png"
+            alt="LevelUp AI"
+            width={1150}
+            height={365}
+          />
         </div>
         <div className="footer-meta">
           {t.footer.items.map((item) => (

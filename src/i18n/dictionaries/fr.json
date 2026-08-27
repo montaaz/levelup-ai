@@ -1,11 +1,11 @@
 {
     "meta": {
-        "title": "LevelUp IA — Sites web, vidéo IA & automatisation",
-        "description": "LevelUp IA crée des sites web accessibles, des vidéos commerciales générées par IA et des automatisations concrètes pour les PME et les startups."
+        "title": "LevelUp AI — Sites web, vidéo IA & automatisation",
+        "description": "LevelUp AI crée des sites web accessibles, des vidéos commerciales générées par IA et des automatisations concrètes pour les PME et les startups."
     },
     "nav": {
         "ariaLabel": "Navigation principale",
-        "brandHome": "Accueil LevelUp IA",
+        "brandHome": "Accueil LevelUp AI",
         "openMenu": "Ouvrir le menu",
         "closeMenu": "Fermer le menu",
         "cta": "Démarrer un projet",
@@ -19,13 +19,13 @@
         }
     },
     "hero": {
-        "eyebrow": "Studio créatif propulsé par l'IA",
+        "eyebrow": "Digital agency adgency par l'IA",
         "headline": [
-            "Grandes idées.",
-            "Exécution précise.",
-            "Croissance visible."
+            "shooting & vidéos IA.",
+            "Website.",
+            "Création digital & Branding & Content création."
         ],
-        "copy": "LevelUp IA aide les PME et les startups à gagner en crédibilité, à avancer plus vite et à croître plus intelligemment : sites web accessibles, vidéos commerciales IA et automatisations concrètes.",
+        "copy": "LevelUp AI aide les PME et les startups à gagner en crédibilité, à avancer plus vite et à croître plus intelligemment : sites web accessibles, vidéos commerciales IA et automatisations concrètes.",
         "proof": [
             "Pensé pour les TPE-PME",
             "Livraison rapide et ciblée",
@@ -169,7 +169,7 @@
     "pricing": {
         "kicker": "Services",
         "title": "Le marketing propulsé par l'IA, à une fraction du coût.",
-        "lead": "Level Up devient l'un des premiers acteurs du marché à proposer des services de marketing digital entièrement propulsés par l'IA. Sites web, shootings produit et vidéos, livrés plus rapidement, au même niveau de qualité, à des tarifs nettement plus compétitifs. Pensé pour les entreprises qui veulent une présence digitale professionnelle sans les délais et les coûts de la production classique, et pour les clients déjà accompagnés qui souhaitent aller plus loin dans leur transformation digitale.",
+        "lead": "Level Up AI devient l'un des premiers acteurs du marché à proposer des services de marketing digital entièrement propulsés par l'IA. Sites web, shootings produit et vidéos, livrés plus rapidement, au même niveau de qualité, à des tarifs nettement plus compétitifs. Pensé pour les entreprises qui veulent une présence digitale professionnelle sans les délais et les coûts de la production classique, et pour les clients déjà accompagnés qui souhaitent aller plus loin dans leur transformation digitale.",
         "servicesIntro": "Tout ce que nous pouvons créer pour vous, propulsé de bout en bout par l'IA.",
         "aiServices": [
             {
@@ -340,7 +340,7 @@
     },
     "quote": {
         "text": "L'IA devrait rendre votre entreprise plus capable — pas plus compliquée.",
-        "attribution": "C'est la promesse LevelUp IA."
+        "attribution": "C'est la promesse LevelUp AI."
     },
     "faq": {
         "kicker": "Questions",
@@ -369,7 +369,7 @@
         "kicker": "Démarrons la conversation",
         "title": "Prêt à passer au niveau supérieur ?",
         "copy": "Dites-nous ce que vous construisez, ce que vous promouvez ou ce que vous cherchez à simplifier. Nous vous aiderons à choisir la première étape la plus pertinente.",
-        "mailSubject": "Demande de projet LevelUp IA",
+        "mailSubject": "Demande de projet LevelUp AI",
         "ctaPrimary": "Écrire au studio",
         "ctaSecondary": "Voir les services",
         "cardTitle": "Un bon premier message contient :",
@@ -394,7 +394,7 @@
             "Vidéo commerciale IA",
             "Automatisation d'entreprise"
         ],
-        "copyright": "© {year} LevelUp IA"
+        "copyright": "© {year} LevelUp AI"
     },
     "chat": {
         "title": "Posez-nous vos questions",
@@ -403,7 +403,7 @@
         "send": "Envoyer",
         "open": "Ouvrir le chat",
         "close": "Fermer le chat",
-        "greeting": "Bonjour ! Je suis l'assistant LevelUp IA. Posez-moi vos questions sur nos packs, services ou tarifs.",
+        "greeting": "Bonjour ! Je suis l'assistant LevelUp AI. Posez-moi vos questions sur nos packs, services ou tarifs.",
         "error": "Désolé, une erreur est survenue. Réessayez ou écrivez-nous à hello@levelupai.studio.",
         "thinking": "Réflexion…"
     }

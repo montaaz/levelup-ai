@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
+import Image from "next/image";
 import clsx from "clsx";
 import { useTranslations } from "@/i18n/LocaleProvider";
 import LocaleSwitcher from "./LocaleSwitcher";
@@ -45,7 +46,14 @@ export default function SiteNav() {
               painted through it, so the logo takes the CTA's exact colours
               instead of an approximation from chained filters. The anchor
               carries the accessible name. */}
-          <span className="brand-logo" aria-hidden="true" />
+          <Image
+            className="brand-logo"
+            src="/LEVEL_UP_IA_LIGHT.png"
+            alt=""
+            width={1150}
+            height={365}
+            priority
+          />
         </a>
 
         <div className="nav-links nav-links-desktop">
