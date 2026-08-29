@@ -48,7 +48,7 @@ export default function SiteNav() {
               carries the accessible name. */}
           <Image
             className="brand-logo"
-            src="/LEVEL_UP_IA_LIGHT.png"
+            src="/LEVEL_UP_AI_BRAND.png"
             alt=""
             width={1150}
             height={365}

@@ -198,6 +198,14 @@ button { color: inherit; }
   -webkit-text-fill-color: transparent;
   color: var(--gold);
 }
+/* Lifted independently of the headline: the two are siblings in
+   .hero-content, so a negative top margin raises only the pill while
+   RevealText below stays put. The bottom margin restores the gap the pull
+   would otherwise close. */
+.hero-content .eyebrow {
+  margin-top: clamp(-420px, -48vh, -200px);
+  margin-bottom: clamp(200px, 48vh, 420px);
+}
 .hero-content .eyebrow .eyebrow-dot {
   width: 13px;
   height: 13px;
@@ -1074,23 +1082,21 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
    stays a single asset with no extra colour export needed.
    width/height are explicit because a masked span has no intrinsic size:
    the source lockup is 1150x365 (3.151:1), so width = height x 3.151. */
-/* LEVEL_UP_IA_LIGHT.png is a light-artwork variant generated from the master
-   file: the dark navy wordmark is lifted to near-white while the gradient
-   bars, the "IA" and the swoosh keep their original colours. That means no
-   white plate and no colour filter — the logo simply reads on the dark nav.
-   Sized bigger than before because the lockup carries a tagline that renders
-   at ~7px at 54px tall, so it is sized up as far as the 82px nav allows
-   (60px leaves 11px clearance top and bottom). */
+/* LEVEL_UP_IA_BRAND.png: the master lockup recoloured so the wordmark and
+   tagline carry the brand gradient (--gold-bright -> --bronze, the CTA
+   button's own pair) instead of the original dark navy, while the swoosh
+   keeps its designed colours. Light enough to sit straight on the
+   transparent nav — no plate, no border, no filter. */
 .brand-logo {
   display: block;
   height: 60px;
   width: auto;
 }
 .brand { gap: 0; }
-footer .brand-logo { height: 56px; }
+footer .brand-logo { height: 50px; }
 
 @media (max-width: 740px) {
-  .brand-logo { height: 46px; }
+  .brand-logo { height: 44px; }
 }
 
 /* ---------- Transparent-nav legibility ---------- */

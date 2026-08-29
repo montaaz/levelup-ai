@@ -11,7 +11,7 @@ export default async function Footer({ lang }: { lang: string }) {
         <div className="footer-brand">
           <Image
             className="brand-logo"
-            src="/LEVEL_UP_IA_LIGHT.png"
+            src="/LEVEL_UP_AI_BRAND.png"
             alt="LevelUp AI"
             width={1150}
             height={365}
