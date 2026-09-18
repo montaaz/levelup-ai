@@ -171,6 +171,13 @@ export default function Hero() {
           setPhonePhase(undefined);
         };
       });
+
+      // Nothing here for narrow screens on purpose. Below the pin's
+      // breakpoint the panels are not panned at all: the stylesheet stacks
+      // them instead (see the `.laptop-screen` fallback in
+      // device-mockup.css), so all three are reachable by scrolling the page
+      // normally. That has no timer and no ScrollTrigger to stall, which is
+      // what the animated version kept doing on phones.
     },
     // revertOnUpdate: true — by default @gsap/react's useGSAP only reverts
     // its GSAP context on unmount, not when `dependencies` change; without
@@ -229,15 +236,29 @@ export default function Hero() {
         style={{ pointerEvents: cinematicMode ? "none" : "auto" }}
       >
         <div className="hero-content">
-          <motion.span
+          {/* The hero's display line. `eyebrow` is a per-locale array of
+              lines, not a single string, so each locale controls its own
+              break explicitly instead of leaving it to the measure —
+              French must read "Digital Marketing" / "Agency par IA" on two
+              lines, and no width should ever split "Digital Marketing".
+              A <p>, not a heading: the page's single <h1> is the
+              RevealText block directly below this one. */}
+          <motion.p
             className="eyebrow"
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: EASE_OUT }}
           >
             <span className="eyebrow-dot"></span>
-            <span className="eyebrow-text">{copy.hero.eyebrow}</span>
-          </motion.span>
+            <span className="eyebrow-text">
+              {copy.hero.eyebrow.map((line: string) => (
+                <span className="eyebrow-line" key={line}>
+                  {line}
+                </span>
+              ))}
+              <span className="eyebrow-rule" aria-hidden="true"></span>
+            </span>
+          </motion.p>
 
           <RevealText
             as="h1"

@@ -29,7 +29,9 @@ export default function GlassCard({ children, className, tilt = true, style }: G
   const background = useTransform(
     [glowX, glowY],
     ([gx, gy]: number[]) =>
-      `radial-gradient(circle at ${gx}% ${gy}%, rgba(212,175,106,0.16), transparent 60%)`
+      // Reads the palette's accent channel rather than a literal, so the
+      // cursor glow tracks the theme instead of drifting off it.
+      `radial-gradient(circle at ${gx}% ${gy}%, rgba(var(--accent-rgb), 0.16), transparent 60%)`
   );
 
   function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {

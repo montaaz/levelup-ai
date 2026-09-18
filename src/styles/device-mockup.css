@@ -9,7 +9,7 @@
 .automation-phone-glow {
   position: absolute;
   inset: -30%;
-  background: radial-gradient(circle at 50% 20%, rgba(251, 54, 244, 0.5), transparent 68%);
+  background: radial-gradient(circle at 50% 20%, rgba(var(--accent-rgb), 0.5), transparent 68%);
   animation: phoneGlow 5s ease-in-out infinite;
   pointer-events: none;
 }
@@ -21,10 +21,10 @@
   z-index: 1;
   min-height: 220px;
   border-radius: 24px;
-  background: linear-gradient(150deg, #4fdfe4 0%, #4bb8e8 28%, #6b7fe4 62%, #a86fd4 100%);
-  --screen-ink: #140a2e;
-  --screen-body: rgba(20, 10, 46, 0.9);
-  --screen-dim: rgba(20, 10, 46, 0.88);
+  background: linear-gradient(150deg, #8ae8ea 0%, #62cfe0 28%, #3fa8c6 62%, #2590b6 100%);
+  --screen-ink: #052029;
+  --screen-body: rgba(var(--ground-rgb), 0.9);
+  --screen-dim: rgba(var(--ground-rgb), 0.88);
   --screen-card: rgba(255, 255, 255, 0.34);
   padding: 16px 14px;
   display: flex;
@@ -84,7 +84,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: rgba(20, 10, 46, 0.3);
+  background: rgba(var(--ground-rgb), 0.3);
   transition: background 0.3s ease, transform 0.3s ease;
 }
 .automation-phone-dots .dot-active {
@@ -108,7 +108,7 @@
   position: relative;
   border-radius: 18px 18px 6px 6px;
   padding: 20px 20px 30px;
-  box-shadow: 0 0 0 1px rgba(251, 54, 244, 0.16), var(--shadow);
+  box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.16), var(--shadow);
 }
 .laptop-notch {
   position: absolute;
@@ -125,15 +125,15 @@
   aspect-ratio: 16 / 10;
   border-radius: 6px;
   overflow: hidden;
-  background: linear-gradient(150deg, #4fdfe4 0%, #4bb8e8 28%, #6b7fe4 62%, #a86fd4 100%);
+  background: linear-gradient(150deg, #8ae8ea 0%, #62cfe0 28%, #3fa8c6 62%, #2590b6 100%);
   /* The screen is a bright surface inside a dark page, so it carries its
      own inverted text scale. White copy only reaches ~1.5:1 on the cyan
      end of this gradient; these dark tokens clear 4.5:1 across every stop. */
-  --screen-ink: #140a2e;
-  --screen-body: rgba(20, 10, 46, 0.9);
-  --screen-dim: rgba(20, 10, 46, 0.88);
+  --screen-ink: #052029;
+  --screen-body: rgba(var(--ground-rgb), 0.9);
+  --screen-dim: rgba(var(--ground-rgb), 0.88);
   --screen-card: rgba(255, 255, 255, 0.28);
-  --screen-line: rgba(20, 10, 46, 0.18);
+  --screen-line: rgba(var(--ground-rgb), 0.18);
 }
 .laptop-hinge {
   height: 8px;
@@ -174,7 +174,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 7% 9%;
+  padding: 5.4% 9%;
 }
 .screen-mini-nav {
   display: flex;
@@ -194,7 +194,7 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--screen-ink);
-  margin-bottom: clamp(12px, 2.4vw, 18px);
+  margin-bottom: clamp(8px, 1.8vw, 13px);
 }
 .screen-panel-title {
   font-family: var(--font-display);
@@ -203,7 +203,7 @@
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--screen-ink);
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   max-width: 92%;
 }
 .screen-panel-copy {
@@ -219,34 +219,111 @@
   padding: 10px 18px;
   border-radius: 99px;
   background: var(--screen-ink);
-  color: #f2f0f8;
+  color: var(--text);
   font-size: clamp(10px, 1.5vw, 12px);
   font-weight: 700;
 }
+/* Three service cards on one row. The first label ("Site web / site
+   e-commerce") must stay on a single line, and at equal widths it needed
+   168px in a 141px card, so it broke at its hyphen. The first and last
+   columns are therefore sized to their own labels (max-content) and the
+   middle card, whose label is the longest and wraps anyway, takes the rest.
+   `align-items: stretch` keeps all three the same height. */
 .screen-panel-cards {
-  display: flex;
-  gap: clamp(10px, 1.6vw, 16px);
-  margin-top: clamp(18px, 3vw, 28px);
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr) max-content;
+  align-items: stretch;
+  gap: clamp(7px, 1.1vw, 11px);
+  margin-top: clamp(10px, 1.8vw, 16px);
 }
+/* On desktop the panel is a fixed slice (33.33%) of a 16/10 laptop screen
+   and cannot grow, so card padding and type stay compact; they tighten
+   further on narrow screens (see the media queries below). */
 .screen-panel-card {
-  flex: 1;
   display: flex;
+  height: 100%;
   flex-direction: column;
   gap: 6px;
-  padding: clamp(12px, 1.8vw, 18px) clamp(10px, 1.6vw, 14px);
+  padding: clamp(9px, 1.4vw, 13px) clamp(9px, 1.5vw, 12px);
   border-radius: 10px;
   border: 1px solid var(--screen-line);
   background: var(--screen-card);
 }
+/* Never break the first card's label, including at the hyphen in
+   "e-commerce". Its column is sized to fit it (see .screen-panel-cards). */
+.screen-panel-card:first-child strong { white-space: nowrap; }
 .screen-panel-card strong {
-  font-size: clamp(11px, 1.7vw, 14px);
+  font-size: clamp(10px, 1.5vw, 12.5px);
+  line-height: 1.2;
   color: var(--screen-ink);
+  /* A label longer than its card wraps inside it instead of overflowing
+     (the first card is exempt: see the nowrap rule above). */
+  overflow-wrap: anywhere;
 }
 .screen-panel-card span {
   font-size: clamp(9px, 1.4vw, 11px);
   line-height: 1.4;
   color: var(--screen-body);
 }
+/* Responsive steps for the three service cards. The panel is a fixed 33.33%
+   slice of a 16/10 laptop screen and cannot grow, so each step trades width
+   for height: three columns, then two, with padding and type stepping down
+   so every card stays inside the panel. Ordered widest-first because these
+   all have the same specificity and the last matching rule wins. */
+@media (max-width: 980px) {
+  .screen-panel-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: clamp(5px, 0.9vw, 8px); }
+  /* Two columns here: the first card takes the whole first row so its
+     one-line label always has room; the other two share the second row. */
+  .screen-panel-card:first-child { grid-column: 1 / -1; }
+  .screen-panel-card { padding: clamp(6px, 1.1vw, 10px) clamp(5px, 1vw, 9px); gap: 4px; }
+}
+@media (max-width: 740px) {
+  .screen-panel-title { font-size: clamp(17px, 3.2vw, 24px); margin-bottom: 6px; }
+  .screen-panel-cards { margin-top: 6px; gap: 4px; }
+  .screen-panel-card { padding: 5px 6px; gap: 2px; }
+  .screen-panel-card strong { font-size: 8.5px; line-height: 1.15; }
+}
+@media (max-width: 430px) {
+  .screen-panel-cards { gap: 3px; margin-top: 4px; }
+  .screen-panel-card { padding: 4px 5px; gap: 1px; }
+  .screen-panel-card strong { font-size: 7.6px; line-height: 1.1; }
+  .screen-panel-title { font-size: clamp(13px, 2.5vw, 18px); margin-bottom: 3px; }
+  .screen-panel-kicker { margin-bottom: 3px; font-size: 8px; }
+}
+
+/* ---------- The panels without the pan ---------- */
+/* Two cases share one fallback, because they share one cause: nothing pans
+   the track.
+   1. prefers-reduced-motion — Hero.tsx bails out of its whole GSAP setup.
+   2. Narrow screens — the scroll-pin is gated to min-width: 980px, and a pin
+      on a phone fights native scrolling over a full-bleed video.
+   Either way panels 2 and 3 sat outside `.laptop-screen`'s clip and were
+   simply unreachable. Rather than animate them on a timer (which stalls
+   whenever the tab is backgrounded, and which reduced-motion users are
+   explicitly asking not to get), the screen stops being a fixed 16/10 window
+   and grows to its content, stacking all three. Scrolling the page reveals
+   them. No JavaScript, nothing to stall; the desktop animated path above
+   980px is untouched. */
+@media (prefers-reduced-motion: reduce), (max-width: 979px) {
+  .laptop-screen {
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+  .laptop-screen-track {
+    position: static;
+    height: auto;
+  }
+  .screen-panel {
+    height: auto;
+    padding-block: 7%;
+  }
+  /* A hairline between the stacked panels, so three screens' worth of
+     content still reads as three distinct views rather than one long page. */
+  .screen-panel + .screen-panel {
+    border-top: 1px solid var(--screen-line);
+  }
+}
+
 .screen-panel-tags {
   display: flex;
   flex-wrap: wrap;
@@ -261,6 +338,16 @@
   font-size: clamp(9px, 1.4vw, 11px);
   font-weight: 700;
   color: var(--screen-ink);
+  /* Containment guarantee, not a style change: the tags carry service
+     names that can be long ("Vidéo IA / Charte graphique / Branding"),
+     and at 320px that pill clears the panel's inner edge by only ~8px.
+     This caps a pill at the panel width so an even narrower viewport — or
+     a fallback font measuring wider than the loaded one — wraps the label
+     inside the pill instead of pushing it out of the laptop screen. It has
+     no effect at any width where the pill already fits, so the row of tags
+     looks exactly as before. */
+  max-width: 100%;
+  text-align: center;
 }
 
 @media (max-width: 980px) {
@@ -272,7 +359,7 @@
   .laptop-tilt { width: 100%; }
   .automation-phone { width: 150px; }
   .automation-phone-screen { min-height: 190px; padding: 13px 12px; }
-  .screen-panel { padding: 8% 9%; }
+  .screen-panel { padding: 6.4% 9%; }
 }
 
 /* ---------- Video carousel ---------- */
@@ -369,9 +456,9 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  border: 1px solid rgba(245, 242, 234, 0.28);
+  border: 1px solid rgba(var(--text-rgb), 0.28);
   background: rgba(7, 7, 10, 0.6);
-  color: #f2f0f8;
+  color: var(--text);
   cursor: pointer;
   transition: background .2s ease, transform .2s ease;
 }
@@ -433,7 +520,7 @@
   gap: 4px;
 }
 .ai-commercials-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--gold-bright); }
-.ai-commercials-title { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: #f2f0f8; line-height: 1.08; }
+.ai-commercials-title { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--text); line-height: 1.08; }
 .ai-commercials-play {
   position: absolute;
   top: 16px;
@@ -444,8 +531,8 @@
   place-items: center;
   border-radius: 50%;
   background: rgba(7, 7, 10, 0.5);
-  border: 1px solid rgba(245, 242, 234, 0.3);
-  color: #f2f0f8;
+  border: 1px solid rgba(var(--text-rgb), 0.3);
+  color: var(--text);
   backdrop-filter: blur(6px);
   transition: transform .25s ease, background .25s ease;
 }
@@ -466,7 +553,7 @@
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(245, 242, 234, 0.12);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(var(--text-rgb), 0.12);
   background: #000;
 }
 .ai-commercials-lightbox-frame-landscape { width: min(1000px, 88vw); aspect-ratio: 16 / 9; }
@@ -492,9 +579,9 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: rgba(245, 242, 234, 0.1);
-  border: 1px solid rgba(245, 242, 234, 0.25);
-  color: #f2f0f8;
+  background: rgba(var(--text-rgb), 0.1);
+  border: 1px solid rgba(var(--text-rgb), 0.25);
+  color: var(--text);
   cursor: pointer;
   backdrop-filter: blur(8px);
   transition: transform .2s ease, background .2s ease;

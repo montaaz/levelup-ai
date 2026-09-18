@@ -12,14 +12,17 @@ body {
      saturated indigo base. Alphas are high on purpose — the reference
      gradients are luminous, so a timid wash over near-black reads as a
      dark grey page with a hint of colour, which is exactly what this
-     palette should not look like. The base itself is already violet, so
-     the auras deepen and shift hue rather than fighting a black ground. */
+     palette should not look like. The base itself is already deep teal, so
+     the auras deepen and shift hue rather than fighting a black ground.
+     Alphas are lower than the old violet set on purpose: large grounds have
+     to stay DARKER and more restrained than the buttons, which is what lets
+     the teal CTA gradient read as the brightest thing on the page. */
   background:
-    radial-gradient(1300px 900px at 6% -5%, rgba(1, 0, 236, 0.85), transparent 62%),
-    radial-gradient(1100px 800px at 100% 12%, rgba(251, 54, 244, 0.5), transparent 58%),
-    radial-gradient(1000px 1000px at 45% 105%, rgba(157, 0, 198, 0.65), transparent 62%),
-    radial-gradient(900px 800px at 82% 78%, rgba(0, 255, 237, 0.3), transparent 58%),
-    linear-gradient(160deg, #2a1660, #1f1050 45%, #1a0c42 100%);
+    radial-gradient(1300px 900px at 6% -5%, rgba(var(--accent-deep-rgb), 0.5), transparent 62%),
+    radial-gradient(1100px 800px at 100% 12%, rgba(var(--accent-rgb), 0.16), transparent 58%),
+    radial-gradient(1000px 1000px at 45% 105%, rgba(18, 86, 111, 0.75), transparent 62%),
+    radial-gradient(900px 800px at 82% 78%, rgba(var(--accent-rgb), 0.12), transparent 58%),
+    linear-gradient(160deg, #0e3f52, #0a2c3a 45%, #061f29 100%);
   background-attachment: fixed;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -83,7 +86,7 @@ button { color: inherit; }
   background: linear-gradient(150deg, var(--gold-bright), var(--bronze));
   color: var(--on-accent);
   transform: rotate(-4deg);
-  box-shadow: 0 6px 18px rgba(251, 54, 244, 0.4);
+  box-shadow: 0 6px 18px rgba(var(--accent-rgb), 0.4);
 }
 .brand-mark svg { width: 20px; }
 .nav-links { display: flex; align-items: center; gap: 30px; font-weight: 600; font-size: 14px; }
@@ -115,9 +118,9 @@ button { color: inherit; }
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .nav-cta { min-height: 43px; padding: 0 18px; }
-.nav-cta:hover, .button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(251, 54, 244, 0.45); }
+.nav-cta:hover, .button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(var(--accent-rgb), 0.45); }
 .button.secondary { background: transparent; color: var(--text); border-color: var(--line-strong); }
-.button.secondary:hover { background: rgba(242, 240, 248, 0.08); box-shadow: none; border-color: var(--gold); }
+.button.secondary:hover { background: rgba(var(--text-rgb), 0.08); box-shadow: none; border-color: var(--gold); }
 .menu-button { display: none; border: 0; background: transparent; padding: 8px; cursor: pointer; color: var(--text); position: relative; z-index: 2; }
 
 .nav-links-desktop { display: flex; }
@@ -140,7 +143,10 @@ button { color: inherit; }
   width: 100%;
   max-width: none;
   margin-left: 0;
-  padding-left: clamp(16px, 3vw, 46px);
+  /* Tightened from 3vw/46px so the headline group sits nearer the left
+     edge, while the 14px floor keeps a safe gutter on the narrowest
+     phones. */
+  padding-left: clamp(14px, 2vw, 28px);
 }
 .hero-grid-device .hero-content { max-width: 640px; }
 .eyebrow {
@@ -148,69 +154,93 @@ button { color: inherit; }
   align-items: center;
   gap: 9px;
   padding: 9px 14px;
-  border: 1px solid rgba(251, 54, 244, 0.45);
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
   border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
-  background: rgba(251, 54, 244, 0.12);
-  color: #fdc4fb;
+  background: rgba(var(--accent-rgb), 0.12);
+  color: #bfe9ef;
 }
 /* In the hero the eyebrow reads as the headline's cap rule rather than a
    loose tag, so it spans the H1's own measure (same 690px max) instead of
    shrink-wrapping its text. `display: flex` — not inline-flex — is what
    lets the max-width actually stretch it. */
-/* Matches the logo: the same --gold-bright -> --gold gradient, painted onto
-   the text via background-clip so the line reads as one gradient rather
-   than a flat fill. Set in the display serif (Fraunces) at normal case, so
-   it is the same typeface and treatment as the section headings like
-   "Quatre packs pour faire décoller votre activité." rather than the
-   uppercase sans it used to be.
-   -webkit-text-fill-color: transparent is what lets the gradient show; the
-   `color` above it is the fallback for engines without background-clip. */
+/* Set in the display serif (Fraunces) at normal case, so it is the same
+   typeface and treatment as the section headings like "Quatre packs pour
+   faire décoller votre activité." rather than the uppercase sans it used
+   to be. The pill keeps its tinted glass fill; the type inside it is
+   plain white now rather than the logo gradient — over a video whose
+   frames run from a bright daylit room to a dark night skyline, a
+   magenta-on-magenta gradient was the first thing to disappear, and white
+   with a tight shadow is the only treatment that holds on every frame.
+   `align-items: flex-start` because the block is multi-line: centring
+   would park the dot halfway down the stack instead of beside line one. */
 .hero-content .eyebrow {
   display: flex;
-  width: 100%;
-  max-width: 690px;
-  padding: 16px 26px;
+  align-items: flex-start;
+  width: fit-content;
+  max-width: min(690px, 100%);
+  padding: 16px 24px 20px;
   font-family: var(--font-display);
   font-size: clamp(24px, 2.6vw, 36px);
   font-weight: 600;
   text-transform: none;
   letter-spacing: -.01em;
   line-height: 1.15;
-  color: var(--gold);
-  background: rgba(251, 54, 244, 0.1);
-  border-color: rgba(251, 54, 244, 0.45);
-  box-shadow: 0 6px 26px rgba(251, 54, 244, 0.18);
-  text-shadow: none;
+  color: #ffffff;
+  background: rgba(var(--accent-rgb), 0.1);
+  border-color: rgba(var(--accent-rgb), 0.45);
+  box-shadow: 0 6px 26px rgba(var(--accent-rgb), 0.18);
+  /* Carries the contrast against bright video frames without painting a
+     scrim over them — same technique the transparent nav's links use. */
+  text-shadow: 0 2px 10px rgba(var(--shade-rgb), 0.85), 0 0 26px rgba(var(--shade-rgb), 0.5);
   gap: 14px;
 }
-/* The gradient lives on an inner span, not on .eyebrow itself: an element
-   cannot both paint a pill background AND clip that background to its own
-   glyphs — background-clip:text would erase the pill. Splitting them lets
-   the pill keep its tinted fill while the text carries the logo gradient. */
 .hero-content .eyebrow .eyebrow-text {
-  background-image: linear-gradient(150deg, var(--gold-bright), var(--gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: var(--gold);
+  display: block;
+  color: #ffffff;
+}
+/* One line per array entry, so the break is authored in the dictionary
+   rather than left to the measure. `nowrap` is what guarantees "Digital
+   Marketing" can never split across two lines at any desktop width; the
+   mobile rules below drop the font size instead of letting it wrap. */
+.hero-content .eyebrow .eyebrow-line {
+  display: block;
+  white-space: nowrap;
+}
+/* The decorative rule under the final line. Short and fixed-width on
+   purpose — a full-bleed underline would read as a divider between the
+   headline and the copy beneath it rather than as part of the headline. */
+.hero-content .eyebrow .eyebrow-rule {
+  display: block;
+  width: clamp(88px, 12vw, 150px);
+  height: 3px;
+  margin-top: 16px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(var(--shade-rgb), 0.6);
 }
 /* Lifted independently of the headline: the two are siblings in
    .hero-content, so a negative top margin raises only the pill while
    RevealText below stays put. The bottom margin restores the gap the pull
-   would otherwise close. */
+   would otherwise close — the two clamps stay mirrored, or the H1 moves
+   with the pill. Capped so the block always clears the 82px nav and the
+   sound controls that sit at top: 100px. */
 .hero-content .eyebrow {
-  margin-top: clamp(-420px, -48vh, -200px);
-  margin-bottom: clamp(200px, 48vh, 420px);
+  margin-top: clamp(-480px, -54vh, -240px);
+  margin-bottom: clamp(240px, 54vh, 480px);
 }
 .hero-content .eyebrow .eyebrow-dot {
   width: 13px;
   height: 13px;
+  /* Nudged onto the optical centre of the first line now that the block
+     is top-aligned rather than centred. */
+  margin-top: .38em;
+  flex: none;
   background: var(--gold);
-  box-shadow: 0 0 14px rgba(251, 54, 244, 0.9);
+  box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.9);
 }
 .eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulse 1.8s ease-in-out infinite; }
 h1, h2, h3, p { margin-top: 0; }
@@ -243,16 +273,16 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   padding: 22px 26px;
   border-radius: var(--radius-sm);
   max-width: 560px;
-  background: linear-gradient(155deg, rgba(42, 22, 96, 0.85), rgba(90, 25, 150, 0.8));
-  border-color: rgba(251, 54, 244, 0.32);
+  background: linear-gradient(155deg, rgba(var(--ground-rgb), 0.9), rgba(var(--band-teal-rgb), 0.86));
+  border-color: rgba(var(--accent-rgb), 0.32);
 }
 .hero-copy { font-size: 18px; line-height: 1.62; color: var(--text); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 28px; }
-.hero-proof { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(242, 240, 248, 0.18); color: var(--text); font-size: 13px; font-weight: 600; }
+.hero-proof { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(var(--text-rgb), 0.18); color: var(--text); font-size: 13px; font-weight: 600; }
 .proof-item { display: flex; align-items: center; gap: 7px; }
 .proof-item svg { width: 17px; color: var(--amber-deep); }
-.hero-actions .button.secondary { color: var(--text); border-color: rgba(242, 240, 248, 0.35); }
-.hero-actions .button.secondary:hover { background: rgba(242, 240, 248, 0.08); border-color: var(--gold); }
+.hero-actions .button.secondary { color: var(--text); border-color: rgba(var(--text-rgb), 0.35); }
+.hero-actions .button.secondary:hover { background: rgba(var(--text-rgb), 0.08); border-color: var(--gold); }
 
 /* ---------- Hero device stage ---------- */
 /* Empty scroll runway between the headline and the laptop. The hero's
@@ -301,9 +331,9 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  border: 1px solid rgba(242, 240, 248, 0.35);
+  border: 1px solid rgba(var(--text-rgb), 0.35);
   border-radius: 999px;
-  background: rgba(20, 10, 46, 0.55);
+  background: rgba(var(--ground-rgb), 0.55);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: var(--text);
@@ -314,6 +344,9 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   transition: transform .2s ease, border-color .2s ease, background .2s ease;
 }
 .video-slot-sound:hover { transform: translateY(-2px); border-color: var(--gold-bright); background: rgba(7, 7, 10, 0.65); }
+/* Sound currently audible — matches the cinematic toggle's own pressed
+   treatment so the two controls in the row read as one set. */
+.video-slot-sound[aria-pressed="true"] { border-color: var(--gold-bright); background: rgba(var(--accent-rgb), 0.35); }
 
 /* Sits in the same top-right control row as .video-slot-sound, always to
    its left — right offset accounts for the sound button's own width plus
@@ -328,9 +361,9 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  border: 1px solid rgba(242, 240, 248, 0.35);
+  border: 1px solid rgba(var(--text-rgb), 0.35);
   border-radius: 999px;
-  background: rgba(20, 10, 46, 0.55);
+  background: rgba(var(--ground-rgb), 0.55);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: var(--text);
@@ -341,7 +374,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   transition: transform .2s ease, border-color .2s ease, background .2s ease;
 }
 .hero-cinematic-toggle:hover { transform: translateY(-2px); border-color: var(--gold-bright); background: rgba(7, 7, 10, 0.65); }
-.hero-cinematic-toggle[aria-pressed="true"] { border-color: var(--gold-bright); background: rgba(251, 54, 244, 0.35); }
+.hero-cinematic-toggle[aria-pressed="true"] { border-color: var(--gold-bright); background: rgba(var(--accent-rgb), 0.35); }
 .cine-glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .5; }
 .cine-glow-gold { width: 46%; aspect-ratio: 1; background: var(--gold); top: -10%; left: -8%; }
 .cine-glow-bronze { width: 40%; aspect-ratio: 1; background: var(--bronze); bottom: -14%; right: -6%; opacity: .35; }
@@ -389,7 +422,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .marquee { background: linear-gradient(100deg, var(--brand-blue), var(--brand-purple) 55%, var(--brand-magenta)); overflow: hidden; }
 .marquee-track { display: flex; width: max-content; padding: 17px 0; animation: ticker 27s linear infinite; }
 .marquee-item { display: flex; align-items: center; }
-.marquee-pair { display: flex; align-items: center; gap: 26px; padding-right: 26px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #f2f0f8; }
+.marquee-pair { display: flex; align-items: center; gap: 26px; padding-right: 26px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--text); }
 .marquee-star { color: var(--brand-cyan); font-size: 22px; }
 
 /* ---------- Sections ---------- */
@@ -400,14 +433,14 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    palette regardless of the global --ink/--text flip, and a scrim sits
    between the video and content so text stays legible over any footage. */
 .section-dark {
-  --ink: #0f0722;
-  --panel: #1b0f45;
-  --panel-raised: #26155e;
-  --text: #f2f0f8;
-  --muted: #a49dbe;
-  --muted-dim: #736c8c;
-  --line: rgba(242, 240, 248, 0.12);
-  --line-strong: rgba(242, 240, 248, 0.22);
+  --ink: #05161d;
+  --panel: #0a2f3e;
+  --panel-raised: #104154;
+  --text: #eef6f8;
+  --muted: #c3dbe4;
+  --muted-dim: #bfd8e0;
+  --line: rgba(var(--text-rgb), 0.12);
+  --line-strong: rgba(var(--text-rgb), 0.22);
   background: var(--panel);
   color: var(--text);
   isolation: isolate;
@@ -425,7 +458,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    the dark video here it needs a dark-smoked glass instead — otherwise
    --muted/--text (now light, per the vars above) render as light text on
    a light card and disappear. */
-.section-dark .glass { background: rgba(20, 10, 46, 0.5); border-color: rgba(242, 240, 248, 0.16); }
+.section-dark .glass { background: rgba(var(--ground-rgb), 0.5); border-color: rgba(var(--text-rgb), 0.16); }
 /* Services is the one dark island between two coloured bands (Marquee
    above, Pricing below). Its edges fade INTO the exact colour each
    neighbour presents at that seam, so the transition reads as one
@@ -443,8 +476,8 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(251, 54, 244, 0.4) 0%, transparent 18%),
-    linear-gradient(0deg, var(--band-blue) 0%, rgba(42, 29, 224, 0.72) 12%, rgba(42, 29, 224, 0.32) 24%, transparent 34%);
+    linear-gradient(180deg, rgba(var(--accent-rgb), 0.4) 0%, transparent 18%),
+    linear-gradient(0deg, var(--band-blue) 0%, rgba(var(--band-blue-rgb), 0.72) 12%, rgba(var(--band-blue-rgb), 0.32) 24%, transparent 34%);
 }
 .section-head { display: grid; grid-template-columns: 1fr .72fr; gap: 50px; align-items: end; margin-bottom: 54px; }
 .section-kicker { color: var(--gold); text-transform: uppercase; letter-spacing: .13em; font-size: 12px; font-weight: 700; }
@@ -463,12 +496,12 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    bands carrying LIGHT text — the band gradients below were rebuilt from
    the brand colours, so text/lines/glass all invert to match. */
 .section-vivid {
-  --text: #f2f0f8;
-  --muted: #cdc6e4;
-  --muted-dim: #a49dbe;
-  --line: rgba(242, 240, 248, 0.16);
-  --line-strong: rgba(242, 240, 248, 0.28);
-  --on-accent: #f2f0f8;
+  --text: #eef6f8;
+  --muted: #c3dbe4;
+  --muted-dim: #bfd8e0;
+  --line: rgba(var(--text-rgb), 0.16);
+  --line-strong: rgba(var(--text-rgb), 0.28);
+  --on-accent: #eef6f8;
   color: var(--text);
   isolation: isolate;
 }
@@ -484,13 +517,13 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    through and washed the panel back toward the band's own colour. Killing
    the filter and the translucency puts the copy on one known surface. */
 .section-vivid .glass {
-  background: #1e0e3d;
-  border-color: rgba(242, 240, 248, 0.3);
+  background: #0a2c3a;
+  border-color: rgba(var(--text-rgb), 0.3);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-.section-vivid .fit-index { background: rgba(20, 10, 46, 0.3); border-color: rgba(242, 240, 248, 0.35); }
-.section-vivid .fit-index-fill { background: rgba(242, 240, 248, 0.75); }
+.section-vivid .fit-index { background: rgba(var(--ground-rgb), 0.3); border-color: rgba(var(--text-rgb), 0.35); }
+.section-vivid .fit-index-fill { background: rgba(var(--text-rgb), 0.75); }
 .section-vivid .fit-index-label { color: var(--on-accent); mix-blend-mode: normal; }
 
 .section-vivid-pricing { background: linear-gradient(180deg, var(--band-blue) 0%, var(--band-indigo) 45%, var(--band-purple) 100%); }
@@ -548,14 +581,53 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .glass-card-content { position: relative; height: 100%; }
 
 /* ---------- Services ---------- */
-.services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 10px; }
+.services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 10px; align-items: stretch; }
+/* Each card is wrapped in a <Reveal>, so the wrapper is the grid item and
+   stretches while the card inside only grew to its own text. Passing the
+   row height down is what puts all four cart buttons on one line. */
+.services > * { height: 100%; }
+.services .service { height: 100%; }
+/* ...but only while every pack is collapsed. The cards share a grid row, so
+   stretching also stretched the three closed packs whenever one was opened:
+   they grew tall and empty, which reads as "all four opened at once" even
+   though their state is independent. As soon as any pack renders its detail,
+   the row stops stretching and each card takes its own height, so only the
+   opened one grows. */
+.services:has(.service-details) { align-items: start; }
+.services:has(.service-details) > *,
+.services:has(.service-details) .service { height: auto; }
 /* Height is driven by content now that the cards collapse to a summary —
    no reserved min-height, no bottom padding held open for an absolutely
    positioned link. align-items:stretch on .services keeps the four equal. */
-.service {
+.section-dark .service {
   position: relative;
   padding: 32px 24px 26px;
   border-radius: var(--radius);
+  /* Each pack paints its own gradient over the glass base. `.section-dark`
+     is in the selector on purpose: `.section-dark .glass` (0,2,0) sets a
+     `background` shorthand that outranked a bare `.service` and reset this
+     image to none. Same specificity + later in the file is what wins. The card keeps
+     its existing radius, padding and shadow; only the fill changes, which
+     is what makes the four tell apart without redesigning the card.
+     `--pack-from/--pack-to` are set inline per card in Services.tsx. */
+  background-image: linear-gradient(155deg, var(--pack-from, var(--panel)) 0%, var(--pack-to, var(--panel-raised)) 100%);
+  border: 1px solid rgba(var(--text-rgb), 0.14);
+  overflow: hidden;
+  transition: transform .28s cubic-bezier(.16,1,.3,1), box-shadow .28s ease, border-color .28s ease;
+}
+/* Hover: a small lift plus a glow in the card's own accent, so the feedback
+   belongs to that pack rather than being one shared colour. */
+.section-dark .service:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: 0 22px 54px rgba(var(--shade-rgb), 0.55), 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+/* Featured pack (Pro Max): stronger edge and a resting glow. No size or
+   spacing change, so the row stays even. */
+.section-dark .service-featured { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.section-dark .service-featured:hover { box-shadow: 0 26px 62px rgba(var(--shade-rgb), 0.6), 0 0 0 2px color-mix(in srgb, var(--accent) 45%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .section-dark .service, .section-dark .service:hover { transform: none; transition: box-shadow .2s ease, border-color .2s ease; }
 }
 /* Each pack card carries its own pastel --accent (set inline in Services.tsx)
    so the four cards read as a palette rather than four identical pink ones.
@@ -606,11 +678,45 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 /* Expand/collapse control. `margin-top: auto` pins it to the bottom of the
    card in flow — so unlike the old absolutely-positioned link it can never
    be overlapped by copy above it, however uneven the four packs are. */
+.service-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* Pins the whole action block to the card's bottom edge in normal flow,
+     so the cart button lines up across the four cards and can never be
+     overlapped or pushed out, whatever the translated copy's length. */
+  margin-top: auto;
+  padding-top: 4px;
+}
+/* The cart CTA. Filled with the pack's own accent and near-black label, a
+   pairing checked at 9:1 or better on all four accents. */
+.service-cart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.service-cart svg { width: 18px; height: 18px; flex: none; }
+.service-cart:hover { transform: translateY(-2px); filter: brightness(1.07); box-shadow: 0 12px 28px color-mix(in srgb, var(--accent) 40%, transparent); }
+.service-cart:active { transform: translateY(0); filter: brightness(.95); }
+.service-cart:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .service-cart:hover, .service-cart:active { transform: none; } }
 .service-toggle {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: auto;
   padding: 11px 0 0;
   border: 0;
   border-top: 1px solid var(--line);
@@ -624,6 +730,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 }
 .service-toggle svg { width: 16px; margin-left: auto; transition: transform .3s ease; }
 .service-toggle:hover { color: var(--text); }
+.service-toggle:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 4px; }
 
 /* ---------- Pricing ---------- */
 .pricing-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 10px 0 60px; }
@@ -656,9 +763,9 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
      whatever is behind it. The per-card --tint is layered on top at low
      alpha so each card keeps its own hue. */
   background:
-    linear-gradient(150deg, rgba(242, 240, 248, 0.07), rgba(242, 240, 248, 0) 58%),
-    var(--tint, rgba(242, 240, 248, 0.05)),
-    #1e0e3d;
+    linear-gradient(150deg, rgba(var(--text-rgb), 0.07), rgba(var(--text-rgb), 0) 58%),
+    var(--tint, rgba(var(--text-rgb), 0.05)),
+    #0a2c3a;
   border: 1px solid color-mix(in srgb, var(--deep, #fff) 50%, transparent);
   /* MUST be explicit, not merely omitted. These cards are rendered by
      GlassCard, which always applies the `.glass` class, and `.glass` sets
@@ -669,15 +776,15 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   box-shadow:
-    0 10px 30px rgba(10, 4, 30, 0.4),
-    inset 0 1px 0 rgba(242, 240, 248, 0.1);
+    0 10px 30px rgba(var(--shade-rgb), 0.4),
+    inset 0 1px 0 rgba(var(--text-rgb), 0.1);
   transition: transform .25s ease, box-shadow .25s ease;
 }
 .section-vivid .pricing-service:hover {
   transform: translateY(-3px);
   box-shadow:
     0 18px 44px color-mix(in srgb, var(--deep, #000) 30%, transparent),
-    inset 0 1px 0 rgba(242, 240, 248, 0.16);
+    inset 0 1px 0 rgba(var(--text-rgb), 0.16);
 }
 .pricing-service .glass-card-glow { display: none; }
 .pricing-service h3 { font-size: 22px; letter-spacing: -.01em; margin-bottom: 12px; line-height: 1.2; color: var(--deep, var(--text)); }
@@ -694,8 +801,8 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
    pricing cards: .glass's saturate() would pull the video behind it
    through the panel and wash the copy out. */
 .section-dark .pricing-table-card {
-  background: #1e0e3d;
-  border-color: rgba(242, 240, 248, 0.25);
+  background: #0a2c3a;
+  border-color: rgba(var(--text-rgb), 0.25);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
@@ -739,16 +846,16 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .work-card { position: relative; border-radius: 25px; height: 100%; }
 .work-tag { position: absolute; top: 18px; left: 18px; z-index: 2; padding: 8px 11px; border-radius: 999px; background: rgba(7,7,10,0.55); border: 1px solid var(--line-strong); font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--champagne); backdrop-filter: blur(8px); }
 .website-showcase { position: absolute; inset: 0; padding: 83px 38px 35px; }
-.website-window { height: 100%; border: 1px solid var(--line-strong); border-radius: 14px; background: linear-gradient(165deg, #4a3bff, #9d00c6 55%, #fb36f4 100%); overflow: hidden; transform: rotate(-2deg); box-shadow: 0 24px 60px rgba(0,0,0,.5); }
+.website-window { height: 100%; border: 1px solid var(--line-strong); border-radius: 14px; background: linear-gradient(165deg, #2590b6, #3fa8c6 55%, #8ae8ea 100%); overflow: hidden; transform: rotate(-2deg); box-shadow: 0 24px 60px rgba(0,0,0,.5); }
 .website-window-top { height: 36px; background: var(--panel-raised); border-bottom: 1px solid var(--line); }
-.website-window-body { padding: 37px 27px; color: var(--text); }
+.website-window-body { padding: 18px 22px 16px; color: var(--text); }
 .website-window-body strong { color: var(--gold); font-size: 12px; }
-.website-window-body h4 { margin: 21px 0 15px; width: 85%; font-size: 36px; line-height: .98; letter-spacing: -.02em; font-family: var(--font-display); font-weight: 600; }
+.website-window-body h4 { margin: 10px 0 12px; width: 92%; font-size: 30px; line-height: .98; letter-spacing: -.02em; font-family: var(--font-display); font-weight: 600; }
 .website-lines { width: 65%; display: grid; gap: 8px; }
 .website-lines span { height: 7px; border-radius: 99px; background: var(--line-strong); }
 .website-lines span:last-child { width: 67%; }
-.video-showcase { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(160deg, #2a1660, var(--bronze)); }
-.video-product { width: 108px; height: 176px; border-radius: 31px 31px 22px 22px; background: linear-gradient(165deg, #00ffed, #4a3bff 55%, #9d00c6 100%); transform: rotate(9deg); box-shadow: 0 20px 50px rgba(0,0,0,.5); display: grid; place-items: center; color: var(--gold); font-weight: 700; font-size: 18px; text-align: center; line-height: .95; }
+.video-showcase { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(160deg, #0e3f52, var(--bronze)); }
+.video-product { width: 108px; height: 176px; border-radius: 31px 31px 22px 22px; background: linear-gradient(165deg, #8ae8ea, #3fa8c6 55%, #2590b6 100%); transform: rotate(9deg); box-shadow: 0 20px 50px rgba(0,0,0,.5); display: grid; place-items: center; color: var(--on-accent); font-weight: 700; font-size: 18px; text-align: center; line-height: .95; }
 /* Fills the work card edge to edge (VideoSlot's own .video-slot-video does the
    `cover` cropping). Distinct from .video-showcase, whose bronze gradient is
    tuned to the product-commercial card's fallback. */
@@ -787,7 +894,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   .process-step-inner:has(.process-step-mobile-video) .process-step-number,
   .process-step-inner:has(.process-step-mobile-video) h3,
   .process-step-inner:has(.process-step-mobile-video) p { color: var(--text); }
-  .process-step-inner:has(.process-step-mobile-video) .process-step-track { background: rgba(245, 242, 234, 0.25); }
+  .process-step-inner:has(.process-step-mobile-video) .process-step-track { background: rgba(var(--text-rgb), 0.25); }
 }
 
 /* The video-as-cursor: while hovering the pinned process section, the
@@ -826,7 +933,7 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   opacity: 0;
   transform: scale(0.6);
   transition: opacity .25s ease, transform .25s ease;
-  box-shadow: 0 30px 70px rgba(7, 7, 10, 0.5), 0 0 0 1px rgba(245, 242, 234, 0.22);
+  box-shadow: 0 30px 70px rgba(7, 7, 10, 0.5), 0 0 0 1px rgba(var(--text-rgb), 0.22);
 }
 .process-cursor-video.is-visible .process-cursor-video-inner { opacity: 1; transform: scale(1); }
 .process-cursor-video-el {
@@ -857,15 +964,11 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   .process-cursor-video { --puck-size: 220px; }
 }
 
-/* ---------- Quote + FAQ pastel wash ---------- */
-/* QuoteBox and FAQ are the last light stretch before Contact goes dark —
-   together they close the page's color loop, picking up FitList's coral
-   ending and drifting back through pink to lavender, so the very next
-   scroll (into Marquee, if the page repeats) lands where it started. Two
-   adjacent sections sharing one visual gradient: each paints half of it,
-   split at matching midpoint colors so the seam between them is invisible. */
+/* ---------- Quote wash ---------- */
+/* QuoteBox is the last light band before the page goes dark. The FAQ used
+   to paint the second half of this gradient; it now sits on the closing
+   area's starry background instead (see `.closing-area` below). */
 .section-wash-loop-start { background: linear-gradient(180deg, var(--band-magenta) 0%, var(--band-purple) 100%); }
-.section-wash-loop-end { background: linear-gradient(180deg, var(--band-purple) 0%, var(--band-blue) 100%); }
 
 .quote-section { padding: 40px 0 110px; }
 .quote-box { position: relative; padding: 65px; border-radius: 32px; overflow: hidden; }
@@ -884,22 +987,29 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 .faq-answer { overflow: hidden; color: var(--muted); }
 .faq-answer p { padding: 0 48px 23px 0; line-height: 1.65; font-size: 14px; margin: 0; }
 
-/* ---------- Contact ---------- */
-.contact {
-  --ink: #07070a;
-  --panel: #111116;
-  --panel-raised: #16161c;
-  --text: #f2f0f8;
-  --muted: #a49dbe;
-  --muted-dim: #736c8c;
-  --line: rgba(245, 242, 234, 0.12);
-  --line-strong: rgba(245, 242, 234, 0.22);
+/* ---------- Closing area: FAQ + Contact ---------- */
+/* Contact's background, lifted onto a wrapper around both FAQ and Contact
+   (ClosingArea.tsx) so the two share it. Nothing here is new: these are the
+   rules that used to sit on `.contact`, moved up one level. One base colour,
+   one scrim and one video layer now span both sections, which is why there
+   is no seam between them and no duplicated pattern. The tokens inherit
+   down, so FAQ and Contact read their colours from the same place. */
+.closing-area {
+  position: relative;
+  --ink: #04141a;
+  --panel: #082633;
+  --panel-raised: #0d3648;
+  --text: #eef6f8;
+  --muted: #c3dbe4;
+  --muted-dim: #bfd8e0;
+  --line: rgba(var(--text-rgb), 0.12);
+  --line-strong: rgba(var(--text-rgb), 0.22);
   background: var(--panel);
   color: var(--text);
   isolation: isolate;
   overflow: hidden;
 }
-.contact::before {
+.closing-area::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -907,7 +1017,37 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
   background: rgba(7, 7, 10, 0.55);
   pointer-events: none;
 }
-.contact .glass { background: rgba(10, 9, 8, 0.55); border-color: rgba(245, 242, 234, 0.14); }
+/* Fade from the quote band into the starry video. It starts on the exact
+   colour the quote section ends on (--band-purple), fully opaque, so the
+   boundary has no visible line, then dissolves to transparent. As a
+   z-index:-1 pseudo-element that comes after the video in paint order, it
+   sits above the video and below the FAQ content, and it never takes
+   clicks. Sized to stay inside the FAQ's top padding (the kicker starts
+   ~142px down on desktop, ~110px on phones), so it tints the space above
+   the heading, never the text itself. */
+.closing-area::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: clamp(96px, 9vw, 136px);
+  z-index: -1;
+  background: linear-gradient(180deg, var(--band-purple) 0%, transparent 100%);
+  pointer-events: none;
+}
+/* The video layer drifts +/-60px with the scroll (useParallaxY(60) in
+   CinematicBackground). At `inset: 0` that drift uncovered a flat strip of
+   the base colour along the top edge, a visible band just under the nav.
+   Extending the layer by exactly the drift distance keeps it covering the
+   whole area at every scroll position; `overflow: hidden` above clips the
+   excess, so nothing else moves. */
+.closing-area > .cine-bg { top: -60px; bottom: -60px; }
+/* Both the FAQ list and the contact card get the darker glass, so the
+   accordion rows stay readable over the bright particles in the video. */
+.closing-area .glass { background: rgba(var(--shade-rgb), 0.55); border-color: rgba(var(--text-rgb), 0.14); }
+
+/* ---------- Contact ---------- */
 .contact-grid { display: grid; grid-template-columns: 1fr .9fr; gap: 70px; align-items: center; }
 /* Smaller than it was (48-82px): the French heading is long enough that at
    that scale it overflowed its measure and stranded the "?" alone on a
@@ -928,6 +1068,11 @@ h1, h2, h3, blockquote { font-family: var(--font-display); }
 
 /* ---------- Footer ---------- */
 footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top: 1px solid var(--line); }
+/* The footer now shows the same dark-navy master lockup as the nav, so it
+   needs the same light plate to be legible on this dark ground. Slimmer
+   padding and radius than the nav's: it is a footer mark, not the header
+   brand, and it should not read as a second nav bar. */
+footer .footer-brand { width: fit-content; padding: 7px 14px; border-radius: 12px; background: #ffffff; box-shadow: 0 4px 16px rgba(var(--shade-rgb), 0.4); }
 .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 25px; align-items: center; }
 .footer-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 600; letter-spacing: -.01em; font-family: var(--font-display); }
 .footer-meta { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 20px; color: var(--muted-dim); font-size: 12px; }
@@ -976,7 +1121,19 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
   .hero { padding: 48px 0 68px; min-height: 100svh; }
   .hero-cine-bg { margin-top: -48px; margin-bottom: calc(-100vh + 48px); }
   .hero-h1 { font-size: 18px; }
-  .hero-content .eyebrow { padding: 13px 20px; font-size: 21px; }
+  /* Phones keep the authored two-line structure — the font drops instead
+     of the lines rewrapping, because .eyebrow-line is nowrap. 19px keeps
+     "Digital Marketing" inside a 390px viewport with room to spare. */
+  .hero-content .eyebrow { padding: 12px 16px 15px; font-size: 19px; gap: 10px; }
+  .hero-content .eyebrow .eyebrow-dot { width: 10px; height: 10px; }
+  .hero-content .eyebrow .eyebrow-rule { width: 76px; height: 2px; margin-top: 11px; }
+  /* A smaller lift than desktop's: the phone hero's own padding-top is
+     shorter, so the desktop pull would drive this block up into the
+     sound/cinematic controls parked at top: 100px. */
+  .hero-content .eyebrow {
+    margin-top: clamp(-400px, -46vh, -200px);
+    margin-bottom: clamp(200px, 46vh, 400px);
+  }
   .hero-copy { font-size: 17px; }
   .video-slot-sound { padding: 8px 12px; font-size: 11px; }
   .video-slot-sound span { display: none; }
@@ -1034,7 +1191,7 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
   padding: 3px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
-  background: rgba(20, 10, 46, 0.4);
+  background: rgba(var(--ground-rgb), 0.4);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -1089,14 +1246,43 @@ footer { padding: 38px 0; background: var(--ink); color: var(--text); border-top
    transparent nav — no plate, no border, no filter. */
 .brand-logo {
   display: block;
-  height: 60px;
+  height: 52px;
   width: auto;
+}
+/* Over the hero's video the transparent lockup lost almost all contrast
+   on bright frames (white ceilings, daylight windows). A white plate is
+   the fix the artwork actually wants, and the nav now carries the master
+   lockup (LEVEL_UP_AI.png — dark navy wordmark, violet "AI" and swoosh)
+   rather than the all-violet BRAND recolour: dark-on-white is what that
+   artwork was drawn for, and it holds against every frame instead of
+   only the dark ones. The footer keeps BRAND for its dark ground.
+   `height: auto` on the plate rather than a fixed one — the padding plus
+   the logo's own 52px sets the height, and the image keeps its intrinsic
+   1150x365 (3.151:1) ratio because only `height` is constrained. */
+.nav .brand {
+  gap: 0;
+  padding: 8px 18px;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 6px 22px rgba(var(--shade-rgb), 0.32);
+  /* Sits nearer the true left edge than .wrap's centred column allows,
+     without ever crowding it: the pull is half of whatever gutter exists
+     beyond a 48px safety margin, capped at 56px — so it is 56px on a wide
+     desktop, tapers as the viewport narrows, and is exactly 0 once .wrap
+     is running at its own 20/14px gutter. */
+  margin-left: calc(-1 * clamp(0px, (100vw - 1180px - 96px) / 2, 56px));
 }
 .brand { gap: 0; }
 footer .brand-logo { height: 50px; }
 
-@media (max-width: 740px) {
+@media (max-width: 980px) {
   .brand-logo { height: 44px; }
+  .nav .brand { padding: 7px 14px; border-radius: 12px; }
+}
+
+@media (max-width: 740px) {
+  .brand-logo { height: 34px; }
+  .nav .brand { padding: 6px 11px; border-radius: 10px; }
 }
 
 /* ---------- Transparent-nav legibility ---------- */
@@ -1110,7 +1296,7 @@ footer .brand-logo { height: 50px; }
    locale chip) need no shadow and only look muddy with one. */
 .nav-links a:not(.nav-cta),
 .locale-option:not(.locale-option-active) {
-  text-shadow: 0 1px 4px rgba(8, 4, 22, 0.9), 0 0 12px rgba(8, 4, 22, 0.6);
+  text-shadow: 0 1px 4px rgba(var(--shade-rgb), 0.9), 0 0 12px rgba(var(--shade-rgb), 0.6);
 }
 
 /* ---------- Support chat ---------- */
@@ -1127,13 +1313,13 @@ footer .brand-logo { height: 50px; }
   place-items: center;
   border: 1px solid var(--gold);
   border-radius: 50%;
-  background: linear-gradient(150deg, var(--gold-bright), var(--gold));
+  background: linear-gradient(150deg, var(--gold-bright), var(--bronze));
   color: var(--on-accent);
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(251, 54, 244, 0.45);
+  box-shadow: 0 10px 30px rgba(var(--accent-rgb), 0.45);
   transition: transform .2s ease, box-shadow .2s ease;
 }
-.chat-launcher:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(251, 54, 244, 0.55); }
+.chat-launcher:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(var(--accent-rgb), 0.55); }
 .chat-launcher svg { width: 26px; height: 26px; }
 
 .chat-panel {
@@ -1146,12 +1332,12 @@ footer .brand-logo { height: 50px; }
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(251, 54, 244, 0.35);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
   border-radius: 20px;
   /* Opaque, like the pricing cards: a translucent panel over the page's
      bright bands makes the transcript hard to read. */
-  background: #1e0e3d;
-  box-shadow: 0 24px 70px rgba(10, 4, 30, 0.65);
+  background: #0a2c3a;
+  box-shadow: 0 24px 70px rgba(var(--shade-rgb), 0.65);
 }
 .chat-head {
   padding: 16px 18px;
@@ -1181,13 +1367,13 @@ footer .brand-logo { height: 50px; }
 }
 .chat-msg-bot {
   align-self: flex-start;
-  background: rgba(242, 240, 248, 0.09);
+  background: rgba(var(--text-rgb), 0.09);
   border: 1px solid var(--line);
   color: var(--text);
 }
 .chat-msg-user {
   align-self: flex-end;
-  background: linear-gradient(150deg, var(--gold-bright), var(--gold));
+  background: linear-gradient(150deg, var(--gold-bright), var(--bronze));
   color: var(--on-accent);
   font-weight: 600;
 }
@@ -1205,12 +1391,13 @@ footer .brand-logo { height: 50px; }
   padding: 12px 14px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
-  background: rgba(242, 240, 248, 0.07);
+  background: rgba(var(--text-rgb), 0.07);
   color: var(--text);
   font-size: 14px;
 }
 .chat-form input::placeholder { color: var(--muted-dim); }
-.chat-form input:focus { outline: none; border-color: var(--gold); }
+.chat-form input:focus-visible,
+.chat-form input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.35); }
 .chat-form button {
   flex: none;
   width: 44px;
@@ -1219,7 +1406,7 @@ footer .brand-logo { height: 50px; }
   place-items: center;
   border: 0;
   border-radius: 50%;
-  background: linear-gradient(150deg, var(--gold-bright), var(--gold));
+  background: linear-gradient(150deg, var(--gold-bright), var(--bronze));
   color: var(--on-accent);
   cursor: pointer;
   transition: opacity .2s ease;
@@ -1230,4 +1417,35 @@ footer .brand-logo { height: 50px; }
 @media (max-width: 740px) {
   .chat-launcher { right: 16px; bottom: 16px; width: 52px; height: 52px; }
   .chat-panel { right: 16px; left: 16px; bottom: 80px; width: auto; height: min(70vh, 520px); }
+}
+
+/* Bouton d'abonnement du tableau « Abonnements mensuels ».
+   Même langage visuel que .service-cart, en version compacte pour une cellule. */
+.pricing-action { text-align: right; white-space: nowrap; }
+.pricing-cart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.pricing-cart svg { width: 16px; height: 16px; flex: none; }
+.pricing-cart:hover { transform: translateY(-2px); filter: brightness(1.07); box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 40%, transparent); }
+.pricing-cart:active { transform: translateY(0); filter: brightness(.95); }
+.pricing-cart:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+
+/* Sur mobile le tableau passe en cartes empilées : le bouton prend la largeur. */
+@media (max-width: 760px) {
+  .pricing-action { text-align: left; }
+  .pricing-cart { width: 100%; }
 }

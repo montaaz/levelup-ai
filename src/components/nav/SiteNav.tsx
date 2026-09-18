@@ -40,15 +40,17 @@ export default function SiteNav() {
       <div className="wrap nav-inner">
         <a className="brand" href="#top" aria-label={t.nav.brandHome}>
           {/* Full lockup — it already contains the wordmark and tagline, so
-              it replaces both the old icon and the "LevelUp AI" text.
-              Rendered as a CSS-masked span rather than an <img>: the PNG's
-              alpha channel becomes the mask and the brand gradient is
-              painted through it, so the logo takes the CTA's exact colours
-              instead of an approximation from chained filters. The anchor
-              carries the accessible name. */}
+              it replaces both the old icon and the "LevelUp AI" text. The
+              anchor carries the accessible name.
+              This is the master artwork (dark navy wordmark, violet "AI"
+              and swoosh), not the all-violet BRAND recolour the footer
+              still uses: the nav lockup now sits on a white plate, where
+              the master's own dark-on-light contrast is what it was drawn
+              for. The footer stays on BRAND because it sits on a dark
+              ground, where a navy wordmark would disappear. */}
           <Image
             className="brand-logo"
-            src="/LEVEL_UP_AI_BRAND.png"
+            src="/LEVEL_UP_AI.png"
             alt=""
             width={1150}
             height={365}

@@ -23,8 +23,9 @@ type CinematicBackgroundProps = {
   /** Applies the cursor-driven WebGL ripple + chromatic-aberration shader
    * on top of the video. Desktop-only, gated inside VideoRipple itself. */
   ripple?: boolean;
-  /** Starts muted with a tap-to-unmute control instead of playing silently
-   * forever — see useUnmutableVideo. */
+  /** Attempts audible playback on mount, falling back to muted autoplay
+   * when the browser refuses, and renders a persistent mute/unmute
+   * control — see useUnmutableVideo for the full ladder. */
   sound?: boolean;
 };
 
@@ -57,28 +58,58 @@ const VARIANT_FALLBACK: Record<Variant, React.ReactNode> = {
   ),
 };
 
-/** Tap-to-unmute control for a CinematicBackground with `sound` enabled.
+/** Mute/unmute toggle for a CinematicBackground with `sound` enabled.
  * Rendered as a sibling of .cine-bg (not a descendant) — .cine-bg sits at
  * z-index:-1 inside its section's own isolated stacking context (see
  * `.hero { isolation: isolate }`), so nothing nested inside it can ever
  * paint — or receive clicks — above the section's normal-flow content,
  * regardless of its own z-index. The button has to live outside that
- * subtree entirely to be clickable over the hero copy/laptop. */
-function SoundButton({ onClick }: { onClick: () => void }) {
+ * subtree entirely to be clickable over the hero copy/laptop.
+ *
+ * It stays mounted in both states — it used to unmount the moment sound
+ * started, which left the visitor no way back to silence and made the
+ * control row jump. `aria-pressed` carries the state, so the label
+ * describes the action the press performs. */
+function SoundButton({ unmuted, onClick }: { unmuted: boolean; onClick: () => void }) {
   const t = useTranslations();
   return (
-    <button type="button" className="video-slot-sound" onClick={onClick} aria-label={t.media.playWithSound}>
+    <button
+      type="button"
+      className="video-slot-sound"
+      onClick={onClick}
+      aria-pressed={unmuted}
+      aria-label={unmuted ? t.media.muteSound : t.media.playWithSound}
+    >
       <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
         <path
-          d="M4 9v6h4l5 4V5L8 9H4Z M16 8.5a4.5 4.5 0 0 1 0 7"
+          d="M4 9v6h4l5 4V5L8 9H4Z"
           stroke="currentColor"
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="none"
         />
+        {unmuted ? (
+          <path
+            d="M16 8.5a4.5 4.5 0 0 1 0 7M18.5 5.5a8.5 8.5 0 0 1 0 13"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
+        ) : (
+          <path
+            d="M16.5 9.5l5 5M21.5 9.5l-5 5"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
+        )}
       </svg>
-      <span>{t.media.soundOn}</span>
+      <span>{unmuted ? t.media.soundOff : t.media.soundOn}</span>
     </button>
   );
 }
@@ -95,7 +126,7 @@ function ParallaxLayer({
 }: Omit<CinematicBackgroundProps, "parallax">) {
   const { ref, y } = useParallaxY(60);
   const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null);
-  const { videoRef, unmuted, playWithSound } = useUnmutableVideo();
+  const { attachVideo, unmuted, toggleSound } = useUnmutableVideo();
 
   return (
     <>
@@ -109,13 +140,13 @@ function ParallaxLayer({
           priority={priority}
           unmuted={unmuted}
           videoRef={(el) => {
-            videoRef.current = el;
+            attachVideo(el);
             if (ripple) setVideoEl(el);
           }}
         />
         {ripple && <VideoRipple video={videoEl} />}
       </motion.div>
-      {sound && !unmuted && <SoundButton onClick={playWithSound} />}
+      {sound && <SoundButton unmuted={unmuted} onClick={toggleSound} />}
     </>
   );
 }
@@ -131,7 +162,7 @@ function StaticLayer({
   sound,
 }: Omit<CinematicBackgroundProps, "parallax">) {
   const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null);
-  const { videoRef, unmuted, playWithSound } = useUnmutableVideo();
+  const { attachVideo, unmuted, toggleSound } = useUnmutableVideo();
 
   return (
     <>
@@ -145,13 +176,13 @@ function StaticLayer({
           priority={priority}
           unmuted={unmuted}
           videoRef={(el) => {
-            videoRef.current = el;
+            attachVideo(el);
             if (ripple) setVideoEl(el);
           }}
         />
         {ripple && <VideoRipple video={videoEl} />}
       </div>
-      {sound && !unmuted && <SoundButton onClick={playWithSound} />}
+      {sound && <SoundButton unmuted={unmuted} onClick={toggleSound} />}
     </>
   );
 }

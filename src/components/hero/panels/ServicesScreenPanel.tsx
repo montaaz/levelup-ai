@@ -18,8 +18,11 @@ export default function ServicesScreenPanel() {
       <div className="screen-panel-cards">
         {t.screens.services.items.map((service) => (
           <div className="screen-panel-card" key={service.label}>
+            {/* The card's full service line. The panel is a fixed slice of the
+                laptop screen and cannot grow, so the services live in the one
+                title string rather than a sub-list: a list made the cards
+                overflow the panel's bottom edge on phones. */}
             <strong>{service.label}</strong>
-            <span>{service.desc}</span>
           </div>
         ))}
       </div>

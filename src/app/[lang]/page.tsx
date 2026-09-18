@@ -12,6 +12,7 @@ import ProcessTimeline from "@/components/sections/ProcessTimeline";
 import QuoteBox from "@/components/sections/QuoteBox";
 import Faq from "@/components/sections/Faq";
 import Contact from "@/components/sections/Contact";
+import ClosingArea from "@/components/sections/ClosingArea";
 import Footer from "@/components/sections/Footer";
 import ChatWidget from "@/components/chat/ChatWidget";
 
@@ -36,8 +37,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         <AICommercials />
         <ProcessTimeline />
         <QuoteBox />
-        <Faq />
-        <Contact lang={lang} />
+        <ClosingArea>
+          <Faq />
+          <Contact lang={lang} />
+        </ClosingArea>
       </main>
       <Footer lang={lang} />
       <ChatWidget />

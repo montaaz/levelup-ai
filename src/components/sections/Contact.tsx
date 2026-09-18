@@ -1,4 +1,3 @@
-import CinematicBackground from "@/components/media/CinematicBackground";
 import Reveal from "@/components/ui/Reveal";
 
 import { getDictionary } from "@/i18n/dictionaries";
@@ -10,7 +9,6 @@ export default async function Contact({ lang }: { lang: string }) {
 
   return (
     <section className="section contact" id="contact">
-      <CinematicBackground variant="contact" src="/videos/contact-bg.mp4" />
       <div className="wrap contact-grid">
         <Reveal>
           <span className="section-kicker">{t.contact.kicker}</span>

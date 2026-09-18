@@ -2,6 +2,7 @@ import CinematicBackground from "@/components/media/CinematicBackground";
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
 import ServicePackCard from "./ServicePackCard";
+import SubscribeButton from "./SubscribeButton";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 import { cookies } from "next/headers";
@@ -12,14 +13,16 @@ import {
   localizePrice,
 } from "@/i18n/currency";
 
-/** Visual-only per-pack data: just the accent colour each card is tinted
- *  with. (The 3D icons were removed — the cards now lead with the pack
- *  number and title instead.) */
+/** Visual-only per-pack data. Each pack owns a distinct gradient pair plus
+ *  the accent its number, title and cart button are drawn in, so the four
+ *  cards are told apart at a glance instead of reading as one block. The
+ *  values live in tokens.css (--pack-N-*) rather than here, so the palette
+ *  stays in one place and both locales render from the same source. */
 const PACK_VISUALS = [
-  { accent: "var(--pastel-lavender)" },
-  { accent: "var(--pastel-sky)" },
-  { accent: "var(--pastel-mint)" },
-  { accent: "#ffd500" },
+  { accent: "var(--pack-1-accent)", from: "var(--pack-1-from)", to: "var(--pack-1-to)" },
+  { accent: "var(--pack-2-accent)", from: "var(--pack-2-from)", to: "var(--pack-2-to)" },
+  { accent: "var(--pack-3-accent)", from: "var(--pack-3-from)", to: "var(--pack-3-to)" },
+  { accent: "var(--pack-4-accent)", from: "var(--pack-4-from)", to: "var(--pack-4-to)" },
 ];
 
 export default async function Services({ lang }: { lang: string }) {
@@ -55,8 +58,12 @@ export default async function Services({ lang }: { lang: string }) {
               <ServicePackCard
                 pack={service}
                 accent={service.accent}
+                gradientFrom={service.from}
+                gradientTo={service.to}
+                featured={index === 3}
                 showDetails={t.services.showDetails}
                 hideDetails={t.services.hideDetails}
+                addToCart={t.services.addToCart}
               />
             </Reveal>
           ))}
@@ -76,6 +83,7 @@ export default async function Services({ lang }: { lang: string }) {
                   <th>{t.pricing.tableHeaders.plan}</th>
                   <th>{t.pricing.tableHeaders.content}</th>
                   <th>{t.pricing.tableHeaders.price}</th>
+                  <th aria-label={t.services.addToCart} />
                 </tr>
               </thead>
               <tbody>
@@ -84,6 +92,9 @@ export default async function Services({ lang }: { lang: string }) {
                     <td data-label={t.pricing.tableHeaders.plan}>{sub.name}</td>
                     <td data-label={t.pricing.tableHeaders.content}>{sub.content}</td>
                     <td data-label={t.pricing.tableHeaders.price} className="pricing-price">{localizePrice(sub.price, currency)}</td>
+                    <td className="pricing-action">
+                      <SubscribeButton name={sub.name} label={t.services.addToCart} />
+                    </td>
                   </tr>
                 ))}
               </tbody>

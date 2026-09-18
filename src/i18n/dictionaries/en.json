@@ -19,15 +19,18 @@
         }
     },
     "hero": {
-        "eyebrow": "AI-Powered Digital Marketing Agency",
+        "eyebrow": [
+            "AI-Powered",
+            "Digital Marketing Agency"
+        ],
         "headline": [
             "Website design.",
             "AI Photoshoots & Videos.",
-            "Digital Creation & Branding & Content Creation."
+            "Digital Creation & Branding & Content Creation & SEO."
         ],
-        "copy": "LevelUp AI helps small businesses and startups look bigger, move faster, and grow smarter with affordable websites, AI commercial videos, and practical automations.",
+        "copy": "LevelUp AI helps businesses and startups look bigger, move faster, and grow smarter with affordable websites, AI commercial videos, and practical automations.",
         "proof": [
-            "Small-business friendly",
+            "Built for every business",
             "Fast, focused delivery",
             "Human-guided AI"
         ],
@@ -37,8 +40,10 @@
         "hideText": "Hide text"
     },
     "media": {
-        "playWithSound": "Play with sound",
-        "soundOn": "Sound on"
+        "playWithSound": "Turn sound on",
+        "soundOn": "Turn sound on",
+        "muteSound": "Turn sound off",
+        "soundOff": "Turn sound off"
     },
     "screens": {
         "hero": {
@@ -56,16 +61,13 @@
             "title": "Three ways to level up.",
             "items": [
                 {
-                    "label": "Websites",
-                    "desc": "Launch fast, look sharp"
+                    "label": "Website / e-commerce site"
                 },
                 {
-                    "label": "AI Video",
-                    "desc": "Commercials that convert"
+                    "label": "AI video / branding"
                 },
                 {
-                    "label": "Automation",
-                    "desc": "Leads followed up instantly"
+                    "label": "Automation / SEO"
                 }
             ]
         },
@@ -114,14 +116,14 @@
                 "number": "PACK 01",
                 "title": "Discovery Pack",
                 "price": "From 890 TND",
-                "copy": "The easiest way to start. Pick the one thing your business needs most right now and get it done properly.",
+                "copy": "The simplest way to get started. Pick what your business needs most right now, and let's do it properly.",
                 "list": [
                     "AI showcase website (5-6 pages)",
                     "or AI product shoot (10 visuals)",
-                    "Perfect first step for a new brand"
+                    "The ideal first step for a new brand"
                 ],
-                "cta": "Start with Discovery",
-                "summary": "AI showcase website (5-6 pages) or AI product shoot (10 visuals)"
+                "cta": "",
+                "summary": "AI showcase website (5 to 6 pages) or AI e-commerce website (quote on request) or AI product shoot (10 visuals)"
             },
             {
                 "number": "PACK 02",
@@ -131,10 +133,10 @@
                 "list": [
                     "AI showcase website",
                     "AI product shoot (10 visuals)",
-                    "1 short video"
+                    "4 videos"
                 ],
                 "cta": "Launch my brand",
-                "summary": "AI showcase website + product shoot (10 visuals) + 1 short video"
+                "summary": "AI showcase website + AI product shoot (10 visuals) + 4 videos"
             },
             {
                 "number": "PACK 03",
@@ -144,10 +146,10 @@
                 "list": [
                     "AI showcase website",
                     "AI product shoot (20 visuals)",
-                    "2 short videos"
+                    "6 videos"
                 ],
                 "cta": "Grow my business",
-                "summary": "AI showcase website + product shoot (20 visuals) + 2 short videos"
+                "summary": "AI showcase website + AI product shoot (20 visuals) + 6 videos"
             },
             {
                 "number": "PACK 04",
@@ -157,14 +159,15 @@
                 "list": [
                     "AI showcase website",
                     "AI product shoot (40 visuals)",
-                    "4 short videos"
+                    "8 videos"
                 ],
                 "cta": "Go Pro Max",
-                "summary": "AI showcase website + product shoot (40 visuals) + 4 short videos"
+                "summary": "AI showcase website + AI product shoot (40 visuals) + 8 videos"
             }
         ],
         "showDetails": "See details",
-        "hideDetails": "Hide details"
+        "hideDetails": "Hide details",
+        "addToCart": "Add to cart"
     },
     "pricing": {
         "kicker": "Services",
@@ -201,8 +204,8 @@
                 "copy": "Conversational agents for customer support or booking, on WhatsApp, your website, or Messenger."
             },
             {
-                "title": "Automated email marketing",
-                "copy": "Segmentation, message personalization, and automated follow-ups driven by AI."
+                "title": "SEO, search engine optimization, automated email marketing",
+                "copy": "Search engine optimization and pages built to be found, plus automated email campaigns: segmentation, personalization, and follow-ups driven by AI."
             },
             {
                 "title": "Express visual identity",
@@ -219,12 +222,12 @@
         "subscriptions": [
             {
                 "name": "Starter",
-                "content": "8 visuals + 2 short videos per month.",
+                "content": "12 visuals + 4 videos per month.",
                 "price": "1,190 TND/mo"
             },
             {
                 "name": "Pro",
-                "content": "12 visuals + 4 videos.",
+                "content": "20 visuals + 6 videos per month.",
                 "price": "1,490 TND/mo"
             },
             {
@@ -237,7 +240,7 @@
     },
     "fit": {
         "kicker": "Built for momentum",
-        "title": "Agency-quality thinking. Small-business reality.",
+        "title": "Agency-quality thinking. Business reality.",
         "lead": "We keep the process clear, collaborative, and focused on what will actually help your business grow.",
         "items": [
             {
