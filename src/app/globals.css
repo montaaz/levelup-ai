@@ -1420,32 +1420,36 @@ footer .brand-logo { height: 50px; }
 }
 
 /* Bouton d'abonnement du tableau « Abonnements mensuels ».
-   Même langage visuel que .service-cart, en version compacte pour une cellule. */
+   Le tableau est posé sur une section sombre : on force un dégradé clair et un
+   texte blanc pour que l'appel à l'action reste lisible (la variable --accent
+   y rend un bouton sombre sur fond sombre, donc invisible). */
 .pricing-action { text-align: right; white-space: nowrap; }
 .pricing-cart {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 40px;
-  padding: 0 16px;
-  border: 1px solid transparent;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, .22);
   border-radius: 999px;
-  background: var(--accent);
-  color: var(--on-accent);
+  background: linear-gradient(120deg, #29a3ff, #0a5ff0);
+  color: #fff;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: -.01em;
+  white-space: nowrap;
   cursor: pointer;
+  box-shadow: 0 8px 20px rgba(17, 131, 255, .38);
   transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
 }
 .pricing-cart svg { width: 16px; height: 16px; flex: none; }
-.pricing-cart:hover { transform: translateY(-2px); filter: brightness(1.07); box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 40%, transparent); }
+.pricing-cart:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 12px 26px rgba(17, 131, 255, .5); }
 .pricing-cart:active { transform: translateY(0); filter: brightness(.95); }
-.pricing-cart:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+.pricing-cart:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 
 /* Sur mobile le tableau passe en cartes empilées : le bouton prend la largeur. */
 @media (max-width: 760px) {
   .pricing-action { text-align: left; }
-  .pricing-cart { width: 100%; }
+  .pricing-cart { width: 100%; margin-top: 6px; }
 }
