@@ -1,15 +1,23 @@
 /**
  * Passerelle vers la plateforme (levelupia.app).
  *
- * Le vitrine n'envoie jamais de prix : il envoie un CODE d'offre. La plateforme
- * relit le prix dans sa base, signe un jeton et renvoie l'URL d'inscription.
- * Un visiteur ne peut donc pas fabriquer une commande à un prix de son choix.
+ * Le clic « Ajouter au panier » redirige IMMÉDIATEMENT vers la connexion de la
+ * plateforme, en passant l'offre choisie dans l'URL. Aucun appel réseau n'est
+ * fait depuis le vitrine : pas d'attente, et rien ne casse si la plateforme
+ * répond lentement ou si le navigateur bloque la requête inter-domaines.
+ *
+ * L'offre voyage en clair (un simple code), ce qui est sans risque : la
+ * plateforme relit le prix dans sa base et n'accorde jamais d'accès payant sur
+ * la foi de ce paramètre.
  */
 
 /** Base de la plateforme, surchargeable par variable d'environnement. */
 export const PLATFORM_URL = (
   process.env.NEXT_PUBLIC_PLATFORM_URL ?? "https://levelupia.app"
-).replace(/\/+$/, "");
+)
+  .replace(/\/+$/, "")
+  // un port interne (…:3000) ne serait pas joignable depuis l'extérieur
+  .replace(/^(https:\/\/[^/:]+):\d+$/, "$1");
 
 /** Numéro de pack affiché → code attendu par la plateforme. */
 export const PACK_CODES: Record<string, string> = {
@@ -25,7 +33,7 @@ export const PACK_CODES: Record<string, string> = {
  */
 const SUBSCRIPTION_CODES: Array<{ match: RegExp; code: string }> = [
   { match: /starter/i, code: "ABO_STARTER" },
-  { match: /^pro$|^pro\b/i, code: "ABO_PRO" },
+  { match: /^pro\b/i, code: "ABO_PRO" },
   { match: /r[ée]seaux|social/i, code: "ABO_SOCIAL" },
 ];
 
@@ -35,23 +43,11 @@ export function subscriptionCode(name: string): string | null {
 }
 
 /**
- * Demande l'URL d'inscription pour une offre et y envoie le visiteur.
- * En cas d'échec (plateforme injoignable), on renvoie false pour que l'appelant
- * garde son comportement de repli (scroll vers le formulaire de contact).
+ * Envoie le visiteur sur la connexion de la plateforme avec l'offre choisie.
+ * Redirection directe : aucune attente réseau, donc aucun « chargement » long.
  */
-export async function startCheckout(packCode: string): Promise<boolean> {
-  try {
-    const res = await fetch(`${PLATFORM_URL}/api/cart`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ packCode }),
-    });
-    if (!res.ok) return false;
-    const data: { signupUrl?: string } = await res.json();
-    if (!data.signupUrl) return false;
-    window.location.href = data.signupUrl;
-    return true;
-  } catch {
-    return false;
-  }
+export function startCheckout(packCode: string): boolean {
+  if (!packCode) return false;
+  window.location.href = `${PLATFORM_URL}/login?pack=${encodeURIComponent(packCode)}`;
+  return true;
 }

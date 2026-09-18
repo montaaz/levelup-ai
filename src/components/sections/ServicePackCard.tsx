@@ -41,7 +41,7 @@ type Props = {
  *     cart.add(e.detail);
  *   });
  */
-async function addPackToCart(pack: Pack) {
+function addPackToCart(pack: Pack) {
   const event = new CustomEvent("levelup:add-to-cart", {
     detail: { id: pack.number, title: pack.title, price: pack.price },
     cancelable: true,
@@ -50,10 +50,9 @@ async function addPackToCart(pack: Pack) {
   const handled = !document.dispatchEvent(event);
   if (handled) return;
 
-  // Parcours réel : la plateforme signe la commande et renvoie l'inscription.
-  // Seul le CODE de l'offre part d'ici — jamais le prix affiché.
+  // Redirection immédiate vers la connexion de la plateforme, avec l'offre.
   const code = PACK_CODES[pack.number];
-  if (code && (await startCheckout(code))) return;
+  if (code && startCheckout(code)) return;
 
   // Repli inchangé si la plateforme est injoignable ou le pack inconnu.
   document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -157,7 +156,7 @@ export default function ServicePackCard({
           type="button"
           className="service-cart"
           data-pack={pack.number}
-          onClick={() => void addPackToCart(pack)}
+          onClick={() => addPackToCart(pack)}
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.1} aria-hidden="true">
             <path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.5a1 1 0 0 0 1-.78L20 8H6" />

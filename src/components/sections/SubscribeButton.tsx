@@ -11,13 +11,13 @@ export default function SubscribeButton({ name, label }: { name: string; label: 
   const code = subscriptionCode(name);
   if (!code) return null;
 
-  async function go() {
-    if (await startCheckout(code!)) return;
+  function go() {
+    if (startCheckout(code!)) return;
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   return (
-    <button type="button" className="pricing-cart" onClick={() => void go()}>
+    <button type="button" className="pricing-cart" onClick={go}>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.1} aria-hidden="true">
         <path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.5a1 1 0 0 0 1-.78L20 8H6" />
         <circle cx="10" cy="20" r="1.4" />
