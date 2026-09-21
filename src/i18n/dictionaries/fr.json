@@ -408,6 +408,56 @@
         "close": "Fermer le chat",
         "greeting": "Bonjour ! Je suis l'assistant LevelUp AI. Posez-moi vos questions sur nos packs, services ou tarifs.",
         "error": "Désolé, une erreur est survenue. Réessayez ou écrivez-nous à hello@levelupai.studio.",
-        "thinking": "Réflexion…"
+        "thinking": "Réflexion…",
+        "buddy": {
+            "suggestions": [
+                {
+                    "label": "Nos packs",
+                    "question": "Quels sont vos packs ?"
+                },
+                {
+                    "label": "Abonnements",
+                    "question": "Quels sont vos abonnements mensuels ?"
+                },
+                {
+                    "label": "Services",
+                    "question": "Quels services proposez-vous ?"
+                },
+                {
+                    "label": "Comment ça marche",
+                    "question": "Comment se déroule un projet ?"
+                },
+                {
+                    "label": "Commander",
+                    "question": "Comment commander ?"
+                },
+                {
+                    "label": "Contact",
+                    "question": "Comment vous joindre ?"
+                }
+            ],
+            "labels": {
+                "help": "Aide",
+                "packs": "Packs",
+                "subscriptions": "Abonnements",
+                "services": "Services",
+                "process": "Comment ça marche",
+                "contact": "Contact",
+                "order": "Commander"
+            },
+            "unsupported": "Je réponds uniquement aux questions sur LevelUp AI — nos packs, services, tarifs, notre façon de travailler et comment nous joindre. Pour toute autre demande, écrivez-nous à hello@levelupai.studio. Voici ce que vous pouvez me demander :",
+            "ambiguous": "Vouliez-vous dire : {options} ?",
+            "noEvidence": "Je n'ai pas ce détail. Écrivez-nous à hello@levelupai.studio et nous vous répondrons directement.",
+            "help": "Voici ce que vous pouvez me demander :",
+            "or": "ou",
+            "packsIntro": "Voici nos packs :",
+            "packsOutro": "Demandez-moi un pack par son nom pour voir ce qu'il comprend.",
+            "packIncludes": "Comprend :",
+            "subscriptionsIntro": "Nos abonnements mensuels :",
+            "servicesIntro": "Ce que nous faisons :",
+            "processIntro": "Le déroulement d'un projet :",
+            "contactIntro": "Vous pouvez nous joindre à hello@levelupai.studio.",
+            "orderHelp": "Choisissez un pack dans la section Tarifs et cliquez sur « Ajouter au panier » : vous arrivez sur votre espace LevelUp AI (levelupia.app), où vous suivez votre projet et réglez. Vous préférez un devis d'abord ? Écrivez-nous à hello@levelupai.studio."
+        }
     }
 }

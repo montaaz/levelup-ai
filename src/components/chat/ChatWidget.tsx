@@ -4,12 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocale } from "@/i18n/LocaleProvider";
 
-type Message = { role: "user" | "assistant"; content: string };
+type Message = {
+  role: "user" | "assistant";
+  content: string;
+  /** Questions proposées sous une réponse du bot, cliquables. */
+  suggestions?: string[];
+};
 
 /**
- * Floating support chat. Talks to /api/chat, which holds the API key and the
- * "only answer about LevelUp AI" system prompt — the key is never exposed to
- * the browser, and the scope rule cannot be edited by a visitor.
+ * Floating support chat. Talks to /api/chat, a model-free intent router
+ * that only answers from the site's own dictionaries — no key, no external
+ * call, nothing a visitor could steer. Suggestion chips show what can be
+ * asked, since a rule-based bot only understands the questions it was taught.
  */
 export default function ChatWidget() {
   const { locale, dict } = useLocale();
@@ -41,12 +47,11 @@ export default function ChatWidget() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  async function send(event: React.FormEvent) {
-    event.preventDefault();
-    const question = input.trim();
-    if (!question || pending) return;
+  async function ask(question: string) {
+    const text = question.trim();
+    if (!text || pending) return;
 
-    const next = [...messages, { role: "user" as const, content: question }];
+    const next = [...messages, { role: "user" as const, content: text }];
     setMessages(next);
     setInput("");
     setPending(true);
@@ -55,15 +60,14 @@ export default function ChatWidget() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ messages: next, locale }),
+        body: JSON.stringify({ messages: next.map(({ role, content }) => ({ role, content })), locale }),
       });
       const data = await response.json();
       setMessages([
         ...next,
-        {
-          role: "assistant",
-          content: response.ok && data.reply ? data.reply : t.error,
-        },
+        response.ok && data.reply
+          ? { role: "assistant", content: data.reply, suggestions: data.suggestions }
+          : { role: "assistant", content: t.error },
       ]);
     } catch {
       setMessages([...next, { role: "assistant", content: t.error }]);
@@ -71,6 +75,21 @@ export default function ChatWidget() {
       setPending(false);
     }
   }
+
+  function send(event: React.FormEvent) {
+    event.preventDefault();
+    void ask(input);
+  }
+
+  const chips = (items: string[]) => (
+    <div className="chat-chips">
+      {items.map((q) => (
+        <button key={q} type="button" className="chat-chip" onClick={() => void ask(q)} disabled={pending}>
+          {q}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <>
@@ -110,12 +129,13 @@ export default function ChatWidget() {
 
             <div className="chat-log" ref={scrollRef}>
               <div className="chat-msg chat-msg-bot">{t.greeting}</div>
+              {messages.length === 0 && chips(t.buddy.suggestions.map((s) => s.label))}
               {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`chat-msg ${message.role === "user" ? "chat-msg-user" : "chat-msg-bot"}`}
-                >
-                  {message.content}
+                <div key={index}>
+                  <div className={`chat-msg ${message.role === "user" ? "chat-msg-user" : "chat-msg-bot"}`}>
+                    {message.content}
+                  </div>
+                  {message.suggestions && message.suggestions.length > 0 && chips(message.suggestions)}
                 </div>
               ))}
               {pending && (

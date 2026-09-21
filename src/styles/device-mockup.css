@@ -35,11 +35,19 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--screen-dim);
+}
+/* The status badge is two short words ("En direct", "Live") that read as one
+   token — broken across lines it looks like a layout bug, so it keeps its
+   width and the title label absorbs the wrapping instead. */
+.automation-phone-header .live {
+  white-space: nowrap;
+  flex: none;
 }
 .automation-phone-stack {
   position: relative;
@@ -357,9 +365,47 @@
 
 @media (max-width: 740px) {
   .laptop-tilt { width: 100%; }
-  .automation-phone { width: 150px; }
-  .automation-phone-screen { min-height: 190px; padding: 13px 12px; }
+  /* The notification copy ("Website contact form", "Suivi des leads") is the
+     narrowest thing on the page. At 150px the toast had ~96px of text column
+     and broke three-deep into unreadable slivers, so the phone gets a little
+     more width and the chrome around the text gets tighter — the gain all
+     goes to the text column, not the shell. */
+  .automation-phone { width: 172px; padding: 9px; border-radius: 28px; }
+  .automation-phone-screen {
+    min-height: 0;
+    border-radius: 21px;
+    padding: 12px 10px;
+    gap: 10px;
+  }
+  /* French runs long here ("Suivi des prospects" + "En direct"). Dropping the
+     tracking to zero and letting the label shrink keeps this strip to one
+     line; it is quiet chrome, so the smaller size costs nothing. */
+  /* French runs long here ("Suivi des prospects" + "En direct"). Tighter
+     tracking buys back most of it; when the title still needs two lines the
+     badge sits on the first one rather than floating in the middle. */
+  .automation-phone-header {
+    font-size: 8px;
+    letter-spacing: 0;
+    gap: 5px;
+    align-items: flex-start;
+    line-height: 1.25;
+  }
+  /* Was a fixed 80px with the toast absolutely positioned inside it: any copy
+     that needed a third line spilled past the card's rounded edge. Letting the
+     stack size to its content keeps every line inside the toast. */
+  .automation-phone-stack { min-height: 72px; }
+  .automation-phone-toast { padding: 10px 9px; gap: 2px; border-radius: 13px; }
+  .automation-phone-toast-label { font-size: 8px; letter-spacing: 0.05em; }
+  .automation-phone-toast-title { font-size: 13px; line-height: 1.15; }
+  .automation-phone-toast-detail { font-size: 9.5px; line-height: 1.3; }
   .screen-panel { padding: 6.4% 9%; }
+}
+
+/* Smallest phones (iPhone SE and down): one more step so the third line of
+   "Website contact form" still clears the toast's bottom edge. */
+@media (max-width: 380px) {
+  .automation-phone { width: 158px; }
+  .automation-phone-toast-title { font-size: 12px; }
 }
 
 /* ---------- Video carousel ---------- */

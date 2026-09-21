@@ -1147,7 +1147,9 @@ footer .footer-brand { width: fit-content; padding: 7px 14px; border-radius: 12p
   /* Must exceed a screen height so the laptop is never visible at scroll
      position 0 — at 42vh the mockup showed on load on tall phones. */
   .hero-video-runway { height: 85vh; }
-  .automation-phone { width: 150px; }
+  /* Phone width for this breakpoint lives in device-mockup.css, next to the
+     rest of the toast sizing it has to stay in step with. The duplicate that
+     was here loaded later and silently overrode it. */
   .section { padding: 78px 0; }
   .section-head { gap: 20px; margin-bottom: 40px; }
   .section h2 { font-size: 44px; }
@@ -1453,3 +1455,27 @@ footer .brand-logo { height: 50px; }
   .pricing-action { text-align: left; }
   .pricing-cart { width: 100%; margin-top: 6px; }
 }
+
+/* Chatbot sans modèle : puces de questions proposées, et retours à la ligne
+   des réponses à puces. */
+.chat-msg { white-space: pre-line; }
+.chat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 2px 0 6px;
+}
+.chat-chip {
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 6px 11px;
+  font-size: 12.5px;
+  line-height: 1.2;
+  background: rgba(var(--text-rgb), 0.06);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+}
+.chat-chip:hover,
+.chat-chip:focus-visible { border-color: var(--gold); background: rgba(var(--accent-rgb), 0.12); outline: none; }
+.chat-chip:disabled { opacity: .5; cursor: default; }

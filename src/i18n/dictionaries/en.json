@@ -408,6 +408,56 @@
         "close": "Close chat",
         "greeting": "Hi! I'm the LevelUp AI assistant. Ask me about our packs, services or pricing.",
         "error": "Sorry, something went wrong. Please try again or email hello@levelupai.studio.",
-        "thinking": "Thinking…"
+        "thinking": "Thinking…",
+        "buddy": {
+            "suggestions": [
+                {
+                    "label": "Our packs",
+                    "question": "What packs do you offer?"
+                },
+                {
+                    "label": "Subscriptions",
+                    "question": "What are your monthly subscriptions?"
+                },
+                {
+                    "label": "Services",
+                    "question": "What services do you offer?"
+                },
+                {
+                    "label": "How it works",
+                    "question": "How does the process work?"
+                },
+                {
+                    "label": "How to order",
+                    "question": "How do I order?"
+                },
+                {
+                    "label": "Contact",
+                    "question": "How can I reach you?"
+                }
+            ],
+            "labels": {
+                "help": "Help",
+                "packs": "Packs",
+                "subscriptions": "Subscriptions",
+                "services": "Services",
+                "process": "How it works",
+                "contact": "Contact",
+                "order": "How to order"
+            },
+            "unsupported": "I can only answer questions about LevelUp AI — our packs, services, pricing, process and how to reach us. For anything else, write to hello@levelupai.studio. Here is what you can ask me:",
+            "ambiguous": "Did you mean: {options}?",
+            "noEvidence": "I don't have that detail. Write to hello@levelupai.studio and we'll answer you directly.",
+            "help": "Here is what you can ask me:",
+            "or": "or",
+            "packsIntro": "Here are our packs:",
+            "packsOutro": "Ask me about a pack by name to see what it includes.",
+            "packIncludes": "Includes:",
+            "subscriptionsIntro": "Our monthly subscriptions:",
+            "servicesIntro": "What we do:",
+            "processIntro": "How a project runs:",
+            "contactIntro": "You can reach us at hello@levelupai.studio.",
+            "orderHelp": "Pick a pack in the Pricing section and click “Add to cart”: you'll be taken to your LevelUp AI account (levelupia.app), where you can follow your project and pay. Prefer a quote first? Write to hello@levelupai.studio."
+        }
     }
 }
