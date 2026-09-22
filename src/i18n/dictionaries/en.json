@@ -457,7 +457,19 @@
             "servicesIntro": "What we do:",
             "processIntro": "How a project runs:",
             "contactIntro": "You can reach us at hello@levelupai.studio.",
-            "orderHelp": "Pick a pack in the Pricing section and click “Add to cart”: you'll be taken to your LevelUp AI account (levelupia.app), where you can follow your project and pay. Prefer a quote first? Write to hello@levelupai.studio."
+            "orderHelp": "Pick a pack in the Pricing section and click “Add to cart”: you'll be taken to your LevelUp AI account (levelupia.app), where you can follow your project and pay. Prefer a quote first? Write to hello@levelupai.studio.",
+            "greeting": "Hello! I'm the LevelUp AI assistant. What would you like to know?",
+            "thanks": "You're welcome! Anything else?",
+            "bye": "See you soon! If you need us: hello@levelupai.studio.",
+            "budgetIntro": "With a budget of {budget} TND, here is what you can choose:",
+            "budgetSubs": "And as a monthly plan:",
+            "budgetNone": "No pack fits a budget of {budget} TND — the first one starts at {min} TND. Two options:",
+            "budgetQuote": "E-commerce websites are quoted on request: write to hello@levelupai.studio.",
+            "needIntro": "For “{need}”, here is what matches:",
+            "needNone": "I can't find an offer that mentions “{need}”. Write to hello@levelupai.studio and we'll answer precisely.",
+            "compareIntro": "Comparison:",
+            "compareCommon": "Both include:",
+            "compareOnly": "Only in {title}:"
         }
     }
 }

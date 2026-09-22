@@ -17,7 +17,7 @@ export type VitrineIntentId = StaticIntentId | `pack:${number}` | `faq:${number}
 export const STATIC_INTENTS: IntentDef<StaticIntentId>[] = [
   {
     id: "help",
-    strong: ["aide", "help"],
+    strong: ["aide", "help", "chnowa", "chnia", "chnoua"],
     phrases: [
       "que sais tu faire", "que peux tu faire", "que puis je demander", "quelles questions",
       "what can you do", "what can i ask", "how can you help",
@@ -28,7 +28,7 @@ export const STATIC_INTENTS: IntentDef<StaticIntentId>[] = [
     strong: [
       "pack", "packs", "package", "packages", "formule", "formules",
       "tarif", "tarifs", "prix", "price", "prices", "pricing",
-      "cout", "couts", "coute", "cost", "costs", "combien",
+      "cout", "coute", "cost", "costs", "combien", "9adech", "kadech", "9addech", "flous",
     ],
     keywords: ["offre", "offres", "offer", "offers", "budget", "site", "website"],
   },
@@ -53,7 +53,7 @@ export const STATIC_INTENTS: IntentDef<StaticIntentId>[] = [
       "process", "processus", "deroulement", "etape", "etapes", "step", "steps",
       "delai", "delais", "timeline", "duree", "duration",
     ],
-    keywords: ["temps", "time", "long", "jours", "days", "semaine", "semaines", "week", "weeks", "livraison", "delivery"],
+    keywords: ["temps", "time", "long", "jours", "days", "semaine", "semaines", "week", "weeks", "livraison", "delivery", "wa9tech", "waktech"],
     phrases: [
       "comment ca se passe", "comment ca marche", "comment vous travaillez",
       "how does it work", "how it works", "how do you work",
@@ -69,9 +69,12 @@ export const STATIC_INTENTS: IntentDef<StaticIntentId>[] = [
   },
   {
     id: "order",
-    strong: ["commander", "commande", "acheter", "achat", "order", "buy", "purchase", "panier", "cart", "checkout", "payer", "paiement", "payment"],
+    strong: ["commander", "commande", "acheter", "achat", "order", "buy", "purchase", "panier", "cart", "checkout", "payer", "paiement", "payment", "nechri", "commandi"],
     keywords: ["souscrire", "subscribe", "commencer", "start", "demarrer"],
-    phrases: ["comment commander", "how to order", "how do i order", "comment acheter", "how do i buy", "how to pay"],
+    phrases: [
+      "comment commander", "how to order", "how do i order", "comment acheter", "how do i buy", "how to pay",
+      "nheb nechri", "n7eb nechri", "acheter un pack", "commander un pack", "buy a pack", "order a pack",
+    ],
   },
 ];
 

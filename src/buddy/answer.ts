@@ -1,17 +1,19 @@
 import { getDictionary } from "@/i18n/dictionaries";
 import type { Locale } from "@/i18n/config";
 import { route } from "./core/router";
+import { detectSmallTalk } from "./core/smalltalk";
 import { bullets, numbered, paragraphs, truncate } from "./core/templates";
-import { buildKnowledge, type Knowledge } from "./knowledge";
+import { buildKnowledge, type Knowledge, type PackRecord } from "./knowledge";
 import { buildIntents, type VitrineIntentId } from "./intents";
+import { detectBudget, detectCompare, detectNeed, diffPacks, withinBudget } from "./recommend";
 
 /**
  * Répond à un visiteur du site, sans modèle.
  *
- * Le message est routé vers une intention approuvée, et la réponse est un
- * gabarit rempli avec la base de connaissances. Trois refus possibles —
- * question hors sujet, question ambiguë, détail absent — chacun avec des
- * suggestions cliquables pour que le visiteur ne reste pas bloqué.
+ * Dans l'ordre : politesse, comparaison de deux packs, budget, besoin, puis
+ * le routeur d'intentions. La réponse est toujours un gabarit rempli avec la
+ * base de connaissances. Trois refus possibles — question hors sujet,
+ * question ambiguë, détail absent — chacun avec des suggestions cliquables.
  */
 
 export type BuddyReply = {
@@ -21,6 +23,9 @@ export type BuddyReply = {
 };
 
 const MAX_CHARS = 1500;
+type BuddyDict = ReturnType<typeof getDictionary>["chat"]["buddy"];
+const fill = (s: string, values: Record<string, string | number>) =>
+  s.replace(/\{(\w+)\}/g, (m, key: string) => (key in values ? String(values[key]) : m));
 
 export function answer(rawMessage: string, locale: Locale): BuddyReply {
   const t = getDictionary(locale).chat.buddy;
@@ -28,8 +33,21 @@ export function answer(rawMessage: string, locale: Locale): BuddyReply {
   const suggestions = t.suggestions.map((s) => s.question);
   const message = (rawMessage ?? "").slice(0, MAX_CHARS);
 
-  const result = route(message, buildIntents(locale));
+  const talk = detectSmallTalk(message);
+  if (talk === "greeting") return { reply: t.greeting, suggestions };
+  if (talk === "thanks") return { reply: t.thanks };
+  if (talk === "bye") return { reply: t.bye };
 
+  const compared = detectCompare(message, k);
+  if (compared) return { reply: renderCompare(compared, t) };
+
+  const budget = detectBudget(message);
+  if (budget !== null) return renderBudget(budget, k, t);
+
+  const need = detectNeed(message, k);
+  if (need) return renderNeed(need, k, t, suggestions);
+
+  const result = route(message, buildIntents(locale));
   if (result.kind === "none") {
     return { reply: t.unsupported, suggestions };
   }
@@ -43,7 +61,62 @@ export function answer(rawMessage: string, locale: Locale): BuddyReply {
   return render(result.id, k, t, suggestions);
 }
 
-type BuddyDict = ReturnType<typeof getDictionary>["chat"]["buddy"];
+/* ------------------------------------------------------------ conseil */
+
+function renderBudget(budget: number, k: Knowledge, t: BuddyDict): BuddyReply {
+  const { packs, subscriptions, cheapest } = withinBudget(k, budget);
+  const subs = subscriptions.length
+    ? paragraphs(t.budgetSubs, bullets(subscriptions.map(({ sub }) => `${sub.name} · ${sub.price} — ${sub.content}`)))
+    : null;
+  if (packs.length === 0) {
+    return {
+      reply: paragraphs(
+        fill(t.budgetNone, { budget: budget.toLocaleString("fr-FR"), min: cheapest?.toLocaleString("fr-FR") ?? "—" }),
+        subs,
+        t.budgetQuote,
+      ),
+      suggestions: k.packs.slice(0, 2).map((p) => p.title),
+    };
+  }
+  return {
+    reply: paragraphs(
+      fill(t.budgetIntro, { budget: budget.toLocaleString("fr-FR") }),
+      bullets(packs.map(({ pack }) => `${pack.number} — ${pack.title} · ${pack.price}\n  ${pack.summary}`)),
+      subs,
+      t.budgetQuote,
+    ),
+    suggestions: packs.map(({ pack }) => pack.title),
+  };
+}
+
+function renderNeed(need: ReturnType<typeof detectNeed> & object, k: Knowledge, t: BuddyDict, suggestions: string[]): BuddyReply {
+  if (need.packs.length === 0 && need.services.length === 0) {
+    return { reply: fill(t.needNone, { need: need.need }), suggestions };
+  }
+  return {
+    reply: paragraphs(
+      fill(t.needIntro, { need: need.need }),
+      need.packs.length ? bullets(need.packs.map(({ pack, line }) => `${pack.title} · ${pack.price} — ${line}`)) : null,
+      need.services.length ? paragraphs(t.servicesIntro, bullets(need.services.map((s) => `${s.title} — ${truncate(s.copy, 100)}`))) : null,
+      t.orderHelp,
+    ),
+    suggestions: need.packs.map(({ pack }) => pack.title),
+  };
+}
+
+function renderCompare([a, b]: PackRecord[], t: BuddyDict): string {
+  if (!a || !b) return t.noEvidence;
+  const d = diffPacks(a, b);
+  return paragraphs(
+    t.compareIntro,
+    `${a.title} · ${a.price}\n${b.title} · ${b.price}`,
+    d.common.length ? `${t.compareCommon}\n${bullets(d.common)}` : null,
+    d.onlyA.length ? `${fill(t.compareOnly, { title: a.title })}\n${bullets(d.onlyA)}` : null,
+    d.onlyB.length ? `${fill(t.compareOnly, { title: b.title })}\n${bullets(d.onlyB)}` : null,
+  );
+}
+
+/* ------------------------------------------------------------ gabarits */
 
 function render(id: VitrineIntentId, k: Knowledge, t: BuddyDict, suggestions: string[]): BuddyReply {
   if (id.startsWith("pack:")) {

@@ -13,10 +13,15 @@ const KNOWN_PRICES = new Set(
     .concat([...fr.pricing.subscriptions, ...en.pricing.subscriptions].map((s) => s.price)),
 );
 
-/** Chaque montant en TND d'une réponse doit exister tel quel dans le site. */
-function assertNoInventedPrice(reply: string) {
-  for (const m of reply.match(/[\d\s ]+TND[^\n·]*/g) ?? []) {
-    const found = [...KNOWN_PRICES].some((p) => p.includes(m.trim()) || m.includes(p));
+/**
+ * Chaque montant en TND d'une réponse doit exister tel quel dans le site —
+ * ou avoir été donné par le visiteur lui-même (son budget, repris tel quel).
+ */
+function assertNoInventedPrice(reply: string, question = "") {
+  const asked = (question.match(/\d[\d\s\u00a0]*/g) ?? []).map((n) => n.replace(/\D/g, ""));
+  for (const m of reply.match(/[\d\s\u00a0]+TND/g) ?? []) {
+    const digits = m.replace(/\D/g, "");
+    const found = [...KNOWN_PRICES].some((p) => p.replace(/\D/g, "").includes(digits)) || asked.includes(digits);
     expect(found, `montant inventé : « ${m.trim()} »`).toBe(true);
   }
 }
@@ -159,5 +164,113 @@ describe("routeur", () => {
       { id: "b", phrases: ["en attente de paiement"] },
     ]);
     expect(r).toMatchObject({ kind: "match", id: "b" });
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/* Capacités ajoutées : politesse, tolérance, dialecte, conseil          */
+/* ------------------------------------------------------------------ */
+
+import { detectBudget, parsePrice } from "../recommend";
+
+describe("compréhension plus souple", () => {
+  it("salutations et remerciements, dans les deux langues", () => {
+    expect(answer("Bonjour !", "fr").reply).toBe(fr.chat.buddy.greeting);
+    expect(answer("hello there", "en").reply).toBe(en.chat.buddy.greeting);
+    expect(answer("merci beaucoup", "fr").reply).toBe(fr.chat.buddy.thanks);
+    expect(answer("bye", "en").reply).toBe(en.chat.buddy.bye);
+    expect(answer("aslema", "fr").reply).toBe(fr.chat.buddy.greeting);
+  });
+
+  it("« bonjour, vos packs » est une question", () => {
+    expect(answer("Bonjour, vos packs ?", "fr").reply).toContain(fr.chat.buddy.packsIntro);
+  });
+
+  it("tolère une faute de frappe", () => {
+    expect(answer("vos pakcs", "fr").reply).toContain(fr.chat.buddy.packsIntro);
+    expect(answer("abonement mensuel", "fr").reply).toContain(fr.chat.buddy.subscriptionsIntro);
+  });
+
+  it("comprend quelques mots du parler tunisien", () => {
+    expect(answer("9adech el pack ?", "fr").reply).toContain(fr.chat.buddy.packsIntro);
+    expect(answer("nheb nechri pack", "fr").reply).toBe(fr.chat.buddy.orderHelp);
+  });
+});
+
+describe("conseil par budget", () => {
+  it("lit les prix tels qu'affichés", () => {
+    expect(parsePrice("À partir de 890 TND")).toBe(890);
+    expect(parsePrice("1 890 TND")).toBe(1890);
+    expect(parsePrice("1,890 TND")).toBe(1890);
+    expect(parsePrice("1 190 TND/mois")).toBe(1190);
+    expect(parsePrice("Sur devis")).toBeNull();
+  });
+
+  it("détecte un budget dans la phrase", () => {
+    expect(detectBudget("j'ai 2000 TND")).toBe(2000);
+    expect(detectBudget("mon budget est de 1 500 dinars")).toBe(1500);
+    expect(detectBudget("I have around 3000")).toBe(3000);
+    expect(detectBudget("le pack 01")).toBeNull();
+    expect(detectBudget("10 visuels")).toBeNull();
+  });
+
+  it("« j'ai 2000 TND » propose les packs dans le budget, et pas les autres", () => {
+    const q = "J'ai 2000 TND, que puis-je avoir ?";
+    const r = answer(q, "fr");
+    expect(r.reply).toContain("Pack Découverte");
+    expect(r.reply).toContain("Pack Lancement");
+    expect(r.reply).not.toContain("Pack Croissance");
+    expect(r.reply).toContain("Starter"); // abonnement ≤ 2 000
+    assertNoInventedPrice(r.reply, q);
+  });
+
+  it("un budget trop bas : le prix d'entrée, et les abonnements accessibles", () => {
+    const r = answer("mon budget est de 500 TND", "fr");
+    expect(r.reply).toContain("890");
+    expect(r.reply).toContain("Gestion des réseaux sociaux"); // 290 TND/mois
+    expect(r.reply).not.toContain("Pack Découverte ·");
+  });
+});
+
+describe("conseil par besoin", () => {
+  it("« je veux des vidéos » → les packs qui en incluent", () => {
+    const r = answer("je veux des vidéos pour mes réseaux", "fr");
+    expect(r.reply).toContain("Pack Lancement");
+    expect(r.reply).toContain("4 vidéos");
+    expect(r.reply).not.toContain("Pack Découverte");
+    assertNoInventedPrice(r.reply);
+  });
+
+  it("« I need a website » → tous les packs qui en incluent un", () => {
+    const r = answer("I need a website for my shop", "en");
+    expect(r.reply).toContain("Discovery Pack");
+    expect(r.reply).toContain("Pro Max Pack");
+  });
+
+  it("un besoin absent du site n'est pas inventé", () => {
+    const r = answer("je veux une application mobile iOS", "fr");
+    expect(r.reply).toContain("application mobile ios");
+    assertNoInventedPrice(r.reply);
+  });
+});
+
+describe("comparaison de packs", () => {
+  it("« différence entre Découverte et Lancement »", () => {
+    const r = answer("Quelle est la différence entre Découverte et Lancement ?", "fr");
+    expect(r.reply).toContain(fr.chat.buddy.compareIntro);
+    expect(r.reply).toContain("Pack Découverte · À partir de 890 TND");
+    expect(r.reply).toContain("Pack Lancement · 1 890 TND");
+    expect(r.reply).toContain("En plus dans Pack Lancement");
+    expect(r.reply).toContain("4 vidéos");
+  });
+
+  it("« Growth or Pro Max? »", () => {
+    const r = answer("Growth or Pro Max?", "en");
+    expect(r.reply).toContain("Only in Pro Max Pack");
+    expect(r.reply).toContain("8 videos");
+  });
+
+  it("un seul pack nommé reste un détail", () => {
+    expect(answer("le pack Croissance", "fr").reply).toContain("PACK 03");
   });
 });

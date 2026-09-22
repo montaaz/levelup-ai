@@ -457,7 +457,19 @@
             "servicesIntro": "Ce que nous faisons :",
             "processIntro": "Le déroulement d'un projet :",
             "contactIntro": "Vous pouvez nous joindre à hello@levelupai.studio.",
-            "orderHelp": "Choisissez un pack dans la section Tarifs et cliquez sur « Ajouter au panier » : vous arrivez sur votre espace LevelUp AI (levelupia.app), où vous suivez votre projet et réglez. Vous préférez un devis d'abord ? Écrivez-nous à hello@levelupai.studio."
+            "orderHelp": "Choisissez un pack dans la section Tarifs et cliquez sur « Ajouter au panier » : vous arrivez sur votre espace LevelUp AI (levelupia.app), où vous suivez votre projet et réglez. Vous préférez un devis d'abord ? Écrivez-nous à hello@levelupai.studio.",
+            "greeting": "Bonjour ! Je suis l'assistant LevelUp AI. Que voulez-vous savoir ?",
+            "thanks": "Avec plaisir ! Autre chose ?",
+            "bye": "À bientôt ! Et si besoin : hello@levelupai.studio.",
+            "budgetIntro": "Avec un budget de {budget} TND, voici ce que vous pouvez choisir :",
+            "budgetSubs": "Et en formule mensuelle :",
+            "budgetNone": "Aucun pack n'entre dans un budget de {budget} TND — le premier commence à {min} TND. Deux pistes :",
+            "budgetQuote": "Le site marchand se fait sur devis : écrivez-nous à hello@levelupai.studio.",
+            "needIntro": "Pour « {need} », voici ce qui correspond :",
+            "needNone": "Je ne trouve pas d'offre qui mentionne « {need} ». Écrivez-nous à hello@levelupai.studio, nous vous répondrons précisément.",
+            "compareIntro": "Comparaison :",
+            "compareCommon": "Les deux comprennent :",
+            "compareOnly": "En plus dans {title} :"
         }
     }
 }
