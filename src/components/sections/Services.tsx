@@ -49,12 +49,13 @@ export default async function Services({ lang }: { lang: string }) {
             <span className="section-kicker">{t.services.kicker}</span>
             <h2>{t.services.title}</h2>
           </div>
-          <p className="section-lead">{t.services.lead}</p>
         </Reveal>
 
         <div className="services">
           {packs.map((service, index) => (
-            <Reveal key={service.number} delay={index * 0.1}>
+            // Fly in one by one (2026-09-29, Sarra's pick "E"); the hover
+            // spotlight ("C") is in globals.css.
+            <Reveal key={service.number} delay={index * 0.14} variant="fly">
               <ServicePackCard
                 pack={service}
                 accent={service.accent}
@@ -64,6 +65,7 @@ export default async function Services({ lang }: { lang: string }) {
                 showDetails={t.services.showDetails}
                 hideDetails={t.services.hideDetails}
                 addToCart={t.services.addToCart}
+                addedToCart={t.services.addedToCart}
               />
             </Reveal>
           ))}
@@ -73,7 +75,8 @@ export default async function Services({ lang }: { lang: string }) {
             sits directly beneath the pack cards it relates to. */}
         <Reveal className="pricing-block-head subscriptions-head">
           <h3>{t.pricing.subscriptionsTitle}</h3>
-          <p>{t.pricing.subscriptionsLead}</p>
+          {/* Empty in both languages since 2026-10-01 (Sarra deleted the line). */}
+          {t.pricing.subscriptionsLead && <p>{t.pricing.subscriptionsLead}</p>}
         </Reveal>
         <Reveal>
           <GlassCard className="pricing-table-card">
@@ -89,11 +92,24 @@ export default async function Services({ lang }: { lang: string }) {
               <tbody>
                 {t.pricing.subscriptions.map((sub) => (
                   <tr key={sub.name}>
-                    <td data-label={t.pricing.tableHeaders.plan}>{sub.name}</td>
+                    <td data-label={t.pricing.tableHeaders.plan}>
+                      <span className="plan-name">{sub.name}</span>
+                    </td>
                     <td data-label={t.pricing.tableHeaders.content}>{sub.content}</td>
-                    <td data-label={t.pricing.tableHeaders.price} className="pricing-price">{localizePrice(sub.price, currency)}</td>
+                    <td data-label={t.pricing.tableHeaders.price} className="pricing-price">
+                      {localizePrice(sub.price, currency)}
+                      {/* Longer commitments (Sarra, 2026-10-01): shown under
+                          every formula's price. Display only: the cart still
+                          sends the same code (ABO_STARTER…) with no duration,
+                          so the platform does not know about these offers. */}
+                      <span className="pricing-offers">
+                        {t.pricing.subscriptionOffers.map((offer) => (
+                          <span key={offer}>{offer}</span>
+                        ))}
+                      </span>
+                    </td>
                     <td className="pricing-action">
-                      <SubscribeButton name={sub.name} label={t.services.addToCart} />
+                      <SubscribeButton name={sub.name} label={t.services.addToCart} addedLabel={t.services.addedToCart} />
                     </td>
                   </tr>
                 ))}

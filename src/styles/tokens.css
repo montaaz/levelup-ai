@@ -1,164 +1,176 @@
 :root {
-  /* ---- Brand palette: deep blue-green / teal ----
-     SOURCE OF TRUTH: the background of the "Des publicités créées par l'IA"
-     section (.section-vivid-reels), which was already built from
-       #12566F  deep teal        #0E5570  blue-green
-     Those two hexes are unchanged below and every other colour in this file
-     is derived from them, so the reels section IS the reference and the rest
-     of the site now agrees with it.
+  /* ---- Theme: violet -> blue -> turquoise (2026-09-29) ----
+     Five reference colours, sampled by eye from a purple-to-turquoise
+     gradient Sarra chose (approximations, not anyone's official values):
+       #7828F7 violet   #3868DC blue   #20C7D0 turquoise
+       #79DBE5 aqua     #101633 deep navy
+     The violet sits next to the charter's AI PURPLE (#8527FF) and the blue
+     next to the charter's DIGITAL BLUE (#1687FF), so the site stays in the
+     logo's family. Direction: violet at the top of the page, blue through
+     the middle, turquoise toward the bottom.
 
-     The four source colours:
-       #0E5570  blue-green (deep)   #2590B6  blue-teal (accent, deep end)
-       #8AE8EA  cyan-teal (light)   #12566F  teal (deep)
-     They pair into the two reference gradients:
-       cyan-teal -> blue-teal   (primary, buttons and interactive fills)
-       teal -> blue-green       (secondary, large section grounds) */
-  --brand-blue: #0e5570;
-  --brand-magenta: #2590b6;
-  --brand-cyan: #8ae8ea;
-  --brand-purple: #12566f;
+     Two rules come from contrast, not taste:
+       - White text never sits on turquoise or aqua (2.1:1). When one of
+         them is a fill, its label is navy (8.6:1 and 11:1).
+       - Violet as small text uses --theme-violet-text (#A98BFF, 6.6:1 on
+         navy); the raw #7828F7 is only 2.9:1 there. */
+  --theme-violet: #7828f7;
+  --theme-blue: #3868dc;
+  --theme-turquoise: #20c7d0;
+  --theme-aqua: #79dbe5;
+  --theme-navy: #101633;
+  --theme-violet-text: #a98bff;
 
-  /* Lifted variants. The two ends of the primary button gradient. Both are
-     held in the window where --on-accent (near-black teal) clears 4.5:1 on
-     them: 11.9:1 on the light end, 4.6:1 on the deep end, so the label holds
-     everywhere across the fill, not just at the bright stop. */
-  --brand-blue-lit: #3fb3c9;
-  --brand-purple-lit: #8ae8ea;
+  /* Brand stops. The marquee strip runs these three, deep enough for its
+     white capitals: 8.2:1, 6.3:1 and 4.7:1. --brand-cyan is the strip's
+     star and other light marks. */
+  --brand-blue: #5a1fd1;
+  --brand-purple: #2e57c9;
+  --brand-magenta: #0f7f8b;
+  --brand-cyan: #79dbe5;
+  --brand-blue-lit: #8438ff;
+  --brand-purple-lit: #79dbe5;
 
-  /* Ground. Deep teal, not near-black: the palette lives on colour, so even
-     the base surfaces carry the blue-green hue. --ink is the deepest (used
-     under bright fills); --panel/--panel-raised step up for cards and read
-     as lit teal rather than grey boxes. */
-  --ink: #061f29;
-  --paper: #0a2c3a;
-  --panel: #0e3f52;
-  --panel-raised: #14556d;
+  /* Ground: deep navy, stepping up for cards and panels. */
+  --ink: #0a0e24;
+  --paper: #101633;
+  --panel: #172050;
+  --panel-raised: #1f2b66;
 
   /* ---- Accent aliases ----
-     Kept under their original names so the ~200 existing usages across the
-     stylesheets remap in place instead of needing a rename pass. The names
-     are historical (there is no gold, bronze or red in this palette); the
-     values are the blue-green brand colours.
-     Every one of these doubles as a text colour somewhere, so all four are
-     held light enough to clear 4.5:1 on the lightest band ground (#115F6D)
-     AND dark enough that --on-accent clears 4.5:1 when they are used as a
-     fill. That two-sided constraint is why they sit where they do. */
-  --gold: #72dfe2;
-  --gold-bright: #8ae8ea;
-  --champagne: #7ee0e4;
-  --bronze: #2590b6;
-  --gold-vivid: #72dfe2;
-  --amber-deep: #8ae8ea;
-  --red-vivid: #72dfe2;
-  --red-deep: #2590b6;
+     Historical names (there is no gold or bronze here), kept so the
+     existing usages remap in place. --gold is the turquoise accent (dots,
+     rims, flat accent fills with navy labels), --gold-bright the aqua used
+     as light accent text (11:1 on navy, 5.2:1 on the lightest band),
+     --bronze the blue. */
+  --gold: #20c7d0;
+  --gold-bright: #79dbe5;
+  --champagne: #b8f1f5;
+  --bronze: #3868dc;
+  --gold-vivid: #20c7d0;
+  --amber-deep: #79dbe5;
+  --red-vivid: #20c7d0;
+  --red-deep: #3868dc;
 
   /* ---- Channel tokens ----
-     The rgb triplets behind the alias colours, so translucent glows,
-     borders and scrims are written rgba(var(--accent-rgb), .4) instead of
-     repeating a literal. Changing the palette above now moves the glows
-     with it; before this, ~45 hard-coded rgba() literals had to be found
-     and edited by hand. */
-  --accent-rgb: 114, 223, 226;
-  --accent-deep-rgb: 37, 144, 182;
-  --ground-rgb: 6, 31, 41;
-  --shade-rgb: 3, 17, 23;
-  --band-blue-rgb: 7, 46, 62;
-  --text-rgb: 238, 246, 248;
-  /* The reels-section teal as a channel, for panels that must stay dark
-     enough to carry body copy (see .hero-copy-panel). */
-  --band-teal-rgb: 18, 86, 111;
+     The rgb triplets behind the colours, for translucent glows, borders
+     and scrims. Glows are turquoise; the deep channel is the blue. */
+  --accent-rgb: 32, 199, 208;
+  --accent-deep-rgb: 56, 104, 220;
+  --ground-rgb: 16, 22, 51;
+  --shade-rgb: 7, 10, 26;
+  --band-blue-rgb: 120, 40, 247;
+  --text-rgb: 243, 244, 251;
+  /* A band colour as a channel, for panels that must stay dark enough to
+     carry body copy (see .cart-panel). */
+  --band-teal-rgb: 40, 119, 196;
 
-  /* Palette swatches. On a dark ground these are used as *luminous* marks:
-     borders, glows, small fills, gradient stops, never as large backgrounds
-     carrying text. */
-  --pastel-lavender: #7fd4e0;
-  --pastel-sky: #58c4dd;
-  --pastel-sand: #7fd4e0;
-  --pastel-mint: #8ae8ea;
-  --pastel-pink: #2590b6;
-  --pastel-butter: #9adfe6;
-  --pastel-peach: #8ae8ea;
-  --pastel-coral: #2590b6;
+  /* Palette swatches: luminous marks on dark (borders, glows, small fills,
+     gradient stops), never large backgrounds carrying text. */
+  --pastel-lavender: #a98bff;
+  --pastel-sky: #6f93f0;
+  --pastel-sand: #b8f1f5;
+  --pastel-mint: #79dbe5;
+  --pastel-pink: #7828f7;
+  --pastel-butter: #b8f1f5;
+  --pastel-peach: #79dbe5;
+  --pastel-coral: #3868dc;
 
-  /* Band grounds: full-viewport section backgrounds. Deliberately DARKER
-     and less saturated than the buttons, per the palette's rule that large
-     areas recede and interactive elements advance. Separation between
-     adjacent sections is carried by lightness (a 20-45% luminance step)
-     and a small blue/green hue shift rather than by different hues, since
-     the whole palette is now one family.
-     --band-teal and --band-cyan are the ORIGINAL reels-section values,
-     untouched: they are the reference this palette was built from. */
-  --band-blue: #072e3e;
-  --band-indigo: #0a3f53;
-  --band-purple: #0d5468;
-  --band-magenta: #115f6d;
-  --band-teal: #12566f;
-  --band-cyan: #0e5570;
+  /* The page gradient, top to bottom (2026-09-29, from Sarra's reference:
+     bright, like a violet-to-turquoise welcome page, not dark). Sections
+     run through these in order: services and pricing violet, the middle of
+     the page blue, the FAQ and contact turquoise to aqua. White text is
+     4.6:1 or more down to --grad-6; --grad-7 only carries large text
+     (4.4:1). --grad-8 and --grad-9 are too light for white, so the closing
+     area switches to navy text there (8.6:1 and 11:1). */
+  --grad-1: #7828f7;
+  --grad-2: #6536ec;
+  --grad-3: #5046e4;
+  --grad-4: #3868dc;
+  --grad-5: #2f6ed2;
+  --grad-6: #2877c4;
+  --grad-7: #1f80b4;
+  --grad-8: #20c7d0;
+  --grad-9: #79dbe5;
+
+  /* Band grounds: the older names for the same stops, kept for the rules
+     that still use them (and the sections not on the page). */
+  --band-blue: #7828f7;
+  --band-indigo: #6536ec;
+  --band-purple: #5046e4;
+  --band-magenta: #3868dc;
+  --band-teal: #2877c4;
+  --band-cyan: #1f80b4;
 
   /* ---- Pack card palettes ----
-     Four distinct treatments for the pricing packs, all drawn from the same
-     blue-green family as the CTA gradient so they read as one collection
-     rather than four unrelated cards. Each pack is a deep base blending to
-     a vivid stop, plus a light accent for its number, title and cart button.
+     One pack per colour of the gradient (violet, blue, turquoise, aqua).
+     Checked on both stops of each card: --text 6.9:1 or more, --muted
+     4.7:1 or more, each accent 4.7:1 or more as text, and --on-accent
+     (navy) 6.6:1 or more on each accent used as a fill. */
+  --pack-1-from: #1a0f4a;   /* violet */
+  --pack-1-to: #3a1c8c;
+  --pack-1-accent: #b8a0ff;
+  --pack-2-from: #0f1b4f;   /* blue */
+  --pack-2-to: #1f3c9a;
+  --pack-2-accent: #9db6ff;
+  --pack-3-from: #0a2a40;   /* turquoise */
+  --pack-3-to: #0e5c6e;
+  --pack-3-accent: #79dbe5;
+  --pack-4-from: #13205a;   /* aqua (featured pack) */
+  --pack-4-to: #1d4f86;
+  --pack-4-accent: #b8f1f5;
 
-     Every value here is contrast-checked against the card's own gradient:
-     --text clears 4.5:1 on BOTH stops of all four, --muted clears 4.5:1,
-     each accent clears 4.5:1 as text, and --on-accent clears 9:1 on each
-     accent when used as the cart button's fill. Pack 1's vivid stop is
-     #0D6073 rather than a brighter cyan for exactly this reason: one step
-     lighter and the muted body copy fell to 4.25:1. */
-  --pack-1-from: #08323f;   /* vivid turquoise / cyan */
-  --pack-1-to: #0d6073;
-  --pack-1-accent: #7ef0e8;
-  --pack-2-from: #07263f;   /* bright electric blue */
-  --pack-2-to: #10507f;
-  --pack-2-accent: #7cc9ff;
-  --pack-3-from: #073034;   /* teal to emerald */
-  --pack-3-to: #0d5f4e;
-  --pack-3-accent: #6ee7b7;
-  --pack-4-from: #0a3f55;   /* premium aqua to deep blue (featured pack) */
-  --pack-4-to: #123a72;
-  --pack-4-accent: #9ae9ec;
+  /* Card-fill tints: translucent veils over the dark ground, carrying light
+     text. Alpha stays low so the fill tints the card without competing
+     with the copy on top. */
+  --tint-lavender: rgba(120, 40, 247, 0.16);
+  --tint-sky: rgba(56, 104, 220, 0.16);
+  --tint-sand: rgba(121, 219, 229, 0.12);
+  --tint-mint: rgba(32, 199, 208, 0.12);
+  --tint-pink: rgba(120, 40, 247, 0.2);
+  --tint-butter: rgba(121, 219, 229, 0.14);
+  --tint-peach: rgba(32, 199, 208, 0.14);
+  --tint-coral: rgba(56, 104, 220, 0.22);
+  --tint-body: #f3f4fb;
 
-  /* Card-fill tints: translucent veils over the dark ground, carrying LIGHT
-     text. Alpha stays low (~14%) so the fill tints the card without ever
-     competing with the copy on top; each clears 4.5:1 behind --tint-body. */
-  --tint-lavender: rgba(127, 212, 224, 0.14);
-  --tint-sky: rgba(88, 196, 221, 0.14);
-  --tint-sand: rgba(154, 223, 230, 0.12);
-  --tint-mint: rgba(138, 232, 234, 0.12);
-  --tint-pink: rgba(37, 144, 182, 0.18);
-  --tint-butter: rgba(154, 223, 230, 0.14);
-  --tint-peach: rgba(138, 232, 234, 0.14);
-  --tint-coral: rgba(37, 144, 182, 0.2);
-  /* Body copy on those translucent fills. Light, cooled to sit with the
-     palette rather than reading as plain grey. */
-  --tint-body: #eef6f8;
+  /* Card titles on those tints: light companions of each swatch, 4.9:1 or
+     more on the raised panel. */
+  --deep-lavender: #c9b8ff;
+  --deep-sky: #b9c8f6;
+  --deep-sand: #d2f4f7;
+  --deep-mint: #b8f1f5;
+  --deep-pink: #a98bff;
+  --deep-butter: #d2f4f7;
+  --deep-peach: #b8f1f5;
+  --deep-coral: #9db6ff;
 
-  /* Card titles: brightened companions to each swatch, so each heading
-     still echoes its own card colour while clearing 4.5:1 on the fill. */
-  --deep-lavender: #a6e4ec;
-  --deep-sky: #9adfe6;
-  --deep-sand: #bfe9ef;
-  --deep-mint: #9ff0f0;
-  --deep-pink: #7fd4e0;
-  --deep-butter: #bfe9ef;
-  --deep-peach: #9ff0f0;
-  --deep-coral: #7fd4e0;
+  /* Text. --on-accent is the navy label for turquoise and aqua fills. */
+  --text: #f3f4fb;
+  --muted: #c5cbea;
+  --muted-dim: #bcc3e4;
+  --on-accent: #101633;
 
-  /* Text. --on-accent rides on top of the saturated brand fills (buttons,
-     the brand mark). Near-black teal rather than near-black violet, so the
-     label sits in the same family as the fill under it. */
-  --text: #eef6f8;
-  --muted: #c3dbe4;
-  --muted-dim: #bfd8e0;
-  --on-accent: #052029;
+  /* ---- Actions ----
+     The fill every clickable pill uses: nav links, "Démarrer un projet",
+     every .button, cart buttons, the cart badge, the active language chip
+     and the chat button. Matched to the purple of the hero's "Digital
+     Marketing Agency par IA" pill (Sarra, 2026-09-29): plum-violet, darker
+     to lighter like the pill, lavender rim, violet glow. Solid rather than
+     see-through so the white label holds over bright video frames: 8.0:1 on
+     the dark end, 4.8:1 on the light end (hover 6.2:1 and 4.8:1). --action
+     is the turquoise used for small accent marks. */
+  --action: var(--gold);
+  --action-rgb: 120, 40, 247;
+  --on-action: #ffffff;
+  --button-fill: linear-gradient(135deg, #6a3a92, #8e5eae);
+  --button-fill-hover: linear-gradient(135deg, #7c4ba6, #8e5eae);
+  --button-edge: rgba(173, 133, 214, 0.85);
 
-  /* Structure. Hairlines are light-on-dark, and the shadow is pure black:
-     a tinted shadow reads as haze against a dark ground. */
-  --line: rgba(238, 246, 248, 0.12);
-  --line-strong: rgba(238, 246, 248, 0.22);
-  --shadow: 0 30px 90px rgba(3, 17, 23, 0.55);
+  /* Structure. Hairlines are light-on-dark, and the shadow is near-black
+     navy: a coloured shadow reads as haze against a dark ground. */
+  --line: rgba(243, 244, 251, 0.12);
+  --line-strong: rgba(243, 244, 251, 0.22);
+  --shadow: 0 30px 90px rgba(7, 10, 26, 0.55);
   --radius: 26px;
   --radius-sm: 16px;
 

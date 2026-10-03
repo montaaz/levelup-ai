@@ -6,6 +6,9 @@ import { bullets, numbered, paragraphs, truncate } from "./core/templates";
 import { buildKnowledge, type Knowledge, type PackRecord } from "./knowledge";
 import { buildIntents, type VitrineIntentId } from "./intents";
 import { detectBudget, detectCompare, detectNeed, diffPacks, withinBudget } from "./recommend";
+import { tokenize } from "./core/normalize";
+import { compose } from "./ai/assist";
+import type { LocalModel } from "./ai/model";
 
 /**
  * Répond à un visiteur du site, sans modèle.
@@ -20,7 +23,33 @@ export type BuddyReply = {
   reply: string;
   /** Questions proposées en puces sous la réponse. */
   suggestions?: string[];
+  /** Réponse rédigée par le modèle local (et validée), pas par un gabarit. */
+  ai?: boolean;
+  /**
+   * Interne, jamais envoyé au navigateur : les règles n'ont pas vraiment
+   * répondu (question non reconnue, ambiguë, besoin introuvable, demande
+   * d'explication) — le modèle local peut être consulté.
+   */
+  open?: boolean;
 };
+
+/** Une demande d'explication plutôt qu'une liste : « comment », « pourquoi », « quelle différence ». */
+const EXPLAIN = /\b(comment|pourquoi|how|why|kifech|kifach|3lech|difference|differences|c est quoi|qu est ce qu|what is|what s the difference|explique|expliquez|explain|combien de temps|how long|est ce que vous|vous faites|vous pouvez|do you|can you)\b/;
+
+/**
+ * Réponse avec le modèle local en renfort : les règles d'abord ; si elles
+ * n'ont pas vraiment répondu, le modèle rédige à partir des extraits du site.
+ * Refus du contrôle, panne, modèle occupé : la réponse à règles est rendue.
+ */
+export async function answerWithAI(rawMessage: string, locale: Locale, ai: LocalModel | null): Promise<BuddyReply> {
+  const { open, ...base } = answer(rawMessage, locale);
+  const message = (rawMessage ?? "").slice(0, MAX_CHARS).trim();
+  if (!ai || !open || !message) return base;
+  const r = await compose(ai, message, locale);
+  if (!r) return base;
+  const t = getDictionary(locale).chat.buddy;
+  return { reply: r.text, ai: true, suggestions: t.suggestions.map((s) => s.question).slice(0, 3) };
+}
 
 const MAX_CHARS = 1500;
 type BuddyDict = ReturnType<typeof getDictionary>["chat"]["buddy"];
@@ -44,21 +73,30 @@ export function answer(rawMessage: string, locale: Locale): BuddyReply {
   const budget = detectBudget(message);
   if (budget !== null) return renderBudget(budget, k, t);
 
+  const explain = EXPLAIN.test(` ${tokenize(message).join(" ")} `);
+
   const need = detectNeed(message, k);
-  if (need) return renderNeed(need, k, t, suggestions);
+  if (need) {
+    const r = renderNeed(need, k, t, suggestions);
+    const nothing = need.packs.length === 0 && need.services.length === 0;
+    return { ...r, open: nothing || explain };
+  }
 
   const result = route(message, buildIntents(locale));
   if (result.kind === "none") {
-    return { reply: t.unsupported, suggestions };
+    return { reply: t.unsupported, suggestions, open: true };
   }
   if (result.kind === "ambiguous") {
     const options = result.ids.map((id) => labelFor(id, k, t.labels)).join(` ${t.or} `);
     return {
       reply: t.ambiguous.replace("{options}", options),
       suggestions: result.ids.map((id) => questionFor(id, k, t.labels)),
+      open: true,
     };
   }
-  return render(result.id, k, t, suggestions);
+  // Une explication demandée (« comment », « vous faites… ? ») : le gabarit liste, le modèle explique.
+  // Sauf pour un pack précis, dont la fiche exacte vaut mieux qu'une reformulation.
+  return { ...render(result.id, k, t, suggestions), open: explain && !result.id.startsWith("pack:") };
 }
 
 /* ------------------------------------------------------------ conseil */

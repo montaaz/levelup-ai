@@ -9,12 +9,14 @@ type Message = {
   content: string;
   /** Questions proposées sous une réponse du bot, cliquables. */
   suggestions?: string[];
+  /** Réponse rédigée par le modèle local. */
+  ai?: boolean;
 };
 
 /**
- * Floating support chat. Talks to /api/chat, a model-free intent router
- * that only answers from the site's own dictionaries — no key, no external
- * call, nothing a visitor could steer. Suggestion chips show what can be
+ * Floating support chat. Talks to /api/chat: an intent router that answers
+ * from the site's own dictionaries, backed (when enabled on the server) by a
+ * local model that only sees the same texts — no key, no external call. Suggestion chips show what can be
  * asked, since a rule-based bot only understands the questions it was taught.
  */
 export default function ChatWidget() {
@@ -66,7 +68,7 @@ export default function ChatWidget() {
       setMessages([
         ...next,
         response.ok && data.reply
-          ? { role: "assistant", content: data.reply, suggestions: data.suggestions }
+          ? { role: "assistant", content: data.reply, suggestions: data.suggestions, ai: data.ai === true }
           : { role: "assistant", content: t.error },
       ]);
     } catch {
@@ -134,6 +136,7 @@ export default function ChatWidget() {
                 <div key={index}>
                   <div className={`chat-msg ${message.role === "user" ? "chat-msg-user" : "chat-msg-bot"}`}>
                     {message.content}
+                    {message.ai && <span className="chat-ai-note">✦ {t.aiNote}</span>}
                   </div>
                   {message.suggestions && message.suggestions.length > 0 && chips(message.suggestions)}
                 </div>

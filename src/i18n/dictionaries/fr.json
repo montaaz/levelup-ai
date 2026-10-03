@@ -9,11 +9,13 @@
         "openMenu": "Ouvrir le menu",
         "closeMenu": "Fermer le menu",
         "cta": "Démarrer un projet",
+        "cart": "Panier",
         "languageLabel": "Changer de langue",
         "links": {
             "services": "Services",
             "pricing": "Tarifs",
-            "work": "Réalisations",
+            "work": "Nos références",
+            "about": "Qui sommes-nous",
             "process": "Méthode",
             "faq": "FAQ"
         }
@@ -38,6 +40,18 @@
         "ctaSecondary": "Découvrir les services",
         "showText": "Afficher le texte",
         "hideText": "Masquer le texte"
+    },
+    "cart": {
+        "title": "Votre panier",
+        "open": "Panier ({count})",
+        "empty": "Votre panier est vide.",
+        "browse": "Voir les packs",
+        "checkout": "Finaliser la commande",
+        "redirecting": "Ouverture de votre espace…",
+        "remove": "Retirer",
+        "removeLabel": "Retirer {title} du panier",
+        "close": "Fermer le panier",
+        "note": "Le paiement se fait dans votre espace LevelUp AI, qui confirme le prix final."
     },
     "media": {
         "playWithSound": "Activer le son",
@@ -109,7 +123,7 @@
     ],
     "services": {
         "kicker": "Ce que nous faisons",
-        "title": "Quatre packs pour faire décoller votre activité.",
+        "title": "Rendez votre entreprise plus performante et faites décoller votre business.",
         "lead": "Pas besoin d'un budget d'agence. Choisissez le pack qui correspond à votre situation aujourd'hui — site web, visuels et vidéo, réunis à un tarif clair.",
         "packs": [
             {
@@ -123,7 +137,7 @@
                     "La première étape idéale pour une nouvelle marque"
                 ],
                 "cta": "",
-                "summary": "Site vitrine IA (5 à 6 pages) ou site marchand IA (devis sur demande) ou shooting produit IA (10 visuels)"
+                "summary": "Site web (5 à 6 pages)\nSite marchand sur devis\nou shooting produit IA (10 visuels)"
             },
             {
                 "number": "PACK 02",
@@ -167,7 +181,8 @@
         ],
         "showDetails": "Voir le détail",
         "hideDetails": "Masquer le détail",
-        "addToCart": "Ajouter au panier"
+        "addToCart": "Ajouter au panier",
+        "addedToCart": "Dans le panier"
     },
     "pricing": {
         "kicker": "Services",
@@ -177,11 +192,11 @@
         "aiServices": [
             {
                 "title": "Sites web IA",
-                "copy": "Des sites vitrines professionnels, rapides et optimisés. Livrés en quelques jours plutôt qu'en semaines."
+                "copy": "Des sites vitrines professionnels, rapides et optimisés. Livrés en quelques jours."
             },
             {
                 "title": "Site marchand IA",
-                "copy": "Boutique en ligne complète avec paiement, commandes et suivi client. Automatisation des emails, WhatsApp, paniers abandonnés et relances.Gestion des produits, stocks, livraisons, promotions et analyse des ventes."
+                "copy": "Boutique en ligne complète avec paiement, commandes et suivi client. Automatisation des emails, WhatsApp, paniers abandonnés et relances. Gestion des produits, stocks, livraisons, promotions et analyse des ventes."
             },
             {
                 "title": "Shootings & vidéos IA",
@@ -205,15 +220,16 @@
             },
             {
                 "title": "SEO, référencement, email marketing automatisé",
-                "copy": "Référencement naturel et pages optimisées pour être trouvé, plus des campagnes email automatisées : segmentation, personnalisation et relances pilotées par l'IA."
+                "copy": "Référencement naturel et pages optimisées pour avoir plus d'impact et être plus compétitifs sur le marché, plus des campagnes email automatisées : segmentation, personnalisation et relances pilotées par l'IA."
             },
             {
                 "title": "Identité visuelle express",
-                "copy": "Logo et charte graphique générés rapidement pour les entreprises qui démarrent."
+                "copy": "Logo et charte graphique générés rapidement pour améliorer votre image et être à la pointe de la technologie."
             }
         ],
-        "subscriptionsTitle": "Abonnements mensuels",
-        "subscriptionsLead": "Pour une présence digitale continue entretenue en continu.",
+        "subscriptionsTitle": "Shooting : Photo & vidéo - Abonnements mensuels",
+        "subscriptionsLead": "",
+        "subscriptionOffers": ["Pour 6 mois, un mois gratuit", "Pour un an, 2 mois gratuits"],
         "tableHeaders": {
             "plan": "Formule",
             "content": "Contenu",
@@ -263,10 +279,12 @@
     },
     "work": {
         "kicker": "À quoi ça peut ressembler",
-        "title": "Un studio. Mille façons de grandir.",
+        "title": "Nos références",
+        "instagramLabel": "Suivez LevelUp AI sur Instagram (nouvel onglet)",
         "lead": "De la première impression au suivi en coulisses, nous aidons votre entreprise à paraître plus professionnelle et plus performante.",
         "websiteTag": "Expérience web",
         "commercialTag": "PUB GÉNÉRÉE PAR IA",
+        "sportTag": "SPORT",
         "mockupEyebrow": "PETITE ENTREPRISE / GRANDE PRÉSENCE",
         "mockupTitle": "Transformez votre idée en une marque de confiance.",
         "productFallback": [
@@ -282,7 +300,8 @@
             "clip-7": "Mode",
             "clip-8": "Pharmaceutique",
             "clip-9": "Hôtellerie / Maisons d'hôtes",
-            "clip-10": "Immobilier"
+            "clip-10": "Immobilier\nHôtellerie / Maisons d'hôtes",
+            "pret-a-porter": "Prêt-à-porter"
         },
         "playWithSound": "Lire {label} avec le son",
         "close": "Fermer la vidéo"
@@ -311,6 +330,14 @@
             "jewel": {
                 "label": "Campagne joaillerie",
                 "title": "Le bijou fait le regard."
+            },
+            "argenterie": {
+                "label": "Shooting produit",
+                "title": "Argenterie"
+            },
+            "complements": {
+                "label": "Shooting produit",
+                "title": "Compléments alimentaires"
             }
         },
         "playWithSound": "Lire {title} avec le son",
@@ -342,8 +369,36 @@
         ]
     },
     "quote": {
-        "text": "L'IA devrait rendre votre entreprise plus capable — pas plus compliquée.",
+        "text": "L'IA devrait rendre votre entreprise plus performante et plus impactante.",
         "attribution": "C'est la promesse LevelUp AI."
+    },
+    "about": {
+        "kicker": "Level Up AI",
+        "title": "Qui sommes-nous",
+        "people": [
+            {
+                "name": "Chedlia Belhaj",
+                "role": "Co-fondatrice",
+                "initials": "CB",
+                "bio": [
+                    "Spécialiste de la communication digitale depuis plusieurs années, Chedlia Belhaj combine vision stratégique, sensibilité artistique et compréhension des enjeux des marques.",
+                    "Issue d'une formation en commerce et en marketing, elle a développé une approche où créativité, image, stratégie marketing et performance digitale se rencontrent pour construire des communications fortes et différenciantes.",
+                    "Co-fondatrice de Level Up AI, elle apporte au projet son expérience du digital, sa formation en marketing, son regard créatif et sa volonté d'exploiter l'intelligence artificielle comme un véritable amplificateur de créativité, de stratégie et de performance."
+                ]
+            },
+            {
+                "name": "Sarra Dhaouadi",
+                "role": "Co-fondatrice",
+                "initials": "SD",
+                "bio": [
+                    "Ingénieure de formation, Sarra Dhaouadi a très tôt compris que la véritable valeur naît de la rencontre entre technologie de pointe et vision business.",
+                    "Après un MBA aux États-Unis, elle décide de s'y installer et se passionne pour l'intelligence artificielle et ses multiples applications.",
+                    "Basée à Los Angeles, Sarra Dhaouadi occupe le poste de Cheffe de Projet au sein d'une multinationale de la high-tech. Elle vit l'évolution de l'IA de l'intérieur, au quotidien.",
+                    "En tant que co-fondatrice de Level Up AI, Sarra apporte cette expertise de terrain ainsi qu'un réseau solide au cœur de la Silicon Valley. Sa force : allier rigueur stratégique et approche créative pour faire de l'IA un véritable levier de croissance.",
+                    "Convaincue que l'IA doit être accessible à tous, elle a choisi de partager sa passion sur les réseaux sociaux, où elle décrypte l'actualité IA avec une approche simple, ludique et proche de sa communauté."
+                ]
+            }
+        ]
     },
     "faq": {
         "kicker": "Questions",
@@ -409,6 +464,7 @@
         "greeting": "Bonjour ! Je suis l'assistant LevelUp AI. Posez-moi vos questions sur nos packs, services ou tarifs.",
         "error": "Désolé, une erreur est survenue. Réessayez ou écrivez-nous à hello@levelupai.studio.",
         "thinking": "Réflexion…",
+        "aiNote": "Rédigé par l'IA locale à partir des informations du site",
         "buddy": {
             "suggestions": [
                 {
@@ -457,7 +513,7 @@
             "servicesIntro": "Ce que nous faisons :",
             "processIntro": "Le déroulement d'un projet :",
             "contactIntro": "Vous pouvez nous joindre à hello@levelupai.studio.",
-            "orderHelp": "Choisissez un pack dans la section Tarifs et cliquez sur « Ajouter au panier » : vous arrivez sur votre espace LevelUp AI (levelupia.app), où vous suivez votre projet et réglez. Vous préférez un devis d'abord ? Écrivez-nous à hello@levelupai.studio.",
+            "orderHelp": "Choisissez un pack dans la section Tarifs et cliquez sur « Ajouter au panier », puis ouvrez le panier en haut de la page et cliquez sur « Finaliser la commande » : vous arrivez sur votre espace LevelUp AI (levelupia.app), où vous suivez votre projet et réglez. Vous préférez un devis d'abord ? Écrivez-nous à hello@levelupai.studio.",
             "greeting": "Bonjour ! Je suis l'assistant LevelUp AI. Que voulez-vous savoir ?",
             "thanks": "Avec plaisir ! Autre chose ?",
             "bye": "À bientôt ! Et si besoin : hello@levelupai.studio.",

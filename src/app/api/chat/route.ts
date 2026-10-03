@@ -1,12 +1,15 @@
-import { answer } from "@/buddy/answer";
+import { answerWithAI } from "@/buddy/answer";
+import { configuredModel } from "@/buddy/ai/model";
 import { DEFAULT_LOCALE, isLocale } from "@/i18n/config";
 
 /**
- * Chatbot du site, sans modèle et sans service extérieur.
+ * Chatbot du site, sans service extérieur. Les règles répondent d'abord ;
+ * quand BUDDY_AI=on, le modèle local (Ollama, sur ce serveur) prend le relais
+ * de ce qu'elles ne comprennent pas — à partir des seuls textes du site.
  *
  * Le navigateur envoie le fil de conversation ; seul le dernier message du
  * visiteur compte, car chaque question est traitée seule par le routeur
- * d'intentions. Rien ne sort du serveur : ni clé, ni appel réseau.
+ * d'intentions. Rien ne sort du serveur : ni clé, ni appel extérieur.
  *
  * Le contrat de la réponse (`{ reply }`) est celui que le widget attendait
  * déjà ; il gagne seulement des `suggestions` cliquables.
@@ -17,6 +20,26 @@ const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 30;
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
+
+/**
+ * Le modèle local est partagé avec l'espace client : un visiteur anonyme a
+ * droit à 10 réponses rédigées par 10 minutes, ensuite les règles seules.
+ */
+const AI_WINDOW_MS = 10 * 60_000;
+const AI_PER_WINDOW = 10;
+const aiHits = new Map<string, number[]>();
+function aiAllowed(ip: string): boolean {
+  const now = Date.now();
+  const recent = (aiHits.get(ip) ?? []).filter((t) => now - t < AI_WINDOW_MS);
+  if (recent.length >= AI_PER_WINDOW) {
+    aiHits.set(ip, recent);
+    return false;
+  }
+  recent.push(now);
+  aiHits.set(ip, recent);
+  if (aiHits.size > 5000) aiHits.clear();
+  return true;
+}
 
 /** Anti-abus : au plus 30 messages par minute et par adresse (mémoire du process). */
 const hits = new Map<string, number[]>();
@@ -59,5 +82,11 @@ export async function POST(request: Request) {
     return Response.json({ error: "No message provided." }, { status: 400 });
   }
 
-  return Response.json(answer(question, locale));
+  try {
+    const ai = configuredModel();
+    return Response.json(await answerWithAI(question, locale, ai && aiAllowed(ip) ? ai : null));
+  } catch (e) {
+    console.error("[chat]", e);
+    return Response.json({ error: "Server error." }, { status: 500 });
+  }
 }
