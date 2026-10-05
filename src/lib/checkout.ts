@@ -1,10 +1,16 @@
 /**
  * Passerelle vers la plateforme (levelupia.app).
  *
- * Le clic « Ajouter au panier » redirige IMMÉDIATEMENT vers la connexion de la
- * plateforme, en passant l'offre choisie dans l'URL. Aucun appel réseau n'est
- * fait depuis le vitrine : pas d'attente, et rien ne casse si la plateforme
- * répond lentement ou si le navigateur bloque la requête inter-domaines.
+ * « Finaliser la commande » redirige IMMÉDIATEMENT vers la plateforme, en
+ * passant l'offre choisie dans l'URL. La plateforme envoie alors le visiteur
+ * sur la page de paiement par carte de la banque (ClicToPay) ; une fois le
+ * paiement accepté, il crée son compte et y retrouve sa commande. Tant que le
+ * paiement en ligne n'est pas ouvert côté plateforme, elle l'envoie d'elle-même
+ * sur sa page de connexion, comme avant.
+ *
+ * Aucun appel réseau n'est fait depuis le vitrine : pas d'attente, et rien ne
+ * casse si la plateforme répond lentement ou si le navigateur bloque la
+ * requête inter-domaines.
  *
  * L'offre voyage en clair (un simple code), ce qui est sans risque : la
  * plateforme relit le prix dans sa base et n'accorde jamais d'accès payant sur
@@ -43,12 +49,12 @@ export function subscriptionCode(name: string): string | null {
 }
 
 /**
- * Envoie le visiteur sur la connexion de la plateforme avec l'offre choisie.
+ * Envoie le visiteur payer l'offre choisie, via la plateforme.
  * Redirection directe : aucune attente réseau, donc aucun « chargement » long.
  */
 export function startCheckout(packCode: string): boolean {
   if (!packCode) return false;
-  window.location.href = `${PLATFORM_URL}/login?pack=${encodeURIComponent(packCode)}`;
+  window.location.href = `${PLATFORM_URL}/api/paiement/panier?pack=${encodeURIComponent(packCode)}`;
   return true;
 }
 
