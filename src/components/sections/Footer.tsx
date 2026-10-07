@@ -1,9 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
+import { legalDocs, PUBLISHER } from "@/content/legal";
 import { getDictionary, interpolate } from "@/i18n/dictionaries";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
 export default async function Footer({ lang }: { lang: string }) {
-  const t = getDictionary(isLocale(lang) ? lang : DEFAULT_LOCALE);
+  const locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
+  const t = getDictionary(locale);
+  const { labels } = legalDocs(locale);
 
   return (
     <footer>
@@ -27,6 +31,13 @@ export default async function Footer({ lang }: { lang: string }) {
             <span key={item}>{item}</span>
           ))}
           <span>{interpolate(t.footer.copyright, { year: new Date().getFullYear() })}</span>
+        </div>
+        {/* Conditions et réclamations : publiées sur le site à la demande de la
+            banque pour le paiement en ligne (ClicToPay). */}
+        <div className="footer-legal">
+          <Link href={`/${locale}/conditions`}>{labels.terms}</Link>
+          <Link href={`/${locale}/reclamations`}>{labels.complaints}</Link>
+          <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
         </div>
       </div>
     </footer>
