@@ -132,12 +132,11 @@
         "price": "From 890 TND",
         "copy": "The simplest way to get started. Pick what your business needs most right now, and let's do it properly.",
         "list": [
-          "AI showcase website (5-6 pages)",
-          "or AI product shoot (10 visuals)",
-          "The ideal first step for a new brand"
+          "Website (5 to 6 pages)",
+          "E-commerce website on quote"
         ],
         "cta": "",
-        "summary": "Website (5 to 6 pages)\nE-commerce website on quote\nor AI product shoot (10 visuals)"
+        "summary": "Website (5 to 6 pages)\nE-commerce website on quote"
       },
       {
         "number": "PACK 02",
@@ -192,39 +191,111 @@
     "aiServices": [
       {
         "title": "AI websites",
-        "copy": "Professional, fast, optimized showcase sites. Delivered in a few days."
+        "copy": "Professional, fast, optimized showcase sites. Delivered in a few days.",
+        "price": "",
+        "code": "",
+        "tiers": []
       },
       {
         "title": "AI-Powered E-Commerce Website",
-        "copy": "Complete online store with payments, orders, products, inventory, and delivery. Automated emails, WhatsApp, cart recovery, customer follow-ups, and sales tracking."
+        "copy": "Complete online store with payments, orders, products, inventory, and delivery. Automated emails, WhatsApp, cart recovery, customer follow-ups, and sales tracking.",
+        "price": "",
+        "code": "",
+        "tiers": []
       },
       {
         "title": "AI-Powered Product Photography & Video",
-        "copy": "High-quality product photos and videos created with AI for your social media, advertising, and e-commerce — with a premium look and faster production."
+        "copy": "High-quality product photos and videos created with AI for your social media, advertising, and e-commerce — with a premium look and faster production.",
+        "price": "",
+        "code": "",
+        "tiers": []
       },
       {
         "title": "AI copywriting",
-        "copy": "Product sheets, e-commerce descriptions, and ad copy written and tailored to the client's brand voice."
+        "copy": "Product sheets, e-commerce descriptions, and ad copy written and tailored to the client's brand voice.",
+        "price": "",
+        "code": "",
+        "tiers": []
       },
       {
-        "title": "Voiceover & multilingual dubbing",
-        "copy": "Videos available in multiple languages with no new shoot, so you can reach international markets."
+        "title": "Avatar, virtual spokesperson and multilingual dubbing",
+        "copy": "Voiceover, multilingual dubbing and a virtual spokesperson, bundled in one offer.",
+        "price": "99 TND",
+        "code": "AVATAR_VOIX",
+        "tiers": []
       },
       {
-        "title": "Avatars & virtual spokespeople",
-        "copy": "Regular on-camera presence for the brand without needing a real person for every shoot."
-      },
-      {
-        "title": "Chatbots & automation",
-        "copy": "Conversational agents for customer support or booking, on WhatsApp, your website, or Messenger."
+        "title": "Automation",
+        "copy": "A complete offer for your leads, then an automation tailored to your needs. Custom journeys are quoted after reviewing your tools and scope.",
+        "price": "",
+        "code": "",
+        "tiers": [
+          {
+            "level": "Level 1",
+            "name": "Tracking, qualification and assignment",
+            "audience": "",
+            "copy": "Sort requests by need and urgency, assign them to the right person and create a follow-up task. After a quote, schedule a reminder and stop it once the file is marked answered or accepted.",
+            "items": [],
+            "price": "250 TND",
+            "code": "AUTOMATISATION_N1",
+            "quote": false
+          },
+          {
+            "level": "",
+            "name": "Custom automation",
+            "audience": "",
+            "copy": "For complex journeys or ones specific to your business. Steps, tools and rules are defined around your needs, then quoted after a scope review.",
+            "items": [],
+            "price": "On quote",
+            "code": "",
+            "quote": true
+          }
+        ]
       },
       {
         "title": "SEO, search engine optimization, automated email marketing",
-        "copy": "Search engine optimization and pages built to make more impact and be more competitive in your market, plus automated email campaigns: segmentation, personalization, and follow-ups driven by AI."
+        "copy": "Search engine optimization and pages built to make more impact and be more competitive in your market, plus automated email campaigns: segmentation, personalization, and follow-ups driven by AI.",
+        "price": "",
+        "code": "",
+        "tiers": [
+          {
+            "level": "",
+            "name": "SEO Starter",
+            "audience": "Small businesses",
+            "copy": "",
+            "items": [
+              "Initial audit",
+              "10 keywords tracked",
+              "SEO recommendations",
+              "Monthly report"
+            ],
+            "price": "99 TND",
+            "code": "SEO_STARTER",
+            "quote": false
+          },
+          {
+            "level": "",
+            "name": "SEO Business",
+            "audience": "SMEs",
+            "copy": "",
+            "items": [
+              "30 keywords tracked",
+              "5 pages optimised per month",
+              "Competitor analysis",
+              "Detailed report"
+            ],
+            "price": "290 TND",
+            "code": "SEO_BUSINESS",
+            "quote": false
+          }
+        ]
       },
       {
         "title": "Express visual identity",
-        "copy": "Logo and brand guidelines generated quickly to improve your image and keep up with the latest technology."
+        "copy": "Logo and brand guidelines generated quickly to improve your image and keep up with the latest technology.",
+        "price": "149 TND",
+        "code": "IDENTITE_EXPRESS",
+        "tiers": []
       }
     ],
     "subscriptionsTitle": "Shooting: Photo & video - Monthly subscriptions",
@@ -255,7 +326,8 @@
         "price": "290 TND/mo"
       }
     ],
-    "cta": "Talk to us about a pack"
+    "cta": "Talk to us about a pack",
+    "quoteCta": "Request a quote"
   },
   "fit": {
     "kicker": "Built for momentum",
@@ -303,8 +375,7 @@
       "clip-7": "Fashion",
       "clip-8": "Pharmaceutical",
       "clip-9": "hotellerie / airbnb",
-      "clip-10": "Real estate\nHospitality / guest houses",
-      "pret-a-porter": "Ready-to-wear"
+      "clip-10": "Real estate\nHospitality / guest houses"
     },
     "playWithSound": "Play {label} with sound",
     "close": "Close video"
@@ -333,14 +404,6 @@
       "jewel": {
         "label": "Jewelry campaign",
         "title": "The jewel is the look."
-      },
-      "argenterie": {
-        "label": "Product shoot",
-        "title": "Silverware"
-      },
-      "complements": {
-        "label": "Product shoot",
-        "title": "Food supplements"
       }
     },
     "playWithSound": "Play {title} with sound",

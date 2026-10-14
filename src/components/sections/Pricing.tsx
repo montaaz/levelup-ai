@@ -2,6 +2,9 @@ import type { CSSProperties } from "react";
 
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
+import AddOfferButton from "./AddOfferButton";
+import { cookies } from "next/headers";
+import { CURRENCY_COOKIE, DEFAULT_CURRENCY, isCurrency, localizePrice } from "@/i18n/currency";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
@@ -23,6 +26,10 @@ const SERVICE_TINTS = [
 export default async function Pricing({ lang }: { lang: string }) {
   const t = getDictionary(isLocale(lang) ? lang : DEFAULT_LOCALE);
   const aiServices = t.pricing.aiServices.map((s, i) => ({ ...s, ...SERVICE_TINTS[i] }));
+  // Devise d'affichage (pays du visiteur, posée par proxy.ts) : seule l'unité change.
+  const rawCurrency = (await cookies()).get(CURRENCY_COOKIE)?.value;
+  const currency = rawCurrency && isCurrency(rawCurrency) ? rawCurrency : DEFAULT_CURRENCY;
+  const price = (value: string) => localizePrice(value, currency);
 
   return (
     <section className="section section-vivid section-vivid-pricing" id="pricing">
@@ -48,6 +55,42 @@ export default async function Pricing({ lang }: { lang: string }) {
               >
                 <h3>{service.title}</h3>
                 <p>{service.copy}</p>
+                {/* Revue des services et tarifs (13 octobre 2026) : offres tarifées
+                    et paliers (automatisation, SEO) avec ajout au panier. */}
+                {service.price && service.code && (
+                  <div className="pricing-offer">
+                    <span className="service-price">{price(service.price)}</span>
+                    <AddOfferButton code={service.code} name={service.title} label={t.services.addToCart} addedLabel={t.services.addedToCart} />
+                  </div>
+                )}
+                {service.tiers.length > 0 && (
+                  <div className="pricing-tiers">
+                    {service.tiers.map((tier) => (
+                      <div className="pricing-tier" key={tier.name}>
+                        {(tier.level || tier.audience) && (
+                          <span className="pricing-tier-kicker">{[tier.level, tier.audience].filter(Boolean).join(" · ")}</span>
+                        )}
+                        <strong className="pricing-tier-name">{tier.name}</strong>
+                        {tier.copy && <p className="pricing-tier-copy">{tier.copy}</p>}
+                        {tier.items.length > 0 && (
+                          <ul className="pricing-tier-items">
+                            {tier.items.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        )}
+                        <div className="pricing-offer">
+                          <span className="service-price">{price(tier.price)}</span>
+                          {tier.quote ? (
+                            <a className="pricing-cart" href="#contact">{t.pricing.quoteCta}</a>
+                          ) : (
+                            tier.code && <AddOfferButton code={tier.code} name={tier.name} label={t.services.addToCart} addedLabel={t.services.addedToCart} />
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </GlassCard>
             </Reveal>
           ))}

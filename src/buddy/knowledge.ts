@@ -63,7 +63,16 @@ export function buildKnowledge(locale: Locale): Knowledge {
       price: s.price,
       content: s.content,
     })),
-    services: t.pricing.aiServices.map((s) => ({ kind: "service", title: s.title, copy: s.copy })),
+    services: t.pricing.aiServices.map((s) => ({
+      kind: "service",
+      title: s.title,
+      // Prix et paliers (revue du 13 octobre 2026) ajoutés au texte lu par l'assistant.
+      copy: [
+        s.copy,
+        s.price ? `${s.price}.` : "",
+        ...s.tiers.map((tr) => `${[tr.level, tr.name].filter(Boolean).join(" ")}${tr.audience ? ` (${tr.audience})` : ""} : ${[tr.copy, tr.items.join(", ")].filter(Boolean).join(" ")} — ${tr.price}.`),
+      ].filter(Boolean).join(" "),
+    })),
     process: t.process.steps.map((s, i) => ({ kind: "process", step: i + 1, title: s.title, copy: s.copy })),
     faq: t.faq.items.map((f, index) => ({ kind: "faq", index, question: f.question, answer: f.answer })),
     contact: { email: CONTACT_EMAIL, copy: t.contact.copy },

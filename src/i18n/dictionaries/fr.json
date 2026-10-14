@@ -132,12 +132,11 @@
         "price": "À partir de 890 TND",
         "copy": "La façon la plus simple de commencer. Choisissez ce dont votre entreprise a le plus besoin maintenant, et faisons-le bien.",
         "list": [
-          "Site vitrine IA (5-6 pages)",
-          "ou shooting produit IA (10 visuels)",
-          "La première étape idéale pour une nouvelle marque"
+          "Site web (5 à 6 pages)",
+          "Site marchand sur devis"
         ],
         "cta": "",
-        "summary": "Site web (5 à 6 pages)\nSite marchand sur devis\nou shooting produit IA (10 visuels)"
+        "summary": "Site web (5 à 6 pages)\nSite marchand sur devis"
       },
       {
         "number": "PACK 02",
@@ -192,39 +191,111 @@
     "aiServices": [
       {
         "title": "Sites web IA",
-        "copy": "Des sites vitrines professionnels, rapides et optimisés. Livrés en quelques jours."
+        "copy": "Des sites vitrines professionnels, rapides et optimisés. Livrés en quelques jours.",
+        "price": "",
+        "code": "",
+        "tiers": []
       },
       {
         "title": "Site marchand IA",
-        "copy": "Boutique en ligne complète avec paiement, commandes et suivi client. Automatisation des emails, WhatsApp, paniers abandonnés et relances. Gestion des produits, stocks, livraisons, promotions et analyse des ventes."
+        "copy": "Boutique en ligne complète avec paiement, commandes et suivi client. Automatisation des emails, WhatsApp, paniers abandonnés et relances. Gestion des produits, stocks, livraisons, promotions et analyse des ventes.",
+        "price": "",
+        "code": "",
+        "tiers": []
       },
       {
         "title": "Shootings & vidéos IA",
-        "copy": "Photos et vidéos produits générées par l’IA pour vos réseaux sociaux, vos publicités et votre e-commerce, avec un rendu haut de gamme et rapide à produire."
+        "copy": "Photos et vidéos produits générées par l’IA pour vos réseaux sociaux, vos publicités et votre e-commerce, avec un rendu haut de gamme et rapide à produire.",
+        "price": "",
+        "code": "",
+        "tiers": []
       },
       {
         "title": "Rédaction IA",
-        "copy": "Fiches produit, descriptions e-commerce et textes publicitaires rédigés et adaptés à la voix de la marque du client."
+        "copy": "Fiches produit, descriptions e-commerce et textes publicitaires rédigés et adaptés à la voix de la marque du client.",
+        "price": "",
+        "code": "",
+        "tiers": []
       },
       {
-        "title": "Voix off & doublage multilingue",
-        "copy": "Vos vidéos disponibles en plusieurs langues sans nouveau tournage, pour atteindre les marchés internationaux."
+        "title": "Avatar et porte-parole virtuel et doublage multi-langues",
+        "copy": "Voix off, doublage multilingue et porte-parole virtuel réunis dans une offre.",
+        "price": "99 TND",
+        "code": "AVATAR_VOIX",
+        "tiers": []
       },
       {
-        "title": "Avatars & porte-parole virtuels",
-        "copy": "Une présence régulière à l'image pour la marque, sans mobiliser une personne réelle à chaque tournage."
-      },
-      {
-        "title": "Chatbots & automatisation",
-        "copy": "Des agents conversationnels pour le support client ou la prise de rendez-vous, sur WhatsApp, votre site ou Messenger."
+        "title": "Automatisation",
+        "copy": "Une offre complète pour les prospects, puis une automatisation adaptée à vos besoins. Le parcours sur mesure est chiffré après étude des outils et du périmètre.",
+        "price": "",
+        "code": "",
+        "tiers": [
+          {
+            "level": "Niveau 1",
+            "name": "Suivi, qualification et attribution",
+            "audience": "",
+            "copy": "Classer les demandes par besoin et urgence, les attribuer au bon responsable et créer une tâche de suivi. Après un devis, programmer une relance et l'arrêter une fois le dossier marqué répondu ou accepté.",
+            "items": [],
+            "price": "250 TND",
+            "code": "AUTOMATISATION_N1",
+            "quote": false
+          },
+          {
+            "level": "",
+            "name": "Automatisation sur mesure",
+            "audience": "",
+            "copy": "Pour les parcours complexes ou propres à votre activité. Étapes, outils et règles sont définis selon vos besoins, puis chiffrés après étude du périmètre.",
+            "items": [],
+            "price": "Sur devis",
+            "code": "",
+            "quote": true
+          }
+        ]
       },
       {
         "title": "SEO, référencement, email marketing automatisé",
-        "copy": "Référencement naturel et pages optimisées pour avoir plus d'impact et être plus compétitifs sur le marché, plus des campagnes email automatisées : segmentation, personnalisation et relances pilotées par l'IA."
+        "copy": "Référencement naturel et pages optimisées pour avoir plus d'impact et être plus compétitifs sur le marché, plus des campagnes email automatisées : segmentation, personnalisation et relances pilotées par l'IA.",
+        "price": "",
+        "code": "",
+        "tiers": [
+          {
+            "level": "",
+            "name": "SEO Starter",
+            "audience": "Petites entreprises",
+            "copy": "",
+            "items": [
+              "Audit initial",
+              "Suivi de 10 mots-clés",
+              "Recommandations SEO",
+              "Rapport mensuel"
+            ],
+            "price": "99 TND",
+            "code": "SEO_STARTER",
+            "quote": false
+          },
+          {
+            "level": "",
+            "name": "SEO Business",
+            "audience": "PME",
+            "copy": "",
+            "items": [
+              "Suivi de 30 mots-clés",
+              "Optimisation de 5 pages / mois",
+              "Analyse concurrentielle",
+              "Rapport détaillé"
+            ],
+            "price": "290 TND",
+            "code": "SEO_BUSINESS",
+            "quote": false
+          }
+        ]
       },
       {
         "title": "Identité visuelle express",
-        "copy": "Logo et charte graphique générés rapidement pour améliorer votre image et être à la pointe de la technologie."
+        "copy": "Logo et charte graphique générés rapidement pour améliorer votre image et être à la pointe de la technologie.",
+        "price": "149 TND",
+        "code": "IDENTITE_EXPRESS",
+        "tiers": []
       }
     ],
     "subscriptionsTitle": "Shooting : Photo & vidéo - Abonnements mensuels",
@@ -255,7 +326,8 @@
         "price": "290 TND/mois"
       }
     ],
-    "cta": "Parlons de votre pack"
+    "cta": "Parlons de votre pack",
+    "quoteCta": "Demander un devis"
   },
   "fit": {
     "kicker": "Pensé pour avancer",
@@ -303,8 +375,7 @@
       "clip-7": "Mode",
       "clip-8": "Pharmaceutique",
       "clip-9": "Hôtellerie / Maisons d'hôtes",
-      "clip-10": "Immobilier\nHôtellerie / Maisons d'hôtes",
-      "pret-a-porter": "Prêt-à-porter"
+      "clip-10": "Immobilier\nHôtellerie / Maisons d'hôtes"
     },
     "playWithSound": "Lire {label} avec le son",
     "close": "Fermer la vidéo"
@@ -333,14 +404,6 @@
       "jewel": {
         "label": "Campagne joaillerie",
         "title": "Le bijou fait le regard."
-      },
-      "argenterie": {
-        "label": "Shooting produit",
-        "title": "Argenterie"
-      },
-      "complements": {
-        "label": "Shooting produit",
-        "title": "Compléments alimentaires"
       }
     },
     "playWithSound": "Lire {title} avec le son",

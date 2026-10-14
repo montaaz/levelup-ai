@@ -63,12 +63,21 @@ export function offerForCode(
   code: string,
   dict: {
     services: { packs: Array<{ number: string; title: string; price: string }> };
-    pricing: { subscriptions: Array<{ name: string; price: string }> };
+    pricing: {
+      subscriptions: Array<{ name: string; price: string }>;
+      aiServices: Array<{ title: string; price: string; code: string; tiers: Array<{ name: string; price: string; code: string }> }>;
+    };
   }
 ): { title: string; price: string } | null {
   const pack = dict.services.packs.find((p) => PACK_CODES[p.number] === code);
   if (pack) return { title: pack.title, price: pack.price };
   const sub = dict.pricing.subscriptions.find((s) => subscriptionCode(s.name) === code);
   if (sub) return { title: sub.name, price: sub.price };
+  // Offres de la liste des services (revue du 13 octobre 2026) : à l'unité ou par palier.
+  for (const service of dict.pricing.aiServices) {
+    if (service.code === code && service.price) return { title: service.title, price: service.price };
+    const tier = service.tiers.find((tr) => tr.code === code && tr.price);
+    if (tier) return { title: `${service.title} — ${tier.name}`, price: tier.price };
+  }
   return null;
 }

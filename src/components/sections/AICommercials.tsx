@@ -8,7 +8,7 @@ import { useTranslations } from "@/i18n/LocaleProvider";
 import { interpolate } from "@/i18n/dictionaries";
 
 /** label/title live in the dictionaries, keyed by id. */
-type ClipId = "mascara" | "grape-beauty" | "eyeshadow" | "lumea" | "jewel" | "argenterie" | "complements";
+type ClipId = "mascara" | "grape-beauty" | "eyeshadow" | "lumea" | "jewel";
 
 /** A cell holds a clip (`src`, plays with sound when opened) or a photo
  *  (`image` plus its width/height ratio, shown whole when opened). */
@@ -25,13 +25,11 @@ const CLIPS: Clip[] = [
   { id: "jewel", src: "/videos/new/5_2026-09-25_hq.mp4", orientation: "landscape" },
   { id: "grape-beauty", src: "/videos/new/15.mp4", orientation: "portrait" },
   { id: "eyeshadow", src: "/videos/new/3_2026-09-25_hq.mp4", orientation: "portrait" },
-  // 2026-09-26, Sarra's request: the restaurant ad (lumea, /videos/new/16.mp4)
-  // and the mascara ad (mascara, /videos/new/1_2026-09-25_hq.mp4) were
-  // replaced by these two photos, cleaned of Instagram's counter and icon.
-  // Each keeps its cell's orientation, so the grid is unchanged.
-  { id: "argenterie", image: "/images/references/argenterie_2026-09-26.jpg", ratio: "1278 / 1593", orientation: "portrait" },
-  // Framed right of centre so the bottle stays in view in the tall phone cells.
-  { id: "complements", image: "/images/references/complements-alimentaires_2026-09-26.jpg", ratio: "1320 / 1317", position: "82% 50%", orientation: "portrait" },
+  // 2026-10-14 (revue services et tarifs) : les photos Argenterie et Compléments
+  // alimentaires ont été retirées ; les deux publicités qu'elles remplaçaient
+  // (mascara, restaurant) reprennent leurs cellules, pour garder cinq vraies pubs.
+  { id: "mascara", src: "/videos/new/1_2026-09-25_hq.mp4", orientation: "portrait" },
+  { id: "lumea", src: "/videos/new/16.mp4", orientation: "portrait" },
 ];
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];

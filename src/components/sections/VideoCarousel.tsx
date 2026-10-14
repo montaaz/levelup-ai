@@ -24,10 +24,7 @@ const CARDS: readonly Card[] = [
   // Real estate and hotel swapped places on 2026-09-26 (Sarra's request);
   // each slot keeps its tilt, so the layout is unchanged.
   { id: "clip-10", src: "/videos/new/10.mp4", rotate: -1.5 },
-  // The hotel clip (clip-9, /videos/new/12_2026-09-25_hq.mp4) was then
-  // replaced by this photo, same day, Sarra's request. Instagram's "2/3"
-  // counter and mute icon were removed from it.
-  { id: "pret-a-porter", image: "/images/references/pret-a-porter_2026-09-26.jpg", rotate: 3 },
+  // 2026-10-14 (revue services et tarifs) : la photo Prêt-à-porter a été retirée de la galerie.
 ];
 
 /**
