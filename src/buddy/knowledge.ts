@@ -9,7 +9,7 @@ import { contentTokens, normalize } from "./core/normalize";
  * ne peut rien dire que la page n'affiche pas déjà.
  */
 
-export const CONTACT_EMAIL = "hello@levelupai.studio";
+export const CONTACT_EMAIL = "contact@levelupia.agency";
 
 export type PackRecord = {
   kind: "pack";

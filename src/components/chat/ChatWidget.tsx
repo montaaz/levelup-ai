@@ -27,6 +27,13 @@ export default function ChatWidget() {
   const [input, setInput] = useState("");
   const [pending, setPending] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  // Un seul message d'accueil ; « Bonjour » jusqu'à 18 h (heure de Tunis), « Bonsoir » ensuite.
+  // Calculé après le montage pour que le rendu serveur et le rendu client coïncident.
+  const [greeting, setGreeting] = useState(t.greeting);
+  useEffect(() => {
+    const hour = parseInt(new Intl.DateTimeFormat("en-GB", { timeZone: "Africa/Tunis", hour: "numeric", hour12: false }).format(new Date()), 10) % 24;
+    setGreeting(hour < 18 ? t.greeting : t.greetingEvening);
+  }, [t]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -130,7 +137,7 @@ export default function ChatWidget() {
             </header>
 
             <div className="chat-log" ref={scrollRef}>
-              <div className="chat-msg chat-msg-bot">{t.greeting}</div>
+              <div className="chat-msg chat-msg-bot">{greeting}</div>
               {messages.length === 0 && chips(t.buddy.suggestions.map((s) => s.label))}
               {messages.map((message, index) => (
                 <div key={index}>

@@ -77,7 +77,7 @@ describe("intentions prises en charge — français", () => {
 
   it("donne le contact", () => {
     const r = answer("Comment vous joindre ?", "fr");
-    expect(r.reply).toContain("hello@levelupai.studio");
+    expect(r.reply).toContain("contact@levelupia.agency");
   });
 
   it("explique comment commander", () => {
@@ -113,7 +113,7 @@ describe("intentions prises en charge — anglais", () => {
 
   it("gives contact details", () => {
     const r = answer("How can I get in touch?", "en");
-    expect(r.reply).toContain("hello@levelupai.studio");
+    expect(r.reply).toContain("contact@levelupia.agency");
   });
 });
 
