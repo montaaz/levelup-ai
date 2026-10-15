@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Fraunces } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
@@ -44,8 +44,28 @@ export async function generateMetadata({
         fr: "/fr",
       },
     },
+    // Application installable (Android : « Installer l'application » ; iPhone : Partager → Sur l'écran d'accueil)
+    manifest: "/manifest.webmanifest",
+    icons: {
+      icon: [
+        { url: "/icons/favicon-32.png", sizes: "32x32", type: "image/png" },
+        { url: "/icons/favicon-16.png", sizes: "16x16", type: "image/png" },
+        { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      ],
+      shortcut: "/favicon.ico",
+      apple: "/icons/apple-touch-icon.png",
+    },
+    appleWebApp: { capable: true, title: "Level Up IA", statusBarStyle: "black-translucent" },
+    applicationName: "Level Up IA",
   };
 }
+
+export const viewport: Viewport = {
+  themeColor: "#6c24fc",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export default async function RootLayout({
   children,
