@@ -55,8 +55,8 @@ export async function generateMetadata({
       shortcut: "/favicon.ico",
       apple: "/icons/apple-touch-icon.png",
     },
-    appleWebApp: { capable: true, title: "Level Up IA", statusBarStyle: "black-translucent" },
-    applicationName: "Level Up IA",
+    appleWebApp: { capable: true, title: "Level Up AI", statusBarStyle: "black-translucent" },
+    applicationName: "Level Up AI",
   };
 }
 

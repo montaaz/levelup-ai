@@ -29,9 +29,9 @@ export function siteChunks(locale: Locale): Chunk[] {
     if (t) out.push({ id: `${locale}:${id}`, title: clean(title), text: t });
   };
 
-  add("about", fr ? "À propos de Level Up IA" : "About Level Up IA",
+  add("about", fr ? "À propos de Level Up AI" : "About Level Up AI",
     [d.meta.description, d.hero.copy, d.hero.proof.join(". "), d.work.lead, d.pricing.lead].join(" "));
-  add("team", `${d.about.title} — ${fr ? "fondatrices et équipe derrière Level Up IA" : "founders and team behind Level Up IA"}`,
+  add("team", `${d.about.title} — ${fr ? "fondatrices et équipe derrière Level Up AI" : "founders and team behind Level Up AI"}`,
     d.about.people.map((p) => `${p.name}, ${p.role} : ${p.bio[0] ?? ""}`).join(" "));
   const ads = Object.values(d.commercials.clips).map((c) => c.label).filter((l) => !/macro/i.test(l));
   add("sectors", fr ? "Secteurs et exemples de réalisations" : "Sectors and sample work",
