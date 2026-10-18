@@ -51,7 +51,9 @@ export default async function Pricing({ lang }: { lang: string }) {
             bundles/pricing, so they own #packs instead. The headline and the
             one-line intro were removed on 2026-09-25 (texts kept in the
             dictionaries). */}
-        <div className="pricing-services">
+        {/* Les cartes simples remplissent toute la largeur, quel que soit leur nombre
+            (notes de Sarra : pas de carte isolée à côté d'un espace vide). */}
+        <div className="pricing-services pricing-services-simple" style={{ "--cols": Math.min(Math.max(simpleServices.length, 1), 3) } as CSSProperties}>
           {simpleServices.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.04}>
               <GlassCard

@@ -2298,3 +2298,7 @@ footer .brand-logo { height: 40px; }
 @media (max-width: 640px) {
   .pricing-tiers { grid-template-columns: 1fr; }
 }
+
+/* Cartes simples des services : autant de colonnes que de cartes (max 3), pleine largeur. */
+.pricing-services-simple { grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); }
+@media (max-width: 640px) { .pricing-services-simple { grid-template-columns: 1fr; } }

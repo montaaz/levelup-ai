@@ -190,27 +190,6 @@
     "servicesIntro": "Tout ce que nous pouvons créer pour vous, propulsé de bout en bout par l'IA.",
     "aiServices": [
       {
-        "title": "Sites web IA",
-        "copy": "Des sites vitrines professionnels, rapides et optimisés. Livrés en quelques jours.",
-        "price": "",
-        "code": "",
-        "tiers": []
-      },
-      {
-        "title": "Site marchand IA",
-        "copy": "Boutique en ligne complète avec paiement, commandes et suivi client. Automatisation des emails, WhatsApp, paniers abandonnés et relances. Gestion des produits, stocks, livraisons, promotions et analyse des ventes.",
-        "price": "",
-        "code": "",
-        "tiers": []
-      },
-      {
-        "title": "Shootings & vidéos IA",
-        "copy": "Photos et vidéos produits générées par l’IA pour vos réseaux sociaux, vos publicités et votre e-commerce, avec un rendu haut de gamme et rapide à produire.",
-        "price": "",
-        "code": "",
-        "tiers": []
-      },
-      {
         "title": "Avatar et porte-parole virtuel et doublage multi-langues",
         "copy": "Voix off, doublage multilingue et porte-parole virtuel réunis dans une offre.",
         "price": "99 TND",

@@ -190,27 +190,6 @@
     "servicesIntro": "Everything we can build for you, powered end to end by AI.",
     "aiServices": [
       {
-        "title": "AI websites",
-        "copy": "Professional, fast, optimized showcase sites. Delivered in a few days.",
-        "price": "",
-        "code": "",
-        "tiers": []
-      },
-      {
-        "title": "AI-Powered E-Commerce Website",
-        "copy": "Complete online store with payments, orders, products, inventory, and delivery. Automated emails, WhatsApp, cart recovery, customer follow-ups, and sales tracking.",
-        "price": "",
-        "code": "",
-        "tiers": []
-      },
-      {
-        "title": "AI-Powered Product Photography & Video",
-        "copy": "High-quality product photos and videos created with AI for your social media, advertising, and e-commerce — with a premium look and faster production.",
-        "price": "",
-        "code": "",
-        "tiers": []
-      },
-      {
         "title": "Avatar, virtual spokesperson and multilingual dubbing",
         "copy": "Voiceover, multilingual dubbing and a virtual spokesperson, bundled in one offer.",
         "price": "99 TND",
